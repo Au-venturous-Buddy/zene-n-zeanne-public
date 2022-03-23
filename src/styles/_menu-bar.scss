@@ -1,0 +1,65 @@
+@mixin pillColor($background_color) {
+  background: $background_color;
+  border: none;
+}
+
+.page-navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-navbar {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+#menu-bar {
+  background: $primaryColorTransparent;
+  box-shadow: $shadowCenter;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+#menu-bar .nav-pills .nav-link.active {
+  @include pillColor($secondaryColor);
+}
+
+.nav-pills .nav-link.active .menu-item-text {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+#menu-bar .nav-pills .nav-link.active:hover,
+.navbar-toggler:hover {
+  @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
+  box-shadow: $shadow;
+}
+
+#menu-bar .nav-pills .nav-link:hover {
+  box-shadow: $shadow;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $primaryColor;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-toggler,
+.navbar-dark .navbar-toggler:hover {
+  color: #FFFFFF;
+}
+
+.navbar-collapse {
+  overflow-y: scroll !important;
+  max-height: 100px !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.navbar-collapse::-webkit-scrollbar {
+  display: none;
+}

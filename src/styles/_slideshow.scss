@@ -1,0 +1,51 @@
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: $primaryColor;
+  width: 10%;
+  opacity: 1;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.carousel-control-prev {
+  left: -20%;
+}
+
+.carousel-control-next {
+  right: -20%;
+}
+
+.catalog-prev {
+  left: -10%;
+}
+
+.catalog-next {
+  right: -10%;
+}
+
+.carousel-inner:hover {
+  box-shadow: $shadowCenter;
+}
+
+.carousel-control-prev:hover, 
+.carousel-control-next:hover {
+    box-shadow: $shadow;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $primaryColor;
+}
+
+.carousel-control-prev:hover {
+    box-shadow: $shadowReverse;
+}
+
+.carousel-fade {
+  .active.carousel-item-left,
+  .active.carousel-item-right {
+    @include transition(opacity 1.5s $carousel-transition-duration);
+  }
+}
+
+.catalog > div > .slick-list > div > .slick-active > div > div {
+  box-shadow: $shadowCenter;
+}

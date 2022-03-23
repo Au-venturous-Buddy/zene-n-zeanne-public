@@ -1,0 +1,286 @@
+@import "./typography.css";
+
+@mixin pillColor($background_color) {
+  background: $background_color;
+  border: none;
+}
+
+.hero-caption {
+  background: #B88500;
+  color: #FFFFFF;
+  padding: 3%;
+  text-align: center;
+}
+
+.hero-image {
+  margin: 0 auto;
+  max-width: 360;
+}
+
+div.main {
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+div.full-height {
+  min-height: 100vh;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    footer {
+      display: flex;
+      position: relative;
+      bottom: 0;
+      height: 30px;
+      clear: both;
+      background-color: gray;
+      color: white;
+      justify-content: center;
+      width: 100%;
+  
+      span {
+        align-self: center;
+        text-align: center;
+      }
+    }
+}
+
+.bottom-row {
+  bottom: 0;
+  position: "fixed"; 
+  width: 100%;
+}
+
+.shadow,
+.hover-shadow:hover {
+  box-shadow: $shadow;
+}
+
+.hover-shadow-card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ext-web-link,
+.ext-web-link:visited {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.ext-web-link:hover {
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), #A35BFF;
+  box-shadow: $shadow;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+body {
+  font-family: "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #fff;
+  background-image: url("../images/Zene\ N\ Zeanne\ Background.png");
+  background-size: cover;
+}
+
+main, .modal {
+  text-align: center;
+}
+
+/*
+h1, h2, h3, h4, h5, h6, b, strong, .badge, .btn, .bold-text, .navbar-toggler {
+  font-family: "Verdana Bold TTF", "Verdana Bold", "Segoe UI", Arial, Helvetica, sans-serif;
+  i, em, .italic-text {
+    font-family: "Verdana Bold Italic", "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+}
+
+i, em, .italic-text {
+  font-family: "Verdana Italic", "Segoe UI", Arial, Helvetica, sans-serif;
+  h1, h2, h3, h4, h5, h6, b, strong, .badge, .btn, .bold-text, .navbar-toggler {
+    font-family: "Verdana Bold Italic", "Segoe UI", Arial, Helvetica, sans-serif;
+  }
+}
+*/
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+
+.underline-text {
+  text-decoration: underline;
+}
+
+.card {
+  border: none;
+}
+
+.card-header {
+  background: $primaryColor;
+  border: none;
+  color: #fff;
+}
+
+.flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.form-control {
+  border: none;
+}
+
+.btn {
+  @include pillColor($primaryColor);
+}
+
+.btn:hover {
+  box-shadow: $shadow;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $primaryColor;
+}
+
+.btn:disabled {
+  @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
+}
+
+.btn.secondary-color {
+  @include pillColor($secondaryColor);
+}
+
+.btn.secondary-color:hover {
+  @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
+  box-shadow: $shadow;
+}
+
+.profile-button {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 0;
+  .profile-caption {
+    color: #017BFF;
+  }
+}
+
+.profile-button:hover {
+  box-shadow: $shadowCenter;
+  .profile-caption {
+    color: white;
+  }
+}
+
+.category-button {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 0;
+}
+
+.category-button:hover {
+  box-shadow: $shadowCenter;
+  .category-caption {
+    color: white;
+  }
+}
+
+.img-button {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 0;
+}
+
+.img-button:hover {
+  box-shadow: $shadowCenter;
+}
+
+.MuiGridList-root {
+  justify-content: center;
+}
+
+.MuiButtonBase-root.MuiIconButton-root {
+  background: $primaryColor;
+  color: #FFFFFF;
+}
+
+.MuiButtonBase-root.MuiIconButton-root:hover {
+  background: $buttonGradient, $primaryColor;
+  color: #FFFFFF;
+  box-shadow: $shadow;
+}
+
+.modal-content {
+  box-shadow: $shadowCenter;
+}
+
+ol.instructions-list li {
+  display: list-item;
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+ul.bullet-points li {
+  list-style-type: circle;
+  display: list-item;
+  list-style-position: inside;
+}
+
+.badge {
+  background-color: #A35BFF;
+}
+
+.badge:hover {
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), #A35BFF;
+  box-shadow: $shadow;
+}
+
+.accordion-header {
+  border-radius: 5px;
+}
+
+.view {
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.view .mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+}
+
+.caption-background {
+  background-color: $secondaryColorTransparent;
+  color: white;
+}
+
+.preview-section {
+  background-color: #2d93d1; 
+  color: white; 
+  padding-top: 5%;
+  padding-bottom: 5%;
+  text-align: center; 
+  border-radius: 5px;
+}
+
+.center-image {
+  text-align: center;
+  justify-content: center;
+}
