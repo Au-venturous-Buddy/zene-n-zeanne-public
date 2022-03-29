@@ -4,7 +4,7 @@ import { IoHome } from "react-icons/io5";
 import { ImMenu2, ImFilm } from "react-icons/im";
 import {FaBook} from "react-icons/fa";
 import { GiPerson } from "react-icons/gi";
-import {AiOutlineAlignCenter} from "react-icons/ai"
+import {AiOutlineAlignCenter, AiFillHeart} from "react-icons/ai"
 import TextBreakWithBreakpoint from "./text-break-with-breakpoint"
 
 function ListLink(props) {
@@ -38,6 +38,9 @@ export default function MenuBar({ pageID }) {
             </ListLink>
             <ListLink to="/videos/" eventKey="videos">
               <ImFilm /> <TextBreakWithBreakpoint maxSize={575} /> <span className="menu-item-text">Watch</span>
+            </ListLink>
+            <ListLink to="/bonus/" eventKey="bonus">
+              <AiFillHeart /> <TextBreakWithBreakpoint maxSize={575} /> <span className="menu-item-text">Bonus</span>
             </ListLink>
             <ListLink to="/credits/" eventKey="credits">
               <AiOutlineAlignCenter /> <TextBreakWithBreakpoint maxSize={575} /> <span className="menu-item-text">Credits</span>
