@@ -30,7 +30,7 @@ export default function Videos() {
 
         className="p-2"
       >
-        <MediaCover title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Watch Now" />
+        <MediaCover title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} showBadge={true} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Watch Now" />
       </div>
     )
     

@@ -33,7 +33,7 @@ export default function Bonus() {
 
         className="p-2"
       >
-        <MediaCover title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} badgeItem={`Volume ${bonusItemData.frontmatter.volume} Issue ${bonusItemData.frontmatter.issue}`} slug={bonusItemData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Go" />
+        <MediaCover title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} showBadge={false} badgeItem={""} slug={bonusItemData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Go" />
       </div>
     )
     

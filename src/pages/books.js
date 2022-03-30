@@ -31,7 +31,7 @@ export default function Books() {
 
         className="p-2"
       >
-        <MediaCover title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Read Now" />
+        <MediaCover title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} showBadge={true} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Read Now" />
       </div>
     )
     

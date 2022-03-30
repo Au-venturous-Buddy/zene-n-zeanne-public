@@ -37,9 +37,10 @@ class Gallery extends React.Component {
       centerPadding: "60px",
       slidesToShow: 1,
       slidesToScroll: 1,
-      lazyLoad: true,
+      lazyLoad: false,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
+      adaptiveHeight: true,
       beforeChange: (current, next) => this.setState({ slideIndex: next })
     };
 

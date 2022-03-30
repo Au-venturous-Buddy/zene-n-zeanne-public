@@ -4,7 +4,7 @@ import CloseButton from "./close-button";
 import PlayNowButton from "./play-now-button";
 import ResponsiveSize from "../hooks/responsive-size";
 
-export default function MediaCover({title, cover, synopsis, slug, badgeItem, titleFontSize, playNowText}) {
+export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem, titleFontSize, playNowText}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -22,7 +22,7 @@ export default function MediaCover({title, cover, synopsis, slug, badgeItem, tit
           <div className="mask caption-background flex-center">
             <h4 className="m-3" style={{fontSize: titleFontSize}}>
               {title} <br />
-              <Badge className="mt-3">{badgeItem}</Badge>
+              <Badge className="mt-3" hidden={!showBadge}>{badgeItem}</Badge>
             </h4>
           </div>
         </div>
