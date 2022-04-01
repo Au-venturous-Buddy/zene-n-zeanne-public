@@ -55,7 +55,7 @@ export default function Credits() {
           <section>
             <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>Special Thanks To:</h2>
             <ul>
-              <li><a className="ext-web-link" href="https://www.facebook.com/MommanManila">Gia, Gelli, Diego, Miguel, Nino and Michelle Ressa-Aventajado</a></li>
+              <li><a className="ext-web-link" target="_blank" rel="noreferrer" href="https://www.facebook.com/MommanManila">Gia, Gelli, Diego, Miguel, Nino and Michelle Ressa-Aventajado</a></li>
               <li>Vell Baria-Mitchell, her husband David Mitchell, and her twin brother Jessie Baria</li>
               <li>Joel M. Batitay</li>
               <li>Francine Campos and her brother Luis</li>
@@ -83,7 +83,7 @@ export default function Credits() {
           <section>
             <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>A Special Shout-Out Also to the Fans of the Following Media Serving as Inspiration for Zene 'N Zeanne:</h2>
             <ul>
-              <li><a className="ext-web-link" href="https://sites.google.com/view/jonahandauti/home?authuser=0">Jonah's Adventures With Auti</a></li>
+              <li><a className="ext-web-link" target="_blank" rel="noreferrer" href="https://sites.google.com/view/jonahandauti/home?authuser=0">Jonah's Adventures With Auti</a></li>
               <li>My Little Pony: Friendship is Magic (and all related TV series, movies, and specials)</li>
               <li>My Little Pony: A New Generation</li>
               <li>Reply 1988 (and the entire Reply series)</li>
