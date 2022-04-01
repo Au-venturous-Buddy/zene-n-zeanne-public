@@ -23,7 +23,7 @@ function GetWindowDimensions() {
 }
 
 export default function UseWindowDimensions() {
-  if(isBrowser) {
+  //if(isBrowser) {
     const [windowDimensions, setWindowDimensions] = useState(GetWindowDimensions());
 
     useEffect(() => {
@@ -36,7 +36,8 @@ export default function UseWindowDimensions() {
     }, []);
 
     return windowDimensions;
-  }
+  //}
+  /*
   else {
     const width = 1200;
     const height = 800;
@@ -45,4 +46,5 @@ export default function UseWindowDimensions() {
       height
     };
   }
+  */
 }
