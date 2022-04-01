@@ -5,6 +5,9 @@
  */
 
 module.exports = {
+  flags: {
+    PARALLEL_QUERY_RUNNING: true
+  },
   siteMetadata: {
     title: `Zene 'N Zeanne`,
     author: `FantaZZticNation Creatives`,
