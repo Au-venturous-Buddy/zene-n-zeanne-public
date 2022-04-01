@@ -37,7 +37,6 @@ class ComicStripDisplay extends React.Component {
       centerPadding: "60px",
       slidesToShow: 1,
       slidesToScroll: 1,
-      lazyLoad: true,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
       beforeChange: (current, next) => this.setState({ slideIndex: next })
