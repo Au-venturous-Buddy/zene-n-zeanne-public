@@ -100,9 +100,7 @@ export default function Credits() {
               <li>Jelly, Ben, and Pogo</li>
             </ul>
           </section>
-
-          <br />
-
+          
           {/*<li>
             Dedications:<br />
           </li>
