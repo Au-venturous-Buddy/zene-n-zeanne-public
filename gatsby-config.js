@@ -52,8 +52,8 @@ module.exports = {
         name: `Zene N Zeanne`,
         short_name: `ZNZ`,
         start_url: `/`,
-        background_color: `#0088FE`,
-        theme_color: `#FFB703`,
+        background_color: `#017BFF`,
+        theme_color: `#017BFF`,
         // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
         // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
         display: `standalone`,
