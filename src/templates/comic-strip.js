@@ -6,6 +6,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import {FaWindowClose} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
 import ResponsiveSize from "../hooks/get-window-dimensions";
+import SEO from "../components/seo";
 
 class ComicStripMultiLingual extends React.Component {
   state = {
@@ -59,6 +60,7 @@ class ComicStripMultiLingual extends React.Component {
 
     return(
     <>
+    <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
       <ComicStripMain title={metadataItems.childMarkdownRemark.frontmatter.title} scenes={scenes} dialogues={dialogues} dialoguesAlt={dialoguesAlt} size={this.state.currentSize} />
       <Button style={{fontSize: this.props.fontButtonSize}} onClick={this.handleShow}><AiFillSetting /> Settings</Button>
