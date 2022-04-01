@@ -18,26 +18,46 @@ module.exports = {
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
     },
-  `gatsby-plugin-sass`,
-  `gatsby-plugin-image`,
-  `gatsby-plugin-sharp`,
-  `gatsby-transformer-sharp`, // Needed for dynamic images
-  {
-    resolve: `gatsby-plugin-manifest`,
-    options: {
-      name: `Zene N Zeanne`,
-      short_name: `ZNZ`,
-      start_url: `/`,
-      background_color: `#0088FE`,
-      theme_color: `#FFB703`,
-      // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
-      // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
-      display: `standalone`,
-      icon: `src/images/Zene N Zeanne V4 Logo Small.png`, // This path is relative to the root of the site.
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          // gatsby-remark-relative-images-v2 must
+          // go before gatsby-remark-images
+          {
+            resolve: `gatsby-remark-relative-images-v2`,
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              // It's important to specify the maxWidth (in pixels) of
+              // the content container as this plugin uses this as the
+              // base for generating different widths of each image.
+              maxWidth: 590,
+            },
+          },
+        ],
+      },
     },
-  },
-  `gatsby-plugin-offline`,
-  `gatsby-plugin-react-helmet`,
-  `gatsby-transformer-remark`
- ]
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`, // Needed for dynamic images
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Zene N Zeanne`,
+        short_name: `ZNZ`,
+        start_url: `/`,
+        background_color: `#0088FE`,
+        theme_color: `#FFB703`,
+        // Enables "Add to Homescreen" prompt and disables browser UI (including back button)
+        // see https://developers.google.com/web/fundamentals/web-app-manifest/#display
+        display: `standalone`,
+        icon: `src/images/Zene N Zeanne V4 Logo Small.png`, // This path is relative to the root of the site.
+      },
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-react-helmet`
+  ]
 }

@@ -12,7 +12,17 @@ export default function Home() {
       <SEO title="Home" description="Welcome to the Zene 'N Zeanne Official Website!" />
       <section className="py-3 hero">
         <h1 style={{textAlign: `center`, margin: 0}}>
-          <img width="85%" alt="The FantaZZtic Five" src="/static/3f006716e92f737214226c1b1b949a39/Zene N Zeanne V4 FantaZZticFive.png" /><br />
+          <div
+            style={{
+              margin: `0 auto`,
+              maxWidth: 860,
+              padding: `1.45rem 1.0875rem`,
+            }}
+          >
+            <div style={{ margin: 0 }}>
+              <StaticImage src="../images/Zene N Zeanne V4 FantaZZticFive.png" alt="The FantaZZtic Five" layout="fullWidth"></StaticImage>
+            </div>
+          </div>
           Your Pinoy Twin Buddies.
         </h1>
         <br />

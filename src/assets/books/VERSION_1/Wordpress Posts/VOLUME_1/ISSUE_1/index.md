@@ -15,7 +15,7 @@ synopsis: "Zene and Zeanne had a dream...what is it?"
 "Don't worry, I got flashlights for both of us, Ate Zeanne," said Zene. He then grabbed two flashlights, turned them on, and gave one to his sister. They realized that they were deep inside a cave. It was filled with shining stalactites and stalagmites which are gradually forming into columns. But despite its awesome scene, Zeanne began to suspect that it is more than just a cave, as she heard sounds of pounding waves. She then beamed her flashlight on the ground, and she realized that they were on a small boat, floating endlessly atop the underground river.
 
 <section class="my-1 center-image">
-<img width="60%" alt="Zene and Zeanne inside the Puerto Princesa Subterranean River" src="/static/30ef1262d7f4829a68353c27b161d393/sketch1527763886462.png">
+<img width="60%" alt="Zene and Zeanne inside the Puerto Princesa Subterranean River" src="./images/sketch1527763886462.png">
 </section>
 
 "I think I know this place," said Zeanne. "It must be the world-famous Palawan Subterranean River." As she spoke, echoes began screaming all thoughout the cave. Then, something that Zene and Zeanne were afraid of came to them.
@@ -35,5 +35,5 @@ Zene gently went down the ladder, and slowly woke up her sister. Zeanne, still f
 "Yes, definitely," replied the still-sleepy Zeanne.
 
 <section class="my-1 center-image">
-<img width="60%" alt="Zene and Zeanne in their bedroom" src="/static/3bc6354060bdc87e9512d35ff3219932/sketch1527763866425.png">
+<img width="60%" alt="Zene and Zeanne in their bedroom" src="./images/sketch1527763866425.png">
 </section>
