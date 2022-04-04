@@ -8,4 +8,7 @@ issue: 2
 category: "Facebook Gallery"
 format: "caption-slideshow"
 synopsis: "Zene, Zeanne, and their friends explore the different Science-related exhibits at their school during Sci-Fair day!"
+modes: [
+    {mode_name: "Original", omit_slides: [-1]}
+]
 ---

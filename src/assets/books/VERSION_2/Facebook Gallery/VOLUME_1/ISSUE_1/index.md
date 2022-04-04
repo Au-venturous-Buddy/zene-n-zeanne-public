@@ -8,4 +8,7 @@ issue: 1
 category: "Facebook Gallery"
 format: "caption-slideshow"
 synopsis: "Zene and Zeanne had a vacation in Zamboanga and Cagayan de Oro, and it was a blast!"
+modes: [
+    {mode_name: "Original", omit_slides: [-1]}
+]
 ---

@@ -12,6 +12,7 @@ class CaptionSlideshowMultiLingual extends React.Component {
   state = {
     show: false,
     currentLanguage: 'English',
+    currentMode: 'Original',
     currentSize: 65
   }
 
@@ -21,6 +22,11 @@ class CaptionSlideshowMultiLingual extends React.Component {
   changeLanguage = () => {
     var language = document.getElementById("language-selector").value;
     this.setState({currentLanguage: language});
+  }
+
+  changeMode = () => {
+    var mode = document.getElementById("mode-selector").value;
+    this.setState({currentMode: mode});
   }
 
   changePageSize = () => {
@@ -54,11 +60,20 @@ class CaptionSlideshowMultiLingual extends React.Component {
       languageOptions.push(<option key={value}>{value}</option>)
     })
 
+    var modeOptions = []
+    var omitSlides = []
+    metadataItems.childMarkdownRemark.frontmatter.modes.forEach((mode) => {
+      modeOptions.push(<option key={mode.mode_name}>{mode.mode_name}</option>)
+      if(mode.mode_name === this.state.currentMode) {
+        omitSlides = mode.omit_slides;
+      }
+    })
+
     return(
     <>
     <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
-      <CaptionSlideshowMain title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} size={this.state.currentSize} />
+      <CaptionSlideshowMain title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} omitSlides={omitSlides} size={this.state.currentSize} />
       <Button style={{fontSize: this.props.fontButtonSize}} onClick={this.handleShow}><AiFillSetting /> Settings</Button>
     </div>
     <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
@@ -72,6 +87,14 @@ class CaptionSlideshowMultiLingual extends React.Component {
           </p>
           <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={this.changeLanguage} value={this.state.currentLanguage}>
             {languageOptions}
+          </Form.Control>
+        </div>
+        <div className="mb-3">
+          <p className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+            Mode
+          </p>
+          <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={this.changeMode} value={this.state.currentMode}>
+            {modeOptions}
           </Form.Control>
         </div>
         <div className="mb-3">
@@ -116,6 +139,10 @@ export const query = graphql`
             frontmatter {
               title
               captions
+              modes {
+                mode_name
+                omit_slides
+              }
             }
           }
         }

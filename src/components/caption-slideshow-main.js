@@ -51,19 +51,19 @@ class CaptionSlideshowDisplay extends React.Component {
         <section>
             <section className="book-main">
                 <Slider ref={slider => (this.slider = slider)} {...settings}>
-                    {this.props.images.map((image, index) => (
+                  {this.props.pages.map((page, index) => (
                         <div className="view">
                             <img
                                 className="d-block w-100"
-                                src={image.publicURL}
-                                alt={image.name}
+                                src={page.publicURL}
+                                alt={page.name}
                             />
                         </div>
-                    ))}
+                  ))}
                 </Slider>
             </section>
             <section className='mt-3' style={{textAlign: 'justify'}}>
-                <p dangerouslySetInnerHTML={{__html: this.props.captions[this.state.slideIndex]}}>
+                <p dangerouslySetInnerHTML={{__html: this.props.dialogue[this.state.slideIndex]}}>
                 </p>
             </section>
             <div className='mt-3' style={{textAlign: 'center'}}>
@@ -108,10 +108,19 @@ class CaptionSlideshowDisplay extends React.Component {
   }
 }
 
-export default function CaptionSlideshowMain({title, images, captions, size}) {
+export default function CaptionSlideshowMain({title, images, captions, omitSlides, size}) {
+  var pages = [];
+  var dialogue = [];
+  for(var i = 0; i < images.length; i++) {
+    if(!omitSlides.includes(i)) {
+      pages.push(images[i]) 
+      dialogue.push(captions[i])
+    }
+  }
+
   return (
     <Container className="my-5" style={{width: size.toString() + "%"}}>
-      <CaptionSlideshowDisplay total={images.length} title={title} images={images} captions={captions} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
+      <CaptionSlideshowDisplay total={pages.length} title={title} pages={pages} dialogue={dialogue} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
     </Container>
   )
 }

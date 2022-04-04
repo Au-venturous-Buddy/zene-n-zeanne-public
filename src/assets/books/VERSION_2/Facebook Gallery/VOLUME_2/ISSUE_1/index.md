@@ -8,4 +8,8 @@ issue: 1
 category: "Facebook Gallery"
 format: "caption-slideshow"
 synopsis: "Get to know the favorite intramurals sports of Zene, Zeanne, and their friends!"
+modes: [
+    {mode_name: "Original", omit_slides: [7, 8]},
+    {mode_name: "With Deleted Scenes", omit_slides: [-1]}
+]
 ---

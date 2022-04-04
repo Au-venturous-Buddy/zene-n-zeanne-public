@@ -62,7 +62,7 @@ class ComicStripDisplay extends React.Component {
       </div>
       <Modal show={this.state.show} onHide={this.handleClose} centered>
       <Modal.Header className="justify-content-center">
-        <Modal.Title style={{textAlign: "center"}}>Toggle Page</Modal.Title>
+        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>Toggle Page</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form className="px-0" onSubmit={e => e.preventDefault()}> 
@@ -129,7 +129,7 @@ function Page({scene, dialogue, keyID}) {
   )
 }
 
-export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, size}) {
+export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, omitSlides, size}) {
   var pages = [];
   var pageNum = 0;
   var maxPageNum = Math.max(parseInt(scenes[scenes.length - 1].name), parseInt(dialogues[dialogues.length - 1].name));
@@ -148,11 +148,13 @@ export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, 
       nextSceneID++;
     }
 
-    pages.push(
-      <div aria-label={dialoguesAlt[pageNum]} key={pageNum.toString()}>
-        <Page scene={currentScene} dialogue={currentDialogue} keyID={pageNum.toString()} />
-      </div>
-    )
+    if(!omitSlides.includes(pageNum)) {
+      pages.push(
+        <div aria-label={dialoguesAlt[pageNum]} key={pageNum.toString()}>
+          <Page scene={currentScene} dialogue={currentDialogue} keyID={pageNum.toString()} />
+        </div>
+      )
+    }
 
     pageNum++;
   }
