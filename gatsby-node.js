@@ -55,6 +55,17 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
+          else if(node.frontmatter.format == "grid-gallery") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/grid-gallery.js'),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
           else if(node.frontmatter.format == "comic-strip") {
             createPage({
                 path: node.fields.slug,

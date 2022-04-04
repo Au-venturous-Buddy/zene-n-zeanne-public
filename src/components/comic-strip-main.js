@@ -44,7 +44,7 @@ class ComicStripDisplay extends React.Component {
     return (
       <>
       <div>
-        <h3 className="mb-5" style={{color: "#fff", textAlign: "center"}}>{this.props.title}</h3>
+        <h1 className="mb-5" style={{color: "#fff", textAlign: "center"}}>{this.props.title}</h1>
         <div className="book-main">
         <Slider ref={slider => (this.slider = slider)} {...settings}>
           {this.props.children}
