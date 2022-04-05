@@ -31,7 +31,7 @@ export const query = graphql`
   query($pagePath: String!) {
     allFile(
       filter: {relativeDirectory: {regex: $pagePath}}
-      sort: {fields: name, order: ASC}
+      sort: {fields: relativePath, order: ASC}
     ) {
       edges {
         node {
