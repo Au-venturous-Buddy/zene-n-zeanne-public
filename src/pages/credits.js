@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image";
 import SEO from "../components/seo";
-import ResponsiveSize from "../hooks/responsive-size";
+import ResponsiveHeader from "../components/responsive-header";
 
 export default function Credits() {
   const data = useStaticQuery(
@@ -27,14 +27,14 @@ export default function Credits() {
       </section>
 
       <section className="m-5" style={{textAlign: "center", color: `#fff`}}>
-          <h1 style={{fontSize: ResponsiveSize(2, "rem", 0.001, 500)}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>
             Credits
-          </h1>
+          </ResponsiveHeader>
 
           <br />
 
           <section>
-            <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>Created By:</h2>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Created By:</ResponsiveHeader>
             <ul>
               <li>Ezekiel Adriel D. Lagmay</li>
             </ul>
@@ -43,7 +43,7 @@ export default function Credits() {
           <br />
 
           <section>
-            <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>Creative Mentors:</h2>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Creative Mentors:</ResponsiveHeader>
             <ul>
               <li>Sally Lagmay</li>
               <li>Carmela "Tita My" Castro-Nayve</li>
@@ -53,7 +53,7 @@ export default function Credits() {
           <br />
 
           <section>
-            <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>Special Thanks To:</h2>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Special Thanks To:</ResponsiveHeader>
             <ul>
               <li><a className="ext-web-link" target="_blank" rel="noreferrer" href="https://www.facebook.com/MommanManila">Gia, Gelli, Diego, Miguel, Nino and Michelle Ressa-Aventajado</a></li>
               <li>Vell Baria-Mitchell, her husband David Mitchell, and her twin brother Jessie Baria</li>
@@ -81,7 +81,7 @@ export default function Credits() {
           <br />
 
           <section>
-            <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>A Special Shout-Out Also to the Fans of the Following Media Serving as Inspiration for Zene 'N Zeanne:</h2>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>A Special Shout-Out Also to the Fans of the Following Media Serving as Inspiration for Zene 'N Zeanne:</ResponsiveHeader>
             <ul>
               <li><a className="ext-web-link" target="_blank" rel="noreferrer" href="https://sites.google.com/view/jonahandauti/home?authuser=0">Jonah's Adventures With Auti</a></li>
               <li>My Little Pony: Friendship is Magic (and all related TV series, movies, and specials)</li>

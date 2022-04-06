@@ -3,7 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import MenuBar from "./menu-bar"
 import Header from "./header"
 import { useStaticQuery, graphql } from "gatsby"
-import ResponsiveSize from "../hooks/get-window-dimensions";
+import ResponsiveSize from "../hooks/responsive-size";
 
 const HeaderMenuBar = function({show, pageID}) {
   if(show) {

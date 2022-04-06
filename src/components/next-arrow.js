@@ -10,7 +10,7 @@ export default function NextArrow(props) {
         onClick={onClick}
         aria-label="Next"
       >
-        <BsCaretRightFill style={{fontSize:"20px"}}></BsCaretRightFill>
+        <span aria-hidden={true}><BsCaretRightFill style={{fontSize:"20px"}} /></span>
       </Button>
     );
   }

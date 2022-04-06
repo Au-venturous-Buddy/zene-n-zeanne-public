@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import PropTypes from "prop-types"
 import React from "react"
+import ResponsiveHeader from "./responsive-header"
 
 const Header = () => (
   <header>
@@ -13,7 +14,8 @@ const Header = () => (
         textAlign: `center`
       }}
     >
-      <h1 style={{ margin: 0 }}>
+      <div style={{ margin: 0 }}>
+        <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
         <Link
           to="/"
           style={{
@@ -23,7 +25,8 @@ const Header = () => (
         >
           <StaticImage src="../images/Zene N Zeanne V4 Logo.png" alt='Zene N Zeanne Logo' layout="fullWidth"></StaticImage>
         </Link>
-      </h1>
+        </ResponsiveHeader>
+      </div>
     </div>
   </header>
 )

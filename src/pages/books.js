@@ -1,6 +1,5 @@
 import React from "react"
 import Layout from "../components/layout"
-import ResponsiveSize from "../hooks/responsive-size";
 import {GetBooks} from "../hooks/get-books"
 import {GetBooksCovers} from "../hooks/get-books-covers"
 import {GetBooksCategories} from "../hooks/get-books-categories"
@@ -9,6 +8,7 @@ import SEO from "../components/seo";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
+import ResponsiveHeader from "../components/responsive-header";
 
 export default function Books() {
   const booksData = GetBooks()
@@ -31,7 +31,7 @@ export default function Books() {
 
         className="p-2"
       >
-        <MediaCover title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} showBadge={true} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Read Now" />
+        <MediaCover title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} showBadge={true} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.fields.slug} playNowText="Read Now" />
       </div>
     )
     
@@ -57,9 +57,9 @@ export default function Books() {
   return(
     <Layout pageID="books" showMenuBar={true}>
       <SEO title="Books" description="Read Zene 'N Zeanne Books" />
-      <h1>Books</h1>
+      <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Books</ResponsiveHeader>
       <SearchBox searchItems={booksSearch} />
-      <MediaLibrary headerSize={ResponsiveSize(1.5, "rem", 0.001, 500)} categoryButtonSize={ResponsiveSize(0.9, "rem", 0.001, 330)} grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={2} mediaSubCategoryName={"Volume"} />
+      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={2} mediaSubCategoryName={"Volume"} />
     </Layout>
   )
 }

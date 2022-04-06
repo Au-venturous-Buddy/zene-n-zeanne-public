@@ -1,11 +1,12 @@
 import React from 'react';
 import {Container, Button, Modal, OverlayTrigger, Tooltip, Form, Col} from 'react-bootstrap';
-import {FaWindowClose} from "react-icons/fa";
 import Slider from "react-slick";
-import ResponsiveSize from "../hooks/get-window-dimensions";
+import ResponsiveSize from "../hooks/responsive-size";
 import NextArrow from "./next-arrow";
 import PrevArrow from "./prev-arrow";
 import {GridList, GridListTile} from '@material-ui/core';
+import CloseButton from "./close-button";
+import ResponsiveHeader from "./responsive-header";
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -28,10 +29,14 @@ function SlideThumbnail({slide, index, goToPage, closeFunction}) {
         paddingBottom: `5%`
       }}
     >
-      <Button className="view img-button" onClick={changeSlide}>
-        {slide}
+      <Button aria-label={`Page ${index + 1}`} className="view img-button" onClick={changeSlide}>
+        <div aria-hidden={true}>
+          {slide}
+        </div>
       </Button>
-      <h2 className="mt-2" style={{textAlign: "center", color: "#017BFF"}}>{index + 1}</h2>
+      <div aria-hidden={true} className="mt-2" style={{textAlign: "center", color: "#017BFF"}}>
+        <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{index + 1}</ResponsiveHeader>
+      </div>
     </div>
   )
 }
@@ -66,25 +71,31 @@ class ComicStripDisplay extends React.Component {
     return (
       <>
       <div>
-        <h1 className="mb-5" style={{color: "#fff", textAlign: "center"}}>{this.props.title}</h1>
-        <div className="book-main">
-        <Slider ref={slider => (this.slider = slider)} {...settings}>
-          {this.props.children}
-        </Slider>
-        </div>
-        <div className='mt-3' style={{textAlign: 'center'}}>
+        <section className="mb-5" style={{color: "#fff", textAlign: "center"}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>{this.props.title}</ResponsiveHeader>
+        </section>
+        <section className="book-main">
+          <Slider ref={slider => (this.slider = slider)} {...settings}>
+            {this.props.children}
+          </Slider>
+        </section>
+        <section className='mt-3' style={{textAlign: 'center'}}>
           <OverlayTrigger
             placement="top"
             delay={{ show: 250, hide: 250 }}
             overlay={helpTooltip("Toggle Page")}
           >
-          <Button style={{fontSize: this.props.fontButtonSize}} onClick={this.handleShow}>{this.state.slideIndex + 1} of {this.props.total}</Button>
+            <Button aria-label={`Toggle Page - Page ${this.state.slideIndex + 1} of ${this.props.total}`} style={{fontSize: this.props.fontButtonSize}} onClick={this.handleShow}>
+              <span aria-hidden={true}>{this.state.slideIndex + 1} of {this.props.total}</span>
+            </Button>
           </OverlayTrigger>
-        </div>
+        </section>
       </div>
       <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
       <Modal.Header className="justify-content-center">
-        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>Toggle Page</Modal.Title>
+        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Toggle Page</ResponsiveHeader>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <GridList cellHeight="auto" spacing={5} cols={1}>
@@ -96,9 +107,7 @@ class ComicStripDisplay extends React.Component {
         </GridList>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
-        <Button onClick={this.handleClose}>
-          <FaWindowClose /> Close
-        </Button>
+        <CloseButton handleClose={this.handleClose} />
       </Modal.Footer>
       </Modal>
       </>
@@ -149,10 +158,10 @@ export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, 
   var pageNum = 0;
   var maxPageNum = Math.max(parseInt(scenes[scenes.length - 1].name), parseInt(dialogues[dialogues.length - 1].name));
   var currentScene = null;
+  var currentDialogue = null;
   var nextDialogueID = 0;
   var nextSceneID = 0;
   while(pageNum <= maxPageNum) {
-    var currentDialogue = null;
     if(nextDialogueID < dialogues.length && parseInt(dialogues[nextDialogueID].name) === pageNum) {
       currentDialogue = dialogues[nextDialogueID];
       nextDialogueID++;

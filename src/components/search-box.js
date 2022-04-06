@@ -1,9 +1,11 @@
 import React from "react"
-import {Container, Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form} from 'react-bootstrap';
 import CloseButton from "./close-button";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
+import {AiOutlineClear} from "react-icons/ai";
 import {FaHistory, FaSearch} from "react-icons/fa";
-import ResponsiveSize from "../hooks/get-window-dimensions";
+import ResponsiveSize from "../hooks/responsive-size";
+import ResponsiveHeader from "./responsive-header";
 
 class RecentSearchItem extends React.Component {
     itemClick = () => {
@@ -168,19 +170,19 @@ class SearchBoxMain extends React.Component {
                                     {recentSearches}
                                 </Modal.Body>
                                 <Modal.Footer className="justify-content-center">
-                                    <Button onClick={this.clearRecentSearch}>
-                                        Clear
+                                    <Button style={{fontSize: this.props.fontSize}} onClick={this.clearRecentSearch}>
+                                        <AiOutlineClear aria-hidden={true} /> Clear
                                     </Button>
-                                    <Button onClick={this.hideRecentSearchWindow}>
-                                        Close
-                                    </Button>
+                                    <CloseButton handleClose={this.hideRecentSearchWindow} />
                                 </Modal.Footer>
                             </Modal>
                         </section>
                     </Modal.Header>
                     <Modal.Body>
                         <section>
-                            <h2 style={{color: "#017BFF"}}>{this.state.currentSearchItem}</h2>
+                            <div style={{color: "#017BFF"}}>
+                                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{this.state.currentSearchItem}</ResponsiveHeader>
+                            </div>
                             <section className="m-1">
                                 <Button className="m-1" style={{fontSize: this.props.fontSize}} onClick={this.backSearch} disabled={this.state.backButtonDisabled}>
                                     <BsCaretLeftFill aria-label={"Previous Search Item Results"} />
@@ -191,9 +193,9 @@ class SearchBoxMain extends React.Component {
                                 </Button>
                             </section>
                             <section>
-                                <h3 className="mt-3" style={{color: "#017BFF"}}>
-                                    {`${results.length} Results Found:`}
-                                </h3>
+                                <div className="mt-3" style={{color: "#017BFF"}}>
+                                    <ResponsiveHeader level={3} maxSize={1} minScreenSize={500}>{`${results.length} Results Found:`}</ResponsiveHeader>
+                                </div>
                                 <section className="my-3">
                                     {results}
                                 </section>

@@ -2,9 +2,9 @@ import React, {useState} from "react"
 import { Button, Modal, Badge } from "react-bootstrap"
 import CloseButton from "./close-button";
 import PlayNowButton from "./play-now-button";
-import ResponsiveSize from "../hooks/responsive-size";
+import ResponsiveHeader from "./responsive-header";
 
-export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem, titleFontSize, playNowText}) {
+export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem, playNowText}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -20,17 +20,21 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
             alt={title}
           />
           <div className="mask caption-background flex-center">
-            <h4 className="m-3" style={{fontSize: titleFontSize}}>
-              {title} <br />
-              <Badge className="mt-3" hidden={!showBadge}>{badgeItem}</Badge>
-            </h4>
+            <div className="m-3">
+              <ResponsiveHeader level={3} maxSize={0.9} minScreenSize={900}>
+                {title} <br />
+                <Badge className="mt-3" hidden={!showBadge}>{badgeItem}</Badge>
+              </ResponsiveHeader>
+            </div>
           </div>
         </div>
       </Button>
       <Modal show={show} onHide={handleClose} centered scrollable>
         <Modal.Header className="justify-content-center">
           <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
-            <h1 style={{fontSize: ResponsiveSize(2, "rem", 0.001, 500), color: "#017BFF"}}>{title}</h1>
+            <div style={{color: "#017BFF"}}>
+              <ResponsiveHeader level={1}>{title}</ResponsiveHeader>
+            </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{textAlign: "justify", color: "#017BFF"}}>

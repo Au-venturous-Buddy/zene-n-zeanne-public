@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import {GridList, GridListTile} from '@material-ui/core';
 import {Container, Button, Modal} from 'react-bootstrap';
 import CloseButton from "./close-button";
-import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
+import ResponsiveHeader from "./responsive-header";
 
-function ShowImage({image, title, captionSize}) {
+function ShowImage({image, title}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -23,7 +23,9 @@ function ShowImage({image, title, captionSize}) {
       <Modal size="lg" show={show} onHide={handleClose} centered scrollable>
           <Modal.Header className="justify-content-center">
             <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
-              <h1 style={{fontSize: captionSize}}>{`${title} - Image ${image.name}`}</h1>
+              <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>
+                {`${title} - Image ${image.name}`}
+              </ResponsiveHeader>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{textAlign: "justify"}}>
@@ -46,13 +48,17 @@ export default function GridGalleryMain({images, title}) {
   
   for(var i = 0; i < images.length; i++) {
     imgDisplay.push(
-      <ShowImage key={images[i].name} image={images[i]} title={title} captionSize={ResponsiveSize(2, "rem", 0.001, 800)} />
+      <ShowImage key={images[i].name} image={images[i]} title={title} />
     )
   }
 
   return (
     <Container className="my-5">
-      <h1 className="mb-5" style={{color: "#fff", textAlign: "center"}}>{title}</h1>
+      <div className="mb-5" style={{color: "#fff", textAlign: "center"}}>
+        <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
+          {title}
+        </ResponsiveHeader>
+      </div>
       <GridList cellHeight="auto" spacing={5} cols={ResponsiveGridColumns(4, [993, 770, 500])}>
         {imgDisplay.map((currentValue, index) => (
           <GridListTile key={index}>

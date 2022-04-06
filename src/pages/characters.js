@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
-import ResponsiveSize from "../hooks/responsive-size";
 import { Accordion, Card, Button, Modal, Container, Row } from "react-bootstrap"
 import {GiHamburgerMenu} from "react-icons/gi";
 import {GetCharacterInfo} from "../hooks/get-character-info";
@@ -11,6 +10,7 @@ import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import CloseButton from "../components/close-button";
 import SEO from "../components/seo"
 import SearchBox from "../components/search-box";
+import ResponsiveHeader from "../components/responsive-header";
 
 function VersionSelector({version, stateChangeFunction, closeFunction}) {
   const changeState = () => {
@@ -45,7 +45,9 @@ function CharacterProfile({info, profilePic, photo}) {
     if(!(info.frontmatter.short_description === null)) {
       shortDescription = (
         <section>
-          <h2 style={{color: "#017BFF"}}>{`"${info.frontmatter.short_description}"`}</h2>
+          <div style={{color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`"${info.frontmatter.short_description}"`}</ResponsiveHeader>
+          </div>
         </section>
       )
     }
@@ -65,15 +67,17 @@ function CharacterProfile({info, profilePic, photo}) {
     <Button aria-label={info.frontmatter.name} className="view profile-button p-3 m-3" onClick={handleShow} style={{color: "#2d93d1"}}>
       <div aria-hidden={true}>
         {displayProfilePic}
-        <h5 className="m-1 bold-text profile-caption" style={{fontSize: ResponsiveSize(0.9, "rem", 0.001, 330)}}>
-          {info.frontmatter.name}
-        </h5>
+        <div className="m-1 bold-text profile-caption">
+          <ResponsiveHeader level={4} maxSize={0.9} minScreenSize={330}>{info.frontmatter.name}</ResponsiveHeader>
+        </div>
       </div>
     </Button>
     <Modal show={show} onHide={handleClose} centered scrollable>
         <Modal.Header className="justify-content-center bold-text">
           <Modal.Title>
-            <h1 style={{fontSize: ResponsiveSize(2, "rem", 0.001, 500), color: "#017BFF"}}>{info.frontmatter.name}</h1>
+            <div style={{color: "#017BFF"}}>
+              <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>{info.frontmatter.name}</ResponsiveHeader>
+            </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -103,12 +107,6 @@ function CharacterProfile({info, profilePic, photo}) {
     )
 }
 
-function AccordionTitle(props) {
-  return(
-    <h3 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>{props.children}</h3>
-  )
-}
-
 function CharactersList(props) {
   return(
     <GridList cellHeight="auto" spacing={5} cols={ResponsiveGridColumns(4, [880, 750, 500])}>
@@ -136,8 +134,12 @@ class DisplayCharacters extends React.Component {
     return(
       <>
       <section className="py-3 mx-3" style={{textAlign: "center"}}>
-        <Button aria-label="Select Category" onClick={this.handleShow} style={{border: `none`, color: "white", backgroundColor: "rgba(0, 0, 0, 0)", fontSize: this.props.headerSize}}>
-          <h2><GiHamburgerMenu aria-hidden={true} /> Version {this.state.currentVersion}</h2>
+        <Button aria-label={`Select Version - Version ${this.state.currentVersion}`} onClick={this.handleShow} style={{border: `none`, color: "white", backgroundColor: "rgba(0, 0, 0, 0)", fontSize: this.props.headerSize}}>
+          <div aria-hidden={true}>
+            <ResponsiveHeader level={2} maxSize={2} minScreenSize={800}>
+              <GiHamburgerMenu /> Version {this.state.currentVersion}
+            </ResponsiveHeader>
+          </div>
         </Button>
         <section className="py-3 mx-3">
           <Accordion className="mb-3">
@@ -147,7 +149,7 @@ class DisplayCharacters extends React.Component {
                   <Card>
                     <Card.Header className="hover-shadow-card bold-text accordion-header" style={{textAlign: "center"}}>
                       <Accordion.Toggle as={Card.Header} variant="link" eventKey={currentValue}>
-                        <AccordionTitle>{currentValue}</AccordionTitle>
+                        <ResponsiveHeader level={3} maxSize={1.5} minScreenSize={500}>{currentValue}</ResponsiveHeader>
                       </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey={currentValue}>
@@ -167,7 +169,9 @@ class DisplayCharacters extends React.Component {
       <Modal size="sm" show={this.state.show} onHide={this.handleClose} centered scrollable>
         <Modal.Header className="justify-content-center bold-text">
           <Modal.Title>
-            <h1 style={{fontSize: this.props.headerSize, color: "#017BFF"}}>Select Version</h1>
+            <div style={{color: "#017BFF"}}>
+              <ResponsiveHeader level={1} maxSize={1.5} minScreenSize={500}>Select Version</ResponsiveHeader>
+            </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -236,9 +240,9 @@ export default function Characters() {
   return(
     <Layout pageID="characters" showMenuBar={true}>
       <SEO title="Characters" description="Characters - Meet the Characters of Zene 'N Zeanne" />
-      <h1>Characters</h1>
+      <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Characters</ResponsiveHeader>
       <SearchBox searchItems={charactersSearch} />
-      <DisplayCharacters headerSize={ResponsiveSize(1.5, "rem", 0.001, 500)} characterItems={characterGroups} />
+      <DisplayCharacters characterItems={characterGroups} />
     </Layout>
   )
 }

@@ -2,10 +2,11 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Modal, Button, Form } from "react-bootstrap";
-import {FaWindowClose} from "react-icons/fa";
-import {AiFillSetting} from "react-icons/ai";
-import ResponsiveSize from "../hooks/get-window-dimensions";
+import { Modal, Form } from "react-bootstrap";
+import SettingsButton from "../components/settings-button";
+import CloseButton from "../components/close-button";
+import ResponsiveSize from "../hooks/responsive-size";
+import ResponsiveHeader from "../components/responsive-header";
 
 class WordpressMultilingual extends React.Component {
   state = {
@@ -68,36 +69,46 @@ class WordpressMultilingual extends React.Component {
       <>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <div>
-        <h1 style={{textAlign: "center", color: "white"}}>{metadataItems.childMarkdownRemark.frontmatter.title}</h1>
-        <Button className="mt-3" style={{fontSize: this.props.fontButtonSize}} onClick={this.handleShow}><AiFillSetting /> Settings</Button>
+        <div style={{textAlign: "center", color: "white"}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
+            {metadataItems.childMarkdownRemark.frontmatter.title}
+          </ResponsiveHeader>
+        </div>
+        <div className="mt-3">
+          <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
+        </div>
         {displayContent}
       </div>
       <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
         <Modal.Header className="justify-content-center">
-          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>Settings</Modal.Title>
+          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+            <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="mb-3">
-            <p className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-              Language
-            </p>
+          <section className="mb-3">
+            <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                Language
+              </ResponsiveHeader>
+            </div>
             <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={this.changeLanguage} value={this.state.currentLanguage}>
               {languageOptions}
             </Form.Control>
-          </div>
-          <div className="mb-3">
-            <p className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-              Mode
-            </p>
+          </section>
+          <section className="mb-3">
+              <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                  Mode
+                </ResponsiveHeader>
+              </div>
             <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={this.changeMode} value={this.state.currentMode}>
               {modeOptions}
             </Form.Control>
-          </div>
+          </section>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <Button onClick={this.handleClose}>
-            <FaWindowClose /> Close
-          </Button>
+          <CloseButton handleClose={this.handleClose} />
         </Modal.Footer>
       </Modal>
       </>

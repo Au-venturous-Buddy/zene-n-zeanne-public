@@ -10,7 +10,7 @@ export default function PrevArrow(props) {
         onClick={onClick}
         aria-label="Previous"
       >
-        <BsCaretLeftFill style={{fontSize:"20px"}}></BsCaretLeftFill>
+        <span aria-hidden={true}><BsCaretLeftFill style={{fontSize:"20px"}} /></span>
       </Button>
     );
   }

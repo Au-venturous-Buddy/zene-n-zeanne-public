@@ -5,13 +5,15 @@ import {BsPuzzleFill} from "react-icons/bs";
 import {GiPartyFlags} from "react-icons/gi";
 import {FaCross} from "react-icons/fa";
 import SEO from "../components/seo";
+import ResponsiveHeader from "../components/responsive-header";
 
 export default function Home() {
   return(
     <Layout pageID="home" showMenuBar={true}>
       <SEO title="Home" description="Welcome to the Zene 'N Zeanne Official Website!" />
       <section className="py-3 hero">
-        <h1 style={{textAlign: `center`, margin: 0}}>
+        <div style={{textAlign: `center`, margin: 0}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
           <div
             style={{
               margin: `0 auto`,
@@ -24,14 +26,16 @@ export default function Home() {
             </div>
           </div>
           Your Pinoy Twin Buddies.
-        </h1>
-        <br />
+          </ResponsiveHeader>
+        </div>
         <p style={{textAlign: `center`}}>
           New neighbors. New friends. New stories. Same twin power.
         </p>
       </section>
       <section className="py-3" style={{textAlign: `center`, color: `#fff`}}>
-        <h3 className="mb-3">Zene 'n Zeanne aims to help you learn:</h3>
+        <div className="mb-3">
+          <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={800}>Zene 'n Zeanne aims to help you learn:</ResponsiveHeader>
+        </div>
         <ul>
           <li><BsPuzzleFill aria-hidden={true} /> Autism Inclusion and Acceptance</li>
           <li><GiPartyFlags aria-hidden={true} /> Filipino Culture and Pride</li>

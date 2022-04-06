@@ -9,6 +9,7 @@ import SEO from "../components/seo";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
+import ResponsiveHeader from "../components/responsive-header";
 
 export default function Videos() {
   const videosData = GetVideos()
@@ -30,7 +31,7 @@ export default function Videos() {
 
         className="p-2"
       >
-        <MediaCover title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} showBadge={true} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} titleFontSize={ResponsiveSize(1, "rem", 0.001, 800)} playNowText="Watch Now" />
+        <MediaCover title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} showBadge={true} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} playNowText="Watch Now" />
       </div>
     )
     
@@ -56,9 +57,9 @@ export default function Videos() {
   return(
     <Layout pageID="videos" showMenuBar={true}>
       <SEO title="Videos" description="Watch Zene 'N Zeanne Videos" />
-      <h1>Videos</h1>
+      <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Videos</ResponsiveHeader>
       <SearchBox searchItems={videosSearch} />
-      <MediaLibrary headerSize={ResponsiveSize(1.5, "rem", 0.001, 500)} categoryButtonSize={ResponsiveSize(0.9, "rem", 0.001, 330)} grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />
+      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />
     </Layout>
   )
 }

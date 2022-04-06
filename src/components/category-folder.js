@@ -1,25 +1,9 @@
 import React from "react"
-import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import { Accordion, Card, Button, Modal } from "react-bootstrap"
 import CloseButton from "../components/close-button";
 import {GridList, GridListTile} from '@material-ui/core';
-
-function CategoryHeader(props) {
-  return(
-    <h1 style={{fontSize: ResponsiveSize(2, "rem", 0.001, 500), color: "#017BFF"}}>
-      {props.children}
-    </h1>
-  )
-}
-
-function SubCategoryHeader(props) {
-  return(
-    <h2 style={{fontSize: ResponsiveSize(1.5, "rem", 0.001, 500)}}>
-      {props.children}
-    </h2>
-  )
-}
+import ResponsiveHeader from "./responsive-header";
 
 function DisplayItems(props) {
   return(
@@ -48,7 +32,9 @@ export default class CategoryFolder extends React.Component {
       <Modal size="xl" show={this.state.show} onHide={this.handleClose} centered scrollable>
           <Modal.Header className="justify-content-center bold-text">
             <Modal.Title>
-              <CategoryHeader>{this.props.category}</CategoryHeader>
+              <div style={{color: "#017BFF"}}>
+                <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>{this.props.category}</ResponsiveHeader>
+              </div>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -60,7 +46,9 @@ export default class CategoryFolder extends React.Component {
                     <Card>
                       <Card.Header className="hover-shadow-card bold-text accordion-header" style={{textAlign: "center"}}>
                         <Accordion.Toggle as={Card.Header} variant="link" eventKey={currentSubCategory}>
-                          <SubCategoryHeader>{`${this.props.subcategoryName} ${currentSubCategory}`}</SubCategoryHeader>
+                          <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                            {`${this.props.subcategoryName} ${currentSubCategory}`}
+                          </ResponsiveHeader>
                         </Accordion.Toggle>
                       </Card.Header>
                       <Accordion.Collapse eventKey={currentSubCategory}>

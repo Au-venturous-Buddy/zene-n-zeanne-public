@@ -2,14 +2,16 @@ import React from "react"
 import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
 import SEO from "../components/seo";
+import ResponsiveHeader from "../components/responsive-header";
 
 export default function FourZeroFour() {
   return(
     <Layout showMenuBar={true}>
       <SEO title="404" description="Page Not Found!" />
       <section style={{marginBottom: `90px`}}>
-        <h1 style={{textAlign: `center`}}>
-        <div
+        <div style={{textAlign: `center`}}>
+        <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
+          <div
             style={{
               margin: `0 auto`,
               maxWidth: 860,
@@ -21,7 +23,8 @@ export default function FourZeroFour() {
             </div>
           </div>
           Looks like this page doesn't exist yet!
-        </h1>
+          </ResponsiveHeader>
+        </div>
         <br />
         <p style={{textAlign: `center`}}>
           Please navigate to an existing page via the main menu below.
