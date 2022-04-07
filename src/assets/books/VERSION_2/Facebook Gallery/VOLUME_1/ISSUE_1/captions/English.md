@@ -1,4 +1,5 @@
 ---
+language_code: "en"
 captions: [
     "Zene and Zeanne are so excited for their summer vacation at Zamboanga and Cagayan de Oro! Can't wait to see our relatives there! God bless our trip. 🙂 #FanTAZZticNation #FanTAZZticOutingsAtZamboanga",
     "On our way to Zamboanga City via Philippine Airlines. May God give us a safe flight. 🙂 #FanTAZZticNation #FanTAZZticOutingsAtZamboangaCity",

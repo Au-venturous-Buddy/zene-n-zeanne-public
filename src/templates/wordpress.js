@@ -32,6 +32,7 @@ class WordpressMultilingual extends React.Component {
   render() {
     var metadataItems = null;
     var content = null;
+    var currentLanguageCode = `en`;
     var languages = new Set();
     var modes = new Set();
     for(var i = 0; i < this.props.data.allFile.edges.length; i++) {
@@ -41,6 +42,7 @@ class WordpressMultilingual extends React.Component {
         modes.add(nodeItem.childMarkdownRemark.frontmatter.mode_name)
         if(nodeItem.name === this.state.currentLanguage && nodeItem.childMarkdownRemark.frontmatter.mode_name === this.state.currentMode) {
           content = nodeItem.childMarkdownRemark.html
+          currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
         }
       }
       else if(nodeItem.ext === ".md" && nodeItem.name === "index") {
@@ -61,7 +63,7 @@ class WordpressMultilingual extends React.Component {
     var displayContent = (<article className="m-3 wordpress-body" style={{textAlign: "center"}}>This article does not exist yet!</article>)
     if(!(content === null)) {
       displayContent = (
-        <article className="m-3 wordpress-body" style={{textAlign: "justify"}} dangerouslySetInnerHTML={{ __html: content }}></article>
+        <article lang={currentLanguageCode} className="m-3 wordpress-body" style={{textAlign: "justify"}} dangerouslySetInnerHTML={{ __html: content }}></article>
       )
     }
 
@@ -139,6 +141,7 @@ query($pagePath: String!) {
           html
           frontmatter {
             title
+            language_code
             mode_name
             category
           }

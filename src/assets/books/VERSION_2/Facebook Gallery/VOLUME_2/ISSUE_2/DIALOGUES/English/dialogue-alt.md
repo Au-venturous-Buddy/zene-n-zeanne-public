@@ -1,4 +1,5 @@
 ---
+language_code: "en"
 dialogue_alt: [
     "New Year, New Normal, Better Normal",
     "Zeanne, I noticed that your Spotify playlist is very full of K-Pop Songs and your Recently Watched and My List on Netflix is filled with K-Dramas.",

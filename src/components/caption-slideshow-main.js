@@ -98,7 +98,7 @@ class CaptionSlideshowDisplay extends React.Component {
                   ))}
                 </Slider>
             </section>
-            <section className='mt-3' style={{textAlign: 'justify'}}>
+            <section lang={this.props.language} className='mt-3' style={{textAlign: 'justify'}}>
                 <p dangerouslySetInnerHTML={{__html: this.props.dialogue[this.state.slideIndex]}}>
                 </p>
             </section>
@@ -139,7 +139,7 @@ class CaptionSlideshowDisplay extends React.Component {
   }
 }
 
-export default function CaptionSlideshowMain({title, images, captions, omitSlides, size}) {
+export default function CaptionSlideshowMain({title, images, language, captions, omitSlides, size}) {
   var pages = [];
   var dialogue = [];
   for(var i = 0; i < images.length; i++) {
@@ -151,7 +151,7 @@ export default function CaptionSlideshowMain({title, images, captions, omitSlide
 
   return (
     <Container className="my-5" style={{width: size.toString() + "%"}}>
-      <CaptionSlideshowDisplay total={pages.length} title={title} pages={pages} dialogue={dialogue} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
+      <CaptionSlideshowDisplay language={language} total={pages.length} title={title} pages={pages} dialogue={dialogue} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
     </Container>
   )
 }

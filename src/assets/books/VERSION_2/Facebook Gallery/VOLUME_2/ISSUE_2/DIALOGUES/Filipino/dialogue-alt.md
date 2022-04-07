@@ -1,4 +1,5 @@
 ---
+language_code: "tl"
 dialogue_alt: [
     "New Year, New Normal, Better Normal",
     "Zeanne, napansin ko na punung-puno ng mga kantang Koreano ang iyong Spotify playlist at punung-puno ng mga palabas na Koreano ang iyong Recently Watched at My List sa Netflix.",

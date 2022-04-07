@@ -34,22 +34,25 @@ export default function Bonus() {
 
         className="p-2"
       >
-        <MediaCover title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} showBadge={false} badgeItem={""} slug={bonusItemData.fields.slug} playNowText="Go" />
+        <MediaCover title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} showBadge={true} badgeItem={`Wave ${bonusItemData.frontmatter.wave} Release ${bonusItemData.frontmatter.release}`} slug={bonusItemData.fields.slug} playNowText="Go" />
       </div>
     )
     
     var version = bonusItemData.frontmatter.version;
     var category = bonusItemData.frontmatter.category;
+    var wave = bonusItemData.frontmatter.wave;
 
     if(!(version in bonus)) {
       bonus[version] = {}
     }
     if(!(category in bonus[version])) {
       bonus[version][category] = []
-      bonus[version][category][1] = []
+    }
+    if(!(wave in bonus[version][category])) {
+      bonus[version][category][wave] = []
     }
 
-    bonus[version][category][1].push(displayBonusItemCover)
+    bonus[version][category][wave].push(displayBonusItemCover)
 
     bonusSearch.push({display: displayBonusItemCover, contents: [bonusItemData.frontmatter.title, bonusItemData.internal.content, bonusItemData.frontmatter.synopsis]})
   }
@@ -59,7 +62,7 @@ export default function Bonus() {
       <SEO title="Bonus" description="Zene 'N Zeanne Bonus Content" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Bonus</ResponsiveHeader>
       <SearchBox searchItems={bonusSearch} />
-      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={bonus} mediaCategories={bonusCategories} defaultVersion={4} mediaSubCategoryName={"Volume"} />
+      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={bonus} mediaCategories={bonusCategories} defaultVersion={4} mediaSubCategoryName={"Wave"} />
     </Layout>
   )
 }

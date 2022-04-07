@@ -39,6 +39,7 @@ class CaptionSlideshowMultiLingual extends React.Component {
     var metadataItems = null;
     var images = [];
     var captions = [];
+    var currentLanguageCode = `en`;
     var languages = new Set();
     for(var i = 0; i < this.props.data.allFile.edges.length; i++) {
       var nodeItem = this.props.data.allFile.edges[i].node
@@ -49,6 +50,7 @@ class CaptionSlideshowMultiLingual extends React.Component {
         languages.add(nodeItem.name)
         if(nodeItem.name === this.state.currentLanguage) {
           captions = nodeItem.childMarkdownRemark.frontmatter.captions
+          currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
         }
       }
       else if(nodeItem.ext === ".md" && nodeItem.name === "index") {
@@ -74,7 +76,7 @@ class CaptionSlideshowMultiLingual extends React.Component {
     <>
     <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
-      <CaptionSlideshowMain title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} omitSlides={omitSlides} size={this.state.currentSize} />
+      <CaptionSlideshowMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} omitSlides={omitSlides} size={this.state.currentSize} />
       <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
     </div>
     <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
@@ -139,6 +141,7 @@ export const query = graphql`
           childMarkdownRemark {
             frontmatter {
               title
+              language_code
               captions
               modes {
                 mode_name

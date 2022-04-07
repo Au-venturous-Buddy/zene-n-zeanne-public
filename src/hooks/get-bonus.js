@@ -18,6 +18,8 @@ export const GetBonus = () => {
                     title
                     category
                     version
+                    wave
+                    release
                     synopsis
                   }
                   internal {

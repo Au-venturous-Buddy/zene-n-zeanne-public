@@ -40,6 +40,7 @@ class ComicStripMultiLingual extends React.Component {
     var scenes = [];
     var dialogues = [];
     var dialoguesAlt = [];
+    var currentLanguageCode = `en`;
     var languages = new Set();
     for(var i = 0; i < this.props.data.allFile.edges.length; i++) {
       var nodeItem = this.props.data.allFile.edges[i].node
@@ -54,6 +55,7 @@ class ComicStripMultiLingual extends React.Component {
       }
       else if(nodeItem.relativeDirectory.includes("DIALOGUES") && nodeItem.ext === ".md" && nodeItem.name === "dialogue-alt" && nodeItem.relativeDirectory.includes("DIALOGUES/" + this.state.currentLanguage)) {
         dialoguesAlt = nodeItem.childMarkdownRemark.frontmatter.dialogue_alt
+        currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
       }
       else if(nodeItem.ext === ".md" && nodeItem.name === "index") {
         metadataItems = nodeItem;
@@ -78,7 +80,7 @@ class ComicStripMultiLingual extends React.Component {
     <>
     <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
-      <ComicStripMain title={metadataItems.childMarkdownRemark.frontmatter.title} scenes={scenes} dialogues={dialogues} dialoguesAlt={dialoguesAlt} omitSlides={omitSlides} size={this.state.currentSize} />
+      <ComicStripMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} scenes={scenes} dialogues={dialogues} dialoguesAlt={dialoguesAlt} omitSlides={omitSlides} size={this.state.currentSize} />
       <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
     </div>
     <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
@@ -147,6 +149,7 @@ export const query = graphql`
                 mode_name
                 omit_slides
               }
+              language_code
               dialogue_alt
             }
           }

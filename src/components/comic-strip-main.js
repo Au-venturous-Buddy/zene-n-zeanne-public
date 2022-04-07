@@ -74,7 +74,7 @@ class ComicStripDisplay extends React.Component {
         <section className="mb-5" style={{color: "#fff", textAlign: "center"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>{this.props.title}</ResponsiveHeader>
         </section>
-        <section className="book-main">
+        <section lang={this.props.language} className="book-main">
           <Slider ref={slider => (this.slider = slider)} {...settings}>
             {this.props.children}
           </Slider>
@@ -153,7 +153,7 @@ function Page({scene, dialogue, keyID}) {
   )
 }
 
-export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, omitSlides, size}) {
+export default function ComicStripMain({title, language, scenes, dialogues, dialoguesAlt, omitSlides, size}) {
   var pages = [];
   var pageNum = 0;
   var maxPageNum = Math.max(parseInt(scenes[scenes.length - 1].name), parseInt(dialogues[dialogues.length - 1].name));
@@ -185,7 +185,7 @@ export default function ComicStripMain({title, scenes, dialogues, dialoguesAlt, 
 
   return (
     <Container className="my-5" style={{width: size.toString() + "%"}}>
-      <ComicStripDisplay total={pages.length} title={title} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)}>
+      <ComicStripDisplay language={language} total={pages.length} title={title} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)}>
           {pages}
       </ComicStripDisplay>
     </Container>
