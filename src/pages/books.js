@@ -59,7 +59,7 @@ export default function Books() {
       <SEO title="Books" description="Read Zene 'N Zeanne Books" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Books</ResponsiveHeader>
       <SearchBox searchItems={booksSearch} />
-      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={2} mediaSubCategoryName={"Volume"} />
+      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={4} mediaSubCategoryName={"Volume"} />
     </Layout>
   )
 }
