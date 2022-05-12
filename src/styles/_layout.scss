@@ -285,3 +285,21 @@ ul.bullet-points li {
   text-align: center;
   justify-content: center;
 }
+
+.au-some-blogs-body {
+  font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #00f;
+  background-color: rgb(255, 234, 183);
+  background-image: url("../images/Au-Some\ Blogs\ Background.png");
+  background-size: 90%;
+  background-position: center;
+
+  .ext-web-link,
+  .ext-web-link:visited {
+    color: #00f;
+  }
+
+  .ext-web-link:hover {
+    color: #fff;
+  }
+}

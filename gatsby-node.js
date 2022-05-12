@@ -36,7 +36,18 @@ exports.createPages = async({graphql, actions}) => {
           if(node.frontmatter.format == "wordpress") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/wordpress.js'),
+                component: path.resolve(`./src/templates/wordpress.js`),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format == "ausome-blogs") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/ausome-blogs.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.

@@ -2,3 +2,8 @@
     font-family: "Futura";
     src: url("../fonts/futur.woff2");
 }
+
+@font-face {
+    font-family: "Chalkduster";
+    src: url("../fonts/Chalkduster.woff");
+}
