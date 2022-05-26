@@ -7,6 +7,7 @@ import SettingsButton from "../components/settings-button";
 import CloseButton from "../components/close-button";
 import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "../components/responsive-header";
+import { bionicReading } from 'bionic-reading';
 
 class AuSomeBlogsMultilingual extends React.Component {
   state = {
@@ -44,7 +45,7 @@ class AuSomeBlogsMultilingual extends React.Component {
       }
       if(nodeItem.relativeDirectory.includes("text") && nodeItem.ext === ".md") {
         languages.add(nodeItem.relativeDirectory.split("/")[nodeItem.relativeDirectory.split("/").length - 1])
-        if(nodeItem.relativeDirectory.includes("text/" + this.state.currentLanguage)) {
+        if(nodeItem.relativeDirectory.includes("text/" + this.state.currentLanguage.split("-")[0])) {
           if(nodeItem.name === "image-alt") {
             imagesAlt = nodeItem.childMarkdownRemark.frontmatter.image_alt
             currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
@@ -62,6 +63,9 @@ class AuSomeBlogsMultilingual extends React.Component {
     var languageOptions = []
     languages.forEach((value) => {
       languageOptions.push(<option key={value}>{value}</option>)
+      if(metadataItems.childMarkdownRemark.frontmatter.format === "ausome-blogs") {
+        languageOptions.push(<option key={value + "-Bionic"}>{value + "-Bionic"}</option>)
+      }
     })
 
     var modeOptions = []
@@ -83,7 +87,11 @@ class AuSomeBlogsMultilingual extends React.Component {
     var callAtIndex = 0;
     while(sectionNum <= maxSectionNum && callAtIndex < callAt.length) {
       if(nextTextID < texts.length && parseInt(texts[nextTextID].name) === sectionNum) {
-        currentText = (<section className="my-2" dangerouslySetInnerHTML={{ __html: texts[nextTextID].childMarkdownRemark.html }}></section>);
+        var currentTextHTML = texts[nextTextID].childMarkdownRemark.html;
+        if(this.state.currentLanguage.includes("-Bionic")) {
+          currentTextHTML = bionicReading(currentTextHTML);
+        }
+        currentText = (<section className="my-2" dangerouslySetInnerHTML={{ __html: currentTextHTML }}></section>);
         nextTextID++;
       }
 
