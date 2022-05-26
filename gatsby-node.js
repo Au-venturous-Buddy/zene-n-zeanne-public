@@ -33,7 +33,7 @@ exports.createPages = async({graphql, actions}) => {
     `)
     
     result.data.allMarkdownRemark.edges.forEach(({node}) => {
-          if(node.frontmatter.format == "wordpress") {
+          if(node.frontmatter.format === "wordpress" || node.frontmatter.format === "ausome-blogs") {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve(`./src/templates/wordpress.js`),
@@ -44,18 +44,7 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
-          else if(node.frontmatter.format == "ausome-blogs") {
-            createPage({
-                path: node.fields.slug,
-                component: path.resolve('./src/templates/ausome-blogs.js'),
-                context: {
-                  // Data passed to context is available
-                  // in page queries as GraphQL variables.
-                  pagePath: node.fields.slug,
-                }
-            })
-          }
-          else if(node.frontmatter.format == "caption-slideshow") {
+          else if(node.frontmatter.format === "caption-slideshow") {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve('./src/templates/caption-slideshow.js'),
@@ -66,7 +55,7 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
-          else if(node.frontmatter.format == "grid-gallery") {
+          else if(node.frontmatter.format === "grid-gallery") {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve('./src/templates/grid-gallery.js'),
@@ -77,7 +66,7 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
-          else if(node.frontmatter.format == "comic-strip") {
+          else if(node.frontmatter.format === "comic-strip") {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve('./src/templates/comic-strip.js'),

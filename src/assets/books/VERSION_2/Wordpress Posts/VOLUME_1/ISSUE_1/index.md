@@ -8,4 +8,7 @@ issue: 1
 category: "Wordpress Posts"
 format: "wordpress"
 synopsis: "Zene, Zeanne, and their friends visit a power plant to see how it works."
+modes: [
+    {mode_name: "Original", call_at: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+]
 ---

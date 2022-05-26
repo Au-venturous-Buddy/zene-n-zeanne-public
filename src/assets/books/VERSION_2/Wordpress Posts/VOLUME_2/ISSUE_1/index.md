@@ -8,4 +8,9 @@ issue: 1
 category: "Wordpress Posts"
 format: "wordpress"
 synopsis: "Zeanne helps out in a beach clean-up while her twin brother Zene scuba-dived to help replant corals."
+modes: [
+    {mode_name: "Original", call_at: [0, 1, 2, 3, 4, 7, 10, 13, 14]},
+    {mode_name: "Zene Only", call_at: [0, 1, 2, 3, 5, 8, 11, 13, 15]},
+    {mode_name: "Zeanne Only", call_at: [0, 1, 2, 3, 6, 9, 12, 13, 16]}
+]
 ---

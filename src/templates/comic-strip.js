@@ -68,11 +68,11 @@ class ComicStripMultiLingual extends React.Component {
     })
 
     var modeOptions = []
-    var omitSlides = []
+    var callAt = []
     metadataItems.childMarkdownRemark.frontmatter.modes.forEach((mode) => {
       modeOptions.push(<option key={mode.mode_name}>{mode.mode_name}</option>)
       if(mode.mode_name === this.state.currentMode) {
-        omitSlides = mode.omit_slides;
+        callAt = mode.call_at;
       }
     })
 
@@ -80,7 +80,7 @@ class ComicStripMultiLingual extends React.Component {
     <>
     <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
-      <ComicStripMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} scenes={scenes} dialogues={dialogues} dialoguesAlt={dialoguesAlt} omitSlides={omitSlides} size={this.state.currentSize} />
+      <ComicStripMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} scenes={scenes} dialogues={dialogues} dialoguesAlt={dialoguesAlt} callAt={callAt} size={this.state.currentSize} />
       <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
     </div>
     <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
@@ -147,7 +147,7 @@ export const query = graphql`
               title
               modes {
                 mode_name
-                omit_slides
+                call_at
               }
               language_code
               dialogue_alt

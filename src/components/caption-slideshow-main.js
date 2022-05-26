@@ -139,14 +139,18 @@ class CaptionSlideshowDisplay extends React.Component {
   }
 }
 
-export default function CaptionSlideshowMain({title, images, language, captions, omitSlides, size}) {
+export default function CaptionSlideshowMain({title, images, language, captions, callAt, size}) {
   var pages = [];
   var dialogue = [];
-  for(var i = 0; i < images.length; i++) {
-    if(!omitSlides.includes(i)) {
-      pages.push(images[i]) 
-      dialogue.push(captions[i])
+  var callAtIndex = 0;
+  var imageIndex = 0;
+  while(imageIndex < images.length && callAtIndex < callAt.length) {
+    if(callAt[callAtIndex] === imageIndex) {
+      pages.push(images[imageIndex]) 
+      dialogue.push(captions[imageIndex])
+      callAtIndex++;
     }
+    imageIndex++;
   }
 
   return (

@@ -9,7 +9,7 @@ category: "Facebook Gallery"
 format: "comic-strip"
 synopsis: "Zene encourages his twin sister Zeanne to spend more time reading the Bible."
 modes: [
-    {mode_name: "Original", omit_slides: [2, 5, 8]},
-    {mode_name: "2020/2021", omit_slides: [1, 4, 7]}
+    {mode_name: "Original", call_at: [0, 1, 3, 4, 6, 7]},
+    {mode_name: "2020/2021", call_at: [0, 2, 3, 5, 6, 8]}
 ]
 ---

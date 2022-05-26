@@ -9,6 +9,6 @@ category: "Facebook Gallery"
 format: "caption-slideshow"
 synopsis: "Zene, Zeanne, and their friends celebrate their Christmas Party at their Grade 2 classroom"
 modes: [
-    {mode_name: "Original", omit_slides: [-1]}
+    {mode_name: "Original", call_at: [0, 1, 2, 3]}
 ]
 ---

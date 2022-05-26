@@ -64,11 +64,11 @@ class CaptionSlideshowMultiLingual extends React.Component {
     })
 
     var modeOptions = []
-    var omitSlides = []
+    var callAt = []
     metadataItems.childMarkdownRemark.frontmatter.modes.forEach((mode) => {
       modeOptions.push(<option key={mode.mode_name}>{mode.mode_name}</option>)
       if(mode.mode_name === this.state.currentMode) {
-        omitSlides = mode.omit_slides;
+        callAt = mode.call_at;
       }
     })
 
@@ -76,7 +76,7 @@ class CaptionSlideshowMultiLingual extends React.Component {
     <>
     <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
     <div style={{textAlign: 'center'}}>
-      <CaptionSlideshowMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} omitSlides={omitSlides} size={this.state.currentSize} />
+      <CaptionSlideshowMain language={currentLanguageCode} title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} captions={captions} callAt={callAt} size={this.state.currentSize} />
       <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
     </div>
     <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
@@ -145,7 +145,7 @@ export const query = graphql`
               captions
               modes {
                 mode_name
-                omit_slides
+                call_at
               }
             }
           }

@@ -8,7 +8,7 @@ import CloseButton from "../components/close-button";
 import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "../components/responsive-header";
 
-class WordpressMultilingual extends React.Component {
+class AuSomeBlogsMultilingual extends React.Component {
   state = {
     show: false,
     currentLanguage: 'English',
@@ -31,18 +31,27 @@ class WordpressMultilingual extends React.Component {
 
   render() {
     var metadataItems = null;
-    var content = null;
+    var images = [];
+    var texts = [];
+    var imagesAlt = [];
     var currentLanguageCode = `en`;
     var languages = new Set();
-    var modes = new Set();
     for(var i = 0; i < this.props.data.allFile.edges.length; i++) {
       var nodeItem = this.props.data.allFile.edges[i].node
-      if(nodeItem.relativeDirectory.includes("modes") && nodeItem.ext === ".md") {
-        languages.add(nodeItem.name)
-        modes.add(nodeItem.childMarkdownRemark.frontmatter.mode_name)
-        if(nodeItem.name === this.state.currentLanguage && nodeItem.childMarkdownRemark.frontmatter.mode_name === this.state.currentMode) {
-          content = nodeItem.childMarkdownRemark.html
-          currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
+
+      if(nodeItem.relativeDirectory.includes("images") && nodeItem.ext === ".png") {
+        images.push(nodeItem);
+      }
+      if(nodeItem.relativeDirectory.includes("text") && nodeItem.ext === ".md") {
+        languages.add(nodeItem.relativeDirectory.split("/")[nodeItem.relativeDirectory.split("/").length - 1])
+        if(nodeItem.relativeDirectory.includes("text/" + this.state.currentLanguage)) {
+          if(nodeItem.name === "image-alt") {
+            imagesAlt = nodeItem.childMarkdownRemark.frontmatter.image_alt
+            currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
+          }
+          else {
+            texts.push(nodeItem);
+          }
         }
       }
       else if(nodeItem.ext === ".md" && nodeItem.name === "index") {
@@ -56,15 +65,44 @@ class WordpressMultilingual extends React.Component {
     })
 
     var modeOptions = []
-    modes.forEach((mode) => {
-      modeOptions.push(<option key={mode}>{mode}</option>)
+    var callAt = []
+    metadataItems.childMarkdownRemark.frontmatter.modes.forEach((mode) => {
+      modeOptions.push(<option key={mode.mode_name}>{mode.mode_name}</option>)
+      if(mode.mode_name === this.state.currentMode) {
+        callAt = mode.call_at;
+      }
     })
 
-    var displayContent = (<article className="m-3 wordpress-body" style={{textAlign: "center"}}>This article does not exist yet!</article>)
-    if(!(content === null)) {
-      displayContent = (
-        <article lang={currentLanguageCode} className="m-3 wordpress-body" style={{textAlign: "justify"}} dangerouslySetInnerHTML={{ __html: content }}></article>
-      )
+    var sections = [];
+    var sectionNum = 0;
+    var maxSectionNum = Math.max(parseInt(images[images.length - 1].name), parseInt(texts[texts.length - 1].name));
+    var currentImage = (<section aria-hidden={true}></section>);
+    var currentText = null;
+    var nextTextID = 0;
+    var nextImageID = 0;
+    var callAtIndex = 0;
+    while(sectionNum <= maxSectionNum && callAtIndex < callAt.length) {
+      if(nextTextID < texts.length && parseInt(texts[nextTextID].name) === sectionNum) {
+        currentText = (<section className="my-2" dangerouslySetInnerHTML={{ __html: texts[nextTextID].childMarkdownRemark.html }}></section>);
+        nextTextID++;
+      }
+
+      if(nextImageID < images.length && parseInt(images[nextImageID].name) === sectionNum) {
+        currentImage = (
+          <section className="my-2 center-image">
+            <img width="60%" alt={imagesAlt[sectionNum]} src={images[nextImageID].publicURL} />
+          </section>
+        );
+        nextImageID++;
+      }
+
+      if(sectionNum === callAt[callAtIndex]) {
+        sections.push(currentImage)
+        sections.push(currentText)
+        callAtIndex++;
+      }
+
+      sectionNum++;
     }
 
     return(
@@ -79,7 +117,9 @@ class WordpressMultilingual extends React.Component {
         <div className="mt-3">
           <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
         </div>
-        {displayContent}
+        <article lang={currentLanguageCode} className={`mt-3 p-3 ${metadataItems.childMarkdownRemark.frontmatter.format}`} style={{textAlign: "justify"}}>
+          {sections}
+        </article>
       </div>
       <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
         <Modal.Header className="justify-content-center">
@@ -118,10 +158,10 @@ class WordpressMultilingual extends React.Component {
   }
 }
 
-export default function Wordpress({ data }) {
+export default function AuSomeBlogs({ data }) {
   return (
     <Layout>
-      <WordpressMultilingual data={data} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
+      <AuSomeBlogsMultilingual data={data} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
     </Layout>
   )
 }
@@ -141,9 +181,13 @@ query($pagePath: String!) {
           html
           frontmatter {
             title
+            image_alt
             language_code
-            mode_name
-            category
+            modes {
+              mode_name
+              call_at
+            }
+            format
           }
         }
       }

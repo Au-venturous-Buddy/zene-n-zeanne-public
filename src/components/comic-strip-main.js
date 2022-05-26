@@ -153,7 +153,7 @@ function Page({scene, dialogue, keyID}) {
   )
 }
 
-export default function ComicStripMain({title, language, scenes, dialogues, dialoguesAlt, omitSlides, size}) {
+export default function ComicStripMain({title, language, scenes, dialogues, dialoguesAlt, callAt, size}) {
   var pages = [];
   var pageNum = 0;
   var maxPageNum = Math.max(parseInt(scenes[scenes.length - 1].name), parseInt(dialogues[dialogues.length - 1].name));
@@ -161,7 +161,8 @@ export default function ComicStripMain({title, language, scenes, dialogues, dial
   var currentDialogue = null;
   var nextDialogueID = 0;
   var nextSceneID = 0;
-  while(pageNum <= maxPageNum) {
+  var callAtIndex = 0;
+  while(pageNum <= maxPageNum && callAtIndex < callAt.length) {
     if(nextDialogueID < dialogues.length && parseInt(dialogues[nextDialogueID].name) === pageNum) {
       currentDialogue = dialogues[nextDialogueID];
       nextDialogueID++;
@@ -172,12 +173,13 @@ export default function ComicStripMain({title, language, scenes, dialogues, dial
       nextSceneID++;
     }
 
-    if(!omitSlides.includes(pageNum)) {
+    if(callAt[callAtIndex] === pageNum) {
       pages.push(
         <div aria-label={dialoguesAlt[pageNum]} key={pageNum.toString()}>
           <Page scene={currentScene} dialogue={currentDialogue} keyID={pageNum.toString()} />
         </div>
       )
+      callAtIndex++;
     }
 
     pageNum++;

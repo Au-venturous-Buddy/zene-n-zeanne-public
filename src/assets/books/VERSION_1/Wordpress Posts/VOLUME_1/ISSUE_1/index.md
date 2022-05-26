@@ -8,4 +8,7 @@ issue: 1
 category: "Wordpress Posts"
 format: "wordpress"
 synopsis: "Zene and Zeanne had a dream...what is it?"
+modes: [
+    {mode_name: "Original", call_at: [0, 1, 2]}
+]
 ---

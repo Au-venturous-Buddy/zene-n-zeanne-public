@@ -9,8 +9,8 @@ category: "Au-Some Blogs"
 format: "ausome-blogs"
 synopsis: "For his first arts class at regular school, Zene struggles to draw himself as his class was asked to draw who they want to be when they grow up."
 modes: [
-    {mode_name: "Original", omit_slides: [4, 5, 7, 8, 11, 12, 14, 15]},
-    {mode_name: "Limited Face-to-Face", omit_slides: [3, 5, 6, 8, 10, 12, 13, 15]},
-    {mode_name: "Online/Zoom", omit_slides: [3, 4, 6, 7, 10, 11, 13, 14]}
+    {mode_name: "Original", call_at: [0, 1, 2, 3, 6, 9, 10, 13, 16]},
+    {mode_name: "Limited Face-to-Face", call_at: [0, 1, 2, 4, 7, 9, 11, 14, 16]},
+    {mode_name: "Online/Zoom", call_at: [0, 1, 2, 5, 8, 9, 12, 15, 16]}
 ]
 ---
