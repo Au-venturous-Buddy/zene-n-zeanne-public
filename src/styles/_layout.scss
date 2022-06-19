@@ -31,6 +31,7 @@ div.full-height {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    box-shadow: $shadowCenter;
     footer {
       display: flex;
       position: relative;
@@ -200,9 +201,29 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+.img-button.media-preview .media-preview-title {
+  color: $primaryColor;
+
+  .media-preview-badge {
+    color: #FFFFFF;
+  }
+}
+
 .img-button:hover {
   background: rgba(255, 255, 255, 0);
   box-shadow: $shadowCenter;
+}
+
+.img-button.media-preview:hover .media-preview-title {
+  color: $primaryColor;
+
+  .media-preview-badge {
+    color: #FFFFFF;
+  }
+}
+
+.media-preview-image {
+  border-radius: 10px;
 }
 
 .MuiGridList-root {
@@ -273,12 +294,16 @@ ul.bullet-points li {
 }
 
 .preview-section {
-  background-color: #2d93d1; 
+  background-color: $primaryColor;
   color: white; 
   padding-top: 5%;
   padding-bottom: 5%;
   text-align: center; 
   border-radius: 5px;
+}
+
+.preview-section-button, .preview-section-button:hover {
+  background-color: $secondaryColor;
 }
 
 .center-image {

@@ -18,48 +18,46 @@
 }
 
 #menu-bar {
+  background: rgba(255, 255, 255, 0);
+}
+
+#menu-bar .navbar-nav {
   background: $primaryColorTransparent;
+  border-radius: 10px;
   box-shadow: $shadowCenter;
 }
 
-.navbar-toggler {
-  border: none;
+.menu-button {
+  background-color: $secondaryColor;
 }
 
-#menu-bar .nav-pills .nav-link.active {
-  @include pillColor($secondaryColor);
+.menu-button:hover {
+  box-shadow: $shadowCenter;
+  background-color: $secondaryColor;
 }
 
-.nav-pills .nav-link.active .menu-item-text {
-  text-decoration: underline;
-  text-decoration-thickness: 3px;
-}
-
-#menu-bar .nav-pills .nav-link.active:hover,
-.navbar-toggler:hover {
-  @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
-  box-shadow: $shadow;
-}
-
-#menu-bar .nav-pills .nav-link:hover {
-  box-shadow: $shadow;
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $primaryColor;
-}
-
-.navbar-dark .navbar-nav .nav-link,
-.navbar-dark .navbar-nav .nav-link:hover,
-.navbar-dark .navbar-toggler,
-.navbar-dark .navbar-toggler:hover {
+.page-link {
+  @include pillColor($primaryColor);
   color: #FFFFFF;
 }
 
-.navbar-collapse {
-  overflow-y: scroll !important;
-  max-height: 100px !important;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.page-link:hover {
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $primaryColor;
+  box-shadow: $shadow;
+  color: #FFFFFF;
 }
 
-.navbar-collapse::-webkit-scrollbar {
-  display: none;
+.page-link.current-page-link {
+  @include pillColor($secondaryColor);
+
+  .menu-item-text {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+  }
+}
+
+.page-link.current-page-link:hover {
+  @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
+  box-shadow: $shadow;
+  color: #FFFFFF;
 }

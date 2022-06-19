@@ -3,7 +3,6 @@ import Layout from "../components/layout"
 import {GetBooks} from "../hooks/get-books"
 import {GetBooksCovers} from "../hooks/get-books-covers"
 import {GetBooksCategories} from "../hooks/get-books-categories"
-import SearchBox from "../components/search-box";
 import SEO from "../components/seo";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
@@ -16,8 +15,7 @@ export default function Books() {
   const booksCategories = GetBooksCategories();
   
   var books = {};
-  var booksSearch = [];
-
+  
   for(var i = 0; i < booksData.allFile.edges.length; i++) {
     var bookData = booksData.allFile.edges[i].node.childMarkdownRemark;
     var bookCover = booksCovers.allFile.edges[i].node.publicURL;
@@ -50,15 +48,12 @@ export default function Books() {
     }
 
     books[version][category][volume].push(displayBookCover)
-
-    booksSearch.push({display: displayBookCover, contents: [bookData.frontmatter.title, bookData.internal.content, bookData.frontmatter.synopsis]})
   }
 
   return(
     <Layout pageID="books" showMenuBar={true}>
       <SEO title="Books" description="Read Zene 'N Zeanne Books" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Books</ResponsiveHeader>
-      <SearchBox searchItems={booksSearch} />
       <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={4} mediaSubCategoryName={"Volume"} />
     </Layout>
   )

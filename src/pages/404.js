@@ -6,7 +6,7 @@ import ResponsiveHeader from "../components/responsive-header";
 
 export default function FourZeroFour() {
   return(
-    <Layout showMenuBar={true}>
+    <Layout pageID="home" showMenuBar={true}>
       <SEO title="404" description="Page Not Found!" />
       <section style={{marginBottom: `90px`}}>
         <div style={{textAlign: `center`}}>

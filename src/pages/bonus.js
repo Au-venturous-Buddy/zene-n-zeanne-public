@@ -19,8 +19,6 @@ export default function Bonus() {
   console.log(bonusCovers)
   
   var bonus = {};
-  var bonusSearch = [];
-
   for(var i = 0; i < bonusData.allFile.edges.length; i++) {
     var bonusItemData = bonusData.allFile.edges[i].node.childMarkdownRemark;
     var bonusItemCover = bonusCovers.allFile.edges[i].node.publicURL;
@@ -53,15 +51,12 @@ export default function Bonus() {
     }
 
     bonus[version][category][wave].push(displayBonusItemCover)
-
-    bonusSearch.push({display: displayBonusItemCover, contents: [bonusItemData.frontmatter.title, bonusItemData.internal.content, bonusItemData.frontmatter.synopsis]})
   }
 
   return(
     <Layout pageID="bonus" showMenuBar={true}>
       <SEO title="Bonus" description="Zene 'N Zeanne Bonus Content" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Bonus</ResponsiveHeader>
-      <SearchBox searchItems={bonusSearch} />
       <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={bonus} mediaCategories={bonusCategories} defaultVersion={4} mediaSubCategoryName={"Wave"} />
     </Layout>
   )

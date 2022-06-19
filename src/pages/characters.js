@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import { Accordion, Card, Button, Modal, Container, Row } from "react-bootstrap"
-import {GiHamburgerMenu} from "react-icons/gi";
+import {BsCaretDownFill} from "react-icons/bs";
 import {GetCharacterInfo} from "../hooks/get-character-info";
 import {GetCharacterProfiles} from "../hooks/get-character-profiles";
 import {GetCharacterPhotos} from "../hooks/get-character-photos";
@@ -9,7 +9,6 @@ import {GridList, GridListTile} from '@material-ui/core';
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import CloseButton from "../components/close-button";
 import SEO from "../components/seo"
-import SearchBox from "../components/search-box";
 import ResponsiveHeader from "../components/responsive-header";
 
 function VersionSelector({version, stateChangeFunction, closeFunction}) {
@@ -137,7 +136,7 @@ class DisplayCharacters extends React.Component {
         <Button aria-label={`Select Version - Version ${this.state.currentVersion}`} onClick={this.handleShow} style={{border: `none`, color: "white", backgroundColor: "rgba(0, 0, 0, 0)", fontSize: this.props.headerSize}}>
           <div aria-hidden={true}>
             <ResponsiveHeader level={2} maxSize={2} minScreenSize={800}>
-              <GiHamburgerMenu /> Version {this.state.currentVersion}
+              Version {this.state.currentVersion} <BsCaretDownFill />
             </ResponsiveHeader>
           </div>
         </Button>
@@ -241,7 +240,6 @@ export default function Characters() {
     <Layout pageID="characters" showMenuBar={true}>
       <SEO title="Characters" description="Characters - Meet the Characters of Zene 'N Zeanne" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Characters</ResponsiveHeader>
-      <SearchBox searchItems={charactersSearch} />
       <DisplayCharacters characterItems={characterGroups} />
     </Layout>
   )

@@ -2,6 +2,7 @@ import React from "react"
 import { Button, Modal, Container, Row } from "react-bootstrap"
 import CloseButton from "./close-button";
 import {GiHamburgerMenu} from "react-icons/gi";
+import {BsCaretDownFill} from "react-icons/bs";
 import {GridList, GridListTile} from '@material-ui/core';
 import CategoryFolder from "./category-folder";
 import ResponsiveHeader from "./responsive-header"
@@ -72,7 +73,7 @@ export default class MediaLibrary extends React.Component {
           <Button aria-label={`Select Version - Version ${this.state.currentVersion}`} onClick={this.handleShow} style={{border: `none`, color: "white", backgroundColor: "rgba(0, 0, 0, 0)", fontSize: this.props.headerSize}}>
             <div aria-hidden={true}>
               <ResponsiveHeader level={2} maxSize={2} minScreenSize={800}>
-                <GiHamburgerMenu /> Version {this.state.currentVersion}
+                Version {this.state.currentVersion} <BsCaretDownFill />
               </ResponsiveHeader>
             </div>
           </Button>

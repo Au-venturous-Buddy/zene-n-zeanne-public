@@ -1,10 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
-import ResponsiveSize from "../hooks/responsive-size";
 import {GetVideos} from "../hooks/get-videos"
 import {GetVideosCovers} from "../hooks/get-videos-covers"
 import {GetVideosCategories} from "../hooks/get-videos-categories"
-import SearchBox from "../components/search-box";
 import SEO from "../components/seo";
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
@@ -17,7 +15,6 @@ export default function Videos() {
   const videosCategories = GetVideosCategories();
   
   var videos = {};
-  var videosSearch = [];
   for(var i = 0; i < videosData.allFile.edges.length; i++) {
     var videoData = videosData.allFile.edges[i].node.childMarkdownRemark;
     var videoCover = videosCovers.allFile.edges[i].node.publicURL;
@@ -50,15 +47,12 @@ export default function Videos() {
     }
 
     videos[version][category][season].push(displayVideoCover)
-
-    videosSearch.push({display: displayVideoCover, contents: [videoData.frontmatter.title, videoData.internal.content, videoData.frontmatter.synopsis]})
   }
 
   return(
     <Layout pageID="videos" showMenuBar={true}>
       <SEO title="Videos" description="Watch Zene 'N Zeanne Videos" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Videos</ResponsiveHeader>
-      <SearchBox searchItems={videosSearch} />
       <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />
     </Layout>
   )

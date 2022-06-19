@@ -6,6 +6,8 @@ import {AiOutlineClear} from "react-icons/ai";
 import {FaHistory, FaSearch} from "react-icons/fa";
 import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "./responsive-header";
+import {GetSearchItems} from "../hooks/get-search-items";
+import SearchResultPreview from "./search-result-preview";
 
 class RecentSearchItem extends React.Component {
     itemClick = () => {
@@ -139,8 +141,8 @@ class SearchBoxMain extends React.Component {
 
         return(
             <>
-                <Button lang="en" dir="ltr" onClick={this.handleShow}>
-                    <FaSearch aria-hidden={true} /> Search
+                <Button className="menu-button mx-1" lang="en" dir="ltr" onClick={this.handleShow}>
+                    <FaSearch aria-hidden={true} />
                 </Button>
                 <Modal size="xl" show={this.state.show} onHide={this.handleClose} centered scrollable>
                     <Modal.Header className="justify-content-center bold-text px-0">
@@ -211,8 +213,22 @@ class SearchBoxMain extends React.Component {
     }
 }
 
-export default function SearchBox({searchItems}) {
+export default function SearchBox() {
     const fontSize = ResponsiveSize(0.8, "rem", 0.001, 500);
+
+    const searchItemsRaw = GetSearchItems();
+    var searchItems = [];
+    for(var i = 0; i < searchItemsRaw.allFile.edges.length; i++) {
+        var item = searchItemsRaw.allFile.edges[i].node;
+        if(!item.relativeDirectory.includes("assets/characters/")) {
+            searchItems.push({
+                display: (
+                    <SearchResultPreview title={item.childMarkdownRemark.frontmatter.title} synopsis={item.childMarkdownRemark.frontmatter.synopsis} category={item.childMarkdownRemark.frontmatter.category} slug={item.childMarkdownRemark.fields.slug} />
+                ), 
+                contents: [item.childMarkdownRemark.frontmatter.title, item.childMarkdownRemark.frontmatter.synopsis]
+            })
+        }
+    }
 
     return(
         <SearchBoxMain fontSize={fontSize} searchItems={searchItems} />

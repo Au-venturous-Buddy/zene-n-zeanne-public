@@ -1,8 +1,8 @@
 import React, {useState} from "react"
 import { Button, Modal, Badge } from "react-bootstrap"
 import CloseButton from "./close-button";
-import PlayNowButton from "./play-now-button";
 import ResponsiveHeader from "./responsive-header";
+import {QRCodeSVG} from 'qrcode.react';
 
 export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem, playNowText}) {
   const [show, setShow] = useState(false);
@@ -12,21 +12,19 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
 
     return(
       <>
-      <Button aria-label={`${title} - ${badgeItem}`} className="view img-button m-2" onClick={handleShow}>
+      <Button aria-label={`${title} - ${badgeItem}`} className="view img-button media-preview m-2" onClick={handleShow}>
         <div aria-hidden={true}>
           <img
-            className="d-block w-100"
+            className="d-block w-100 media-preview-image"
             src={cover}
             alt={title}
           />
-          <div className="mask caption-background flex-center">
-            <div className="m-3">
-              <ResponsiveHeader level={3} maxSize={0.9} minScreenSize={900}>
-                {title} <br />
-                <Badge className="mt-3" hidden={!showBadge}>{badgeItem}</Badge>
-              </ResponsiveHeader>
-            </div>
-          </div>
+          <section className="m-3 media-preview-title">
+            <ResponsiveHeader level={3} maxSize={1} minScreenSize={460}>
+              {title} <br />
+              <Badge className="mt-3 media-preview-badge" hidden={!showBadge}>{badgeItem}</Badge>
+            </ResponsiveHeader>
+          </section>
         </div>
       </Button>
       <Modal show={show} onHide={handleClose} centered scrollable>
@@ -46,9 +44,14 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
             />
             {synopsis}
           </section>
+          <section className="m-5" style={{textAlign: "center"}}>
+            <ResponsiveHeader level={2}>Scan, Click, or Tap on the QR Code below to start:</ResponsiveHeader>
+            <Button className="view img-button qr-code m-2 p-2" href={slug} target="_blank" rel="noreferrer">
+              <QRCodeSVG value={slug} />
+            </Button>
+          </section>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <PlayNowButton slug={slug}>{playNowText}</PlayNowButton>
           <CloseButton handleClose={handleClose} />
         </Modal.Footer>
       </Modal>
