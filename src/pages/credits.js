@@ -4,6 +4,8 @@ import { useStaticQuery, graphql } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image";
 import SEO from "../components/seo";
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 export default function Credits() {
   const data = useStaticQuery(
@@ -20,7 +22,7 @@ export default function Credits() {
   )
 
   return (
-    <Layout pageID="credits" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID="credits" />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="Credits" description="Meet The People Behind Zene 'N Zeanne" />
       <section style={{margin: `0 auto`, maxWidth: 430}}>
         <StaticImage src="../images/Zene N Zeanne V4 Credits.png" alt="Twin Power" layout="fullWidth" />

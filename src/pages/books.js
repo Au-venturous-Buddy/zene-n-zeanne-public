@@ -8,6 +8,8 @@ import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 export default function Books() {
   const booksData = GetBooks()
@@ -51,7 +53,7 @@ export default function Books() {
   }
 
   return(
-    <Layout pageID="books" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID="books" />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="Books" description="Read Zene 'N Zeanne Books" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Books</ResponsiveHeader>
       <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={books} mediaCategories={booksCategories} defaultVersion={4} mediaSubCategoryName={"Volume"} />

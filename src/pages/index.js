@@ -6,10 +6,12 @@ import {GiPartyFlags} from "react-icons/gi";
 import {FaCross} from "react-icons/fa";
 import SEO from "../components/seo";
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 export default function Home() {
   return(
-    <Layout pageID="home" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID="home" />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="Home" description="Welcome to the Zene 'N Zeanne Official Website!" />
       <section className="py-3 hero">
         <div style={{textAlign: `center`, margin: 0}}>

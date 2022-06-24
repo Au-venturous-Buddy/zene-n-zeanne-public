@@ -27,11 +27,16 @@
   box-shadow: $shadowCenter;
 }
 
-.menu-button {
+#menu-bar .navbar-nav .nav-item {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+#menu-bar .navbar-nav .nav-item button {
   background-color: $secondaryColor;
 }
 
-.menu-button:hover {
+#menu-bar .navbar-nav .nav-item button:hover {
   box-shadow: $shadowCenter;
   background-color: $secondaryColor;
 }

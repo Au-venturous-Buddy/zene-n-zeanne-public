@@ -10,6 +10,8 @@ import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import CloseButton from "../components/close-button";
 import SEO from "../components/seo"
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 function VersionSelector({version, stateChangeFunction, closeFunction}) {
   const changeState = () => {
@@ -237,7 +239,7 @@ export default function Characters() {
   }
 
   return(
-    <Layout pageID="characters" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID="characters" />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="Characters" description="Characters - Meet the Characters of Zene 'N Zeanne" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Characters</ResponsiveHeader>
       <DisplayCharacters characterItems={characterGroups} />

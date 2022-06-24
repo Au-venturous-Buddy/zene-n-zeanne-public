@@ -8,6 +8,8 @@ import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 export default function Videos() {
   const videosData = GetVideos()
@@ -50,7 +52,7 @@ export default function Videos() {
   }
 
   return(
-    <Layout pageID="videos" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID="videos" />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="Videos" description="Watch Zene 'N Zeanne Videos" />
       <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Videos</ResponsiveHeader>
       <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />

@@ -3,10 +3,12 @@ import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
 import SEO from "../components/seo";
 import ResponsiveHeader from "../components/responsive-header";
+import SearchBox from "../components/search-box";
+import MenuWindow from "../components/menu-window";
 
 export default function FourZeroFour() {
   return(
-    <Layout pageID="home" showMenuBar={true}>
+    <Layout menuBarItems={[(<MenuWindow pageID={null} />), (<SearchBox />)]} showMenuBar={true}>
       <SEO title="404" description="Page Not Found!" />
       <section style={{marginBottom: `90px`}}>
         <div style={{textAlign: `center`}}>

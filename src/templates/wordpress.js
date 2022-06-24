@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -9,16 +9,57 @@ import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "../components/responsive-header";
 import { bionicReading } from 'bionic-reading';
 
-class AuSomeBlogsMultilingual extends React.Component {
+function SettingsWindow(props) {
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return(
+    <>
+    <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
+    <Modal show={show} onHide={handleClose} centered scrollable>
+        <Modal.Header className="justify-content-center">
+          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+            <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <section className="mb-3">
+            <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                Language
+              </ResponsiveHeader>
+            </div>
+            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={props.changeLanguage} value={props.state.currentLanguage}>
+              {props.languageOptions}
+            </Form.Control>
+          </section>
+          <section className="mb-3">
+              <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                  Mode
+                </ResponsiveHeader>
+              </div>
+            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={props.changeMode} value={props.state.currentMode}>
+              {props.modeOptions}
+            </Form.Control>
+          </section>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <CloseButton handleClose={handleClose} />
+        </Modal.Footer>
+      </Modal>
+    </>
+  )
+}
+
+export default class WordpressBlog extends React.Component {
   state = {
-    show: false,
     currentLanguage: 'English',
     currentMode: 'Original',
     currentSize: 65
   }
-
-  handleClose = () => this.setState({ show: false })
-  handleShow = () => this.setState({ show: true })
 
   changeLanguage = () => {
     var language = document.getElementById("language-selector").value;
@@ -114,7 +155,7 @@ class AuSomeBlogsMultilingual extends React.Component {
     }
 
     return(
-      <>
+      <Layout menuBarItems={[(<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <div>
         <div style={{textAlign: "center", color: "white"}}>
@@ -122,57 +163,15 @@ class AuSomeBlogsMultilingual extends React.Component {
             {metadataItems.childMarkdownRemark.frontmatter.title}
           </ResponsiveHeader>
         </div>
-        <div className="mt-3">
-          <SettingsButton fontButtonSize={this.props.fontButtonSize} handleShow={this.handleShow} />
-        </div>
         <article lang={currentLanguageCode} className={`mt-3 p-3 ${metadataItems.childMarkdownRemark.frontmatter.format}`} style={{textAlign: "justify"}}>
           {sections}
         </article>
       </div>
-      <Modal show={this.state.show} onHide={this.handleClose} centered scrollable>
-        <Modal.Header className="justify-content-center">
-          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
-            <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <section className="mb-3">
-            <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
-                Language
-              </ResponsiveHeader>
-            </div>
-            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={this.changeLanguage} value={this.state.currentLanguage}>
-              {languageOptions}
-            </Form.Control>
-          </section>
-          <section className="mb-3">
-              <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
-                  Mode
-                </ResponsiveHeader>
-              </div>
-            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={this.changeMode} value={this.state.currentMode}>
-              {modeOptions}
-            </Form.Control>
-          </section>
-        </Modal.Body>
-        <Modal.Footer className="justify-content-center">
-          <CloseButton handleClose={this.handleClose} />
-        </Modal.Footer>
-      </Modal>
-      </>
+      </Layout>
     )
   }
 }
 
-export default function AuSomeBlogs({ data }) {
-  return (
-    <Layout>
-      <AuSomeBlogsMultilingual data={data} fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} />
-    </Layout>
-  )
-}
 export const query = graphql`
 query($pagePath: String!) {
   allFile(

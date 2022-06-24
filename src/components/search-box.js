@@ -1,5 +1,5 @@
 import React from "react"
-import {Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import CloseButton from "./close-button";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 import {AiOutlineClear} from "react-icons/ai";
@@ -8,6 +8,12 @@ import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "./responsive-header";
 import {GetSearchItems} from "../hooks/get-search-items";
 import SearchResultPreview from "./search-result-preview";
+
+const helpTooltip = (message, props) => (
+    <Tooltip {...props}>
+      {message}
+    </Tooltip>
+  );
 
 class RecentSearchItem extends React.Component {
     itemClick = () => {
@@ -141,9 +147,15 @@ class SearchBoxMain extends React.Component {
 
         return(
             <>
-                <Button className="menu-button mx-1" lang="en" dir="ltr" onClick={this.handleShow}>
+                <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 250 }}
+                    overlay={helpTooltip("Search")}
+                >
+                <Button style={this.props.buttonSize} lang="en" dir="ltr" onClick={this.handleShow}>
                     <FaSearch aria-hidden={true} />
                 </Button>
+                </OverlayTrigger>
                 <Modal size="xl" show={this.state.show} onHide={this.handleClose} centered scrollable>
                     <Modal.Header className="justify-content-center bold-text px-0">
                         <section className="px-0">
@@ -231,6 +243,6 @@ export default function SearchBox() {
     }
 
     return(
-        <SearchBoxMain fontSize={fontSize} searchItems={searchItems} />
+        <SearchBoxMain buttonSize={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} fontSize={fontSize} searchItems={searchItems} />
     )
 }
