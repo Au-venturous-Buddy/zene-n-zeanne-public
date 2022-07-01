@@ -84,7 +84,7 @@ export default class WordpressBlog extends React.Component {
     var bionicReadingFixationRaw = document.getElementById("bionic-reading-fixation-selector").value;
     var bionicReadingFixation = 0;
     if(bionicReadingFixationRaw >= 1 && bionicReadingFixationRaw <= Math.round((1 / 3) * 100)) {
-      bionicReadingFixation = 1;
+      bionicReadingFixation = 5;
       this.setState({currentBionicReadingFixationIndex: 1})
     }
     else if(bionicReadingFixationRaw > Math.round((1 / 3) * 100) && bionicReadingFixationRaw <= Math.round((2 / 3) * 100)) {
@@ -92,7 +92,7 @@ export default class WordpressBlog extends React.Component {
       this.setState({currentBionicReadingFixationIndex: 2})
     }
     else if(bionicReadingFixationRaw > Math.round((2 / 3) * 100) && bionicReadingFixationRaw <= 100) {
-      bionicReadingFixation = 5;
+      bionicReadingFixation = 1;
       this.setState({currentBionicReadingFixationIndex: 3})
     }
     else {

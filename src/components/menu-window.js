@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Modal, Button} from 'react-bootstrap'
+import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import { GiHamburgerMenu } from "react-icons/gi";
 import CloseButton from "./close-button";
 import ResponsiveHeader from "./responsive-header";
@@ -11,6 +11,12 @@ import {FaBook} from "react-icons/fa";
 import { GiPerson } from "react-icons/gi";
 import {AiOutlineAlignCenter, AiFillHeart} from "react-icons/ai"
 import ResponsiveSize from "../hooks/responsive-size";
+
+const helpTooltip = (message, props) => (
+  <Tooltip {...props}>
+    {message}
+  </Tooltip>
+);
 
 function MenuWindowMain({menuItems, pageID}) {
     const [show, setShow] = useState(false);
@@ -47,9 +53,15 @@ function MenuWindowMain({menuItems, pageID}) {
   
     return(
       <>
+        <OverlayTrigger
+          placement="top"
+          delay={{ show: 250, hide: 250 }}
+          overlay={helpTooltip("Main Menu")}
+        >
         <Button style={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} aria-label={"Menu" + ((!(pageID === null)) ? (" - " + menuItems[pageID]["text"]) : "")} onClick={handleShow}>
           <span aria-hidden><GiHamburgerMenu /> {menuButtonText}</span>
         </Button>
+        </OverlayTrigger>
         <Modal size="md" show={show} onHide={handleClose} centered scrollable>
           <Modal.Header className="justify-content-center">
             <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
