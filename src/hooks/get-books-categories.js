@@ -13,7 +13,9 @@ export const GetBooksCategories = () => {
                 relativeDirectory
                 name
                 ext
-                publicURL
+                childImageSharp {
+                  gatsbyImageData
+                }
               }
             }
           }

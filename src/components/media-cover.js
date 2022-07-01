@@ -4,8 +4,9 @@ import { Button, Modal, Badge } from "react-bootstrap"
 import CloseButton from "./close-button";
 import ResponsiveHeader from "./responsive-header";
 import {QRCodeSVG} from 'qrcode.react';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem, playNowText}) {
+export default function MediaCover({title, cover, synopsis, slug, showBadge, badgeItem}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,9 +26,9 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
       <>
       <Button aria-label={`${title} - ${badgeItem}`} className="view img-button media-preview m-2" onClick={handleShow}>
         <div aria-hidden={true}>
-          <img
+          <GatsbyImage
             className="d-block w-100 media-preview-image"
-            src={cover}
+            image={getImage(cover)}
             alt={title}
           />
           <section className="m-3 media-preview-title">
@@ -48,9 +49,9 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
         </Modal.Header>
         <Modal.Body style={{textAlign: "justify", color: "#017BFF"}}>
           <section>
-            <img
+            <GatsbyImage
               className="hover-shadow-card d-block w-100 mb-3"
-              src={cover}
+              image={getImage(cover)}
               alt={title}
             />
             {synopsis}

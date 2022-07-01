@@ -13,7 +13,9 @@ export const GetVideosCovers = () => {
                 relativeDirectory
                 name
                 ext
-                publicURL
+                childImageSharp {
+                  gatsbyImageData
+                }
               }
             }
           }

@@ -20,7 +20,7 @@ export default function Books() {
   
   for(var i = 0; i < booksData.allFile.edges.length; i++) {
     var bookData = booksData.allFile.edges[i].node.childMarkdownRemark;
-    var bookCover = booksCovers.allFile.edges[i].node.publicURL;
+    var bookCover = booksCovers.allFile.edges[i].node;
 
     var displayBookCover = (
       <div

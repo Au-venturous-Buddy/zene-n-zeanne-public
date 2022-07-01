@@ -12,6 +12,7 @@ import SEO from "../components/seo"
 import ResponsiveHeader from "../components/responsive-header";
 import SearchBox from "../components/search-box";
 import MenuWindow from "../components/menu-window";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function VersionSelector({version, stateChangeFunction, closeFunction}) {
   const changeState = () => {
@@ -54,10 +55,10 @@ function CharacterProfile({info, profilePic, photo}) {
     }
 
     var displayProfilePic = (
-      <img
+      <GatsbyImage
         className="d-block w-100"
         style={{border: "4px solid #017BFF", borderRadius: "50%"}}
-        src={profilePic}
+        image={getImage(profilePic)}
         alt={info.frontmatter.name}
         aria-hidden={true}
       />
@@ -90,9 +91,9 @@ function CharacterProfile({info, profilePic, photo}) {
               paddingBottom: `5%`
             }}
           >
-            <img
+            <GatsbyImage
               className="d-block w-100"
-              src={photo}
+              image={getImage(photo)}
               alt={info.frontmatter.name}
               aria-hidden={true}
             />
@@ -206,8 +207,8 @@ export default function Characters() {
   var charactersSearch = [];
   for(var i = 0; i < characterInfo.allFile.edges.length; i++) {
     var personalInfo = characterInfo.allFile.edges[i].node.childMarkdownRemark;
-    var personalProfilePic = characterProfilePics.allFile.edges[i].node.publicURL;
-    var personalPhoto = characterPhotos.allFile.edges[i].node.publicURL;
+    var personalProfilePic = characterProfilePics.allFile.edges[i].node;
+    var personalPhoto = characterPhotos.allFile.edges[i].node;
 
     var personalProfile = (
       <GridListTile key={i}>

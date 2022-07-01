@@ -17,7 +17,6 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@popperjs/core": "^2.9.1",
-    "bionic-reading": "^1.2.2",
     "bootstrap": "^4.6.0",
     "gatsby": "^4.11.1",
     "gatsby-background-image": "^1.5.0",
@@ -46,6 +45,7 @@
     "react-typography": "^0.16.19",
     "sass": "^1.32.8",
     "slick-carousel": "^1.8.1",
+    "text-vide": "^1.5.0",
     "typography": "^0.16.19",
     "typography-theme-fairy-gates": "^0.16.19"
   },

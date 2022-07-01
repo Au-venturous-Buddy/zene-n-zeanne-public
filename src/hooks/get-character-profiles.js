@@ -13,7 +13,9 @@ export const GetCharacterProfiles = () => {
                 relativeDirectory
                 name
                 ext
-                publicURL
+                childImageSharp {
+                  gatsbyImageData
+                }
               }
             }
           }

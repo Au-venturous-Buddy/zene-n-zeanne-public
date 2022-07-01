@@ -33,10 +33,10 @@ exports.createPages = async({graphql, actions}) => {
     `)
     
     result.data.allMarkdownRemark.edges.forEach(({node}) => {
-          if(node.frontmatter.format === "wordpress" || node.frontmatter.format === "ausome-blogs") {
+          if(node.frontmatter.format === "wordpress" || node.frontmatter.format === "wordpress-v2022_2" || node.frontmatter.format === "ausome-blogs") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve(`./src/templates/wordpress.js`),
+                component: path.resolve(`./src/templates/wordpress-v2022_2.js`),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -44,10 +44,21 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
-          else if(node.frontmatter.format === "caption-slideshow") {
+          if(node.frontmatter.format === "wordpress-v2022_1") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/caption-slideshow.js'),
+                component: path.resolve(`./src/templates/wordpress-v2022_1.js`),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format === "caption-slideshow-v2022_1") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/caption-slideshow-v2022_1.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.

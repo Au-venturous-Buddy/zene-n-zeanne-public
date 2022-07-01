@@ -19,7 +19,7 @@ export default function Videos() {
   var videos = {};
   for(var i = 0; i < videosData.allFile.edges.length; i++) {
     var videoData = videosData.allFile.edges[i].node.childMarkdownRemark;
-    var videoCover = videosCovers.allFile.edges[i].node.publicURL;
+    var videoCover = videosCovers.allFile.edges[i].node;
 
     var displayVideoCover = (
       <div

@@ -6,7 +6,7 @@ version: 2
 volume: 2
 issue: 1
 category: "Facebook Gallery"
-format: "caption-slideshow"
+format: "caption-slideshow-v2022_1"
 synopsis: "Get to know the favorite intramurals sports of Zene, Zeanne, and their friends!"
 modes: [
     {mode_name: "Original", call_at: [0, 1, 2, 3, 4, 5, 6]},

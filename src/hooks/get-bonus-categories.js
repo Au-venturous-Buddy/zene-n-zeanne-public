@@ -13,7 +13,9 @@ export const GetBonusCategories = () => {
                 relativeDirectory
                 name
                 ext
-                publicURL
+                childImageSharp {
+                  gatsbyImageData
+                }
               }
             }
           }

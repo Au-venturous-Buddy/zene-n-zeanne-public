@@ -1,11 +1,11 @@
 import React from "react"
 import { Button, Modal, Container, Row } from "react-bootstrap"
 import CloseButton from "./close-button";
-import {GiHamburgerMenu} from "react-icons/gi";
 import {BsCaretDownFill} from "react-icons/bs";
 import {GridList, GridListTile} from '@material-ui/core';
 import CategoryFolder from "./category-folder";
 import ResponsiveHeader from "./responsive-header"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function VersionSelector({version, stateChangeFunction, closeFunction}) {
     const changeState = () => {
@@ -51,10 +51,10 @@ export default class MediaLibrary extends React.Component {
               >
                 <CategoryFolder buttonClassName="view category-button p-3 m-3" buttonStyle={{color: "#FFF"}} maxColumns={4} columnBreakpoints={[1200, 990, 520]} category={currentValue.name} contents={mediaCurrentVersion[currentValue.name]} subcategoryName={this.props.mediaSubCategoryName}>
                   <div aria-hidden={true}>
-                    <img
+                    <GatsbyImage
                       className="d-block w-100"
                       style={{border: "4px solid #017BFF", borderRadius: "20%"}}
-                      src={currentValue.publicURL}
+                      image={getImage(currentValue)}
                       alt={currentValue.name}
                     />
                     <div className="m-1 bold-text category-caption" style={{textAlign: "center"}}>

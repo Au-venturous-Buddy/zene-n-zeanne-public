@@ -6,16 +6,14 @@ export default function MenuBar({ menuBarItems }) {
       <Navbar id="menu-bar" className="justify-content-center py-0" variant="dark">
         <Nav className="m-2" style={{borderRadius: 10}} fill>
           {menuBarItems.map((item, index) => (
-            <Nav.Item key={index} className="p-1 my-1">
+            (menuBarItems.length > 1 && index === 0) ?
+            (<Nav.Item key={index} className="p-1 my-1 ml-1">
               {item}
-            </Nav.Item>
+            </Nav.Item>) :
+            (<Nav.Item key={index} className="p-1 m-1">
+              {item}
+            </Nav.Item>)
           ))}
-          {/*<Nav.Item className="p-1 my-1">
-            <MenuWindow menuItems={menuItems} pageID={pageID} />
-          </Nav.Item>
-          <Nav.Item className="p-1 my-1">
-            <SearchBox />
-          </Nav.Item>*/}
         </Nav>
       </Navbar>
     )

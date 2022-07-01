@@ -7,7 +7,7 @@ import SettingsButton from "../components/settings-button";
 import CloseButton from "../components/close-button";
 import ResponsiveSize from "../hooks/responsive-size";
 import ResponsiveHeader from "../components/responsive-header";
-import { bionicReading } from 'bionic-reading';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function SettingsWindow(props) {
   const [show, setShow] = useState(false);
@@ -104,9 +104,6 @@ export default class WordpressBlog extends React.Component {
     var languageOptions = []
     languages.forEach((value) => {
       languageOptions.push(<option key={value}>{value}</option>)
-      if(metadataItems.childMarkdownRemark.frontmatter.format === "ausome-blogs") {
-        languageOptions.push(<option key={value + "-Bionic"}>{value + "-Bionic"}</option>)
-      }
     })
 
     var modeOptions = []
@@ -129,9 +126,6 @@ export default class WordpressBlog extends React.Component {
     while(sectionNum <= maxSectionNum && callAtIndex < callAt.length) {
       if(nextTextID < texts.length && parseInt(texts[nextTextID].name) === sectionNum) {
         var currentTextHTML = texts[nextTextID].childMarkdownRemark.html;
-        if(this.state.currentLanguage.includes("-Bionic")) {
-          currentTextHTML = bionicReading(currentTextHTML);
-        }
         currentText = (<section className="my-2" dangerouslySetInnerHTML={{ __html: currentTextHTML }}></section>);
         nextTextID++;
       }
@@ -139,7 +133,7 @@ export default class WordpressBlog extends React.Component {
       if(nextImageID < images.length && parseInt(images[nextImageID].name) === sectionNum) {
         currentImage = (
           <section className="my-2 center-image">
-            <img width="60%" alt={imagesAlt[sectionNum]} src={images[nextImageID].publicURL} />
+            <GatsbyImage style={{maxWidth: "60%"}} alt={imagesAlt[sectionNum]} image={getImage(images[nextImageID])} />
           </section>
         );
         nextImageID++;
@@ -155,7 +149,7 @@ export default class WordpressBlog extends React.Component {
     }
 
     return(
-      <Layout menuBarItems={[(<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} />)]} showMenuBar={true}>
+      <Layout menuBarItems={[(<SettingsWindow state={this.state} version={metadataItems.childMarkdownRemark.frontmatter.version} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <div>
         <div style={{textAlign: "center", color: "white"}}>
@@ -195,7 +189,11 @@ query($pagePath: String!) {
               call_at
             }
             format
+            version
           }
+        }
+        childImageSharp {
+          gatsbyImageData
         }
       }
     }

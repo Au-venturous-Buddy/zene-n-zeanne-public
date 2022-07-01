@@ -11,6 +11,8 @@ import Slider from "react-slick";
 import NextArrow from "../components/next-arrow";
 import PrevArrow from "../components/prev-arrow";
 import {GridList, GridListTile} from '@material-ui/core';
+import { textVide } from 'text-vide';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -34,9 +36,9 @@ function SlideThumbnail({page, index, goToPage, closeFunction}) {
       }}
     >
       <Button aria-label={`Page ${index + 1}`} className="view img-button" onClick={changeSlide}>
-        <img
+        <GatsbyImage
           className="d-block w-100"
-          src={page.publicURL}
+          image={getImage(page)}
           alt={page.name}
           aria-hidden={true}
         />
@@ -117,15 +119,31 @@ function CaptionSlideshowToggle(props) {
 function generatePages(images, captions, callAt) {
   var pages = [];
   var dialogue = [];
+  var pageNum = 0;
+  var maxPageNum = Math.max(parseInt(images[images.length - 1].name), parseInt(captions[captions.length - 1].name));
+  var currentScene = null;
+  var currentDialogue = "";
+  var nextDialogueID = 0;
+  var nextSceneID = 0;
   var callAtIndex = 0;
-  var imageIndex = 0;
-  while(imageIndex < images.length && callAtIndex < callAt.length) {
-    if(callAt[callAtIndex] === imageIndex) {
-      pages.push(images[imageIndex])
-      dialogue.push(captions[imageIndex]) 
+  while(pageNum <= maxPageNum && callAtIndex < callAt.length) {
+    if(nextDialogueID < captions.length && parseInt(captions[nextDialogueID].name) === pageNum) {
+      currentDialogue = captions[nextDialogueID].childMarkdownRemark.html;
+      nextDialogueID++;
+    }
+
+    if(nextSceneID < images.length && parseInt(images[nextSceneID].name) === pageNum) {
+      currentScene = images[nextSceneID];
+      nextSceneID++;
+    }
+
+    if(callAt[callAtIndex] === pageNum) {
+      pages.push(currentScene)
+      dialogue.push(currentDialogue) 
       callAtIndex++;
     }
-    imageIndex++;
+
+    pageNum++;
   }
 
   return {"pages": pages, "dialogue": dialogue};
@@ -169,6 +187,12 @@ function SettingsWindow(props) {
           </div>
           <Form.Control className="hover-shadow custom-range" id="page-size" type="range" onInput={props.changePageSize} onChange={props.changePageSize} value={props.state.currentSize} />
         </section>
+        <section className="mb-3">
+          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Bionic Reading Level: ${props.state.currentBionicReadingFixationIndex}`}</ResponsiveHeader>
+          </div>
+          <Form.Control className="hover-shadow custom-range" id="bionic-reading-fixation-selector" type="range" onInput={props.changeBionicReadingFixation} onChange={props.changeBionicReadingFixation} value={Math.round((props.state.currentBionicReadingFixationIndex / 3) * 100)} />
+        </section>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
         <CloseButton handleClose={handleClose} />
@@ -185,6 +209,8 @@ export default class CaptionSlideshow extends React.Component {
     currentSize: 65,
     slideIndex: 0,
     updateCount: 0,
+    currentBionicReadingFixationIndex: 0,
+    currentBionicReadingFixation: 0
   }
 
   changeLanguage = () => {
@@ -206,6 +232,29 @@ export default class CaptionSlideshow extends React.Component {
     this.slider.slickGoTo(page);
   }
 
+  changeBionicReadingFixation = () => {
+    var bionicReadingFixationRaw = document.getElementById("bionic-reading-fixation-selector").value;
+    var bionicReadingFixation = 0;
+    if(bionicReadingFixationRaw >= 1 && bionicReadingFixationRaw <= Math.round((1 / 3) * 100)) {
+      bionicReadingFixation = 1;
+      this.setState({currentBionicReadingFixationIndex: 1})
+    }
+    else if(bionicReadingFixationRaw > Math.round((1 / 3) * 100) && bionicReadingFixationRaw <= Math.round((2 / 3) * 100)) {
+      bionicReadingFixation = 4;
+      this.setState({currentBionicReadingFixationIndex: 2})
+    }
+    else if(bionicReadingFixationRaw > Math.round((2 / 3) * 100) && bionicReadingFixationRaw <= 100) {
+      bionicReadingFixation = 5;
+      this.setState({currentBionicReadingFixationIndex: 3})
+    }
+    else {
+      bionicReadingFixation = 0;
+      this.setState({currentBionicReadingFixationIndex: 0})
+    }
+
+    this.setState({currentBionicReadingFixation: bionicReadingFixation})
+  }
+
   render() {
     var metadataItems = null;
     var images = [];
@@ -218,10 +267,14 @@ export default class CaptionSlideshow extends React.Component {
         images.push(nodeItem);
       }
       else if(nodeItem.ext === ".md" && nodeItem.relativeDirectory.includes("captions")) {
-        languages.add(nodeItem.name)
-        if(nodeItem.name === this.state.currentLanguage) {
-          captions = nodeItem.childMarkdownRemark.frontmatter.captions
-          currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
+        languages.add(nodeItem.relativeDirectory.split("/")[nodeItem.relativeDirectory.split("/").length - 1])
+        if(nodeItem.relativeDirectory.includes("captions/" + this.state.currentLanguage.split("-")[0])) {
+          if(nodeItem.name === "image-alt") {
+            currentLanguageCode = nodeItem.childMarkdownRemark.frontmatter.language_code
+          }
+          else {
+            captions.push(nodeItem);
+          }
         }
       }
       else if(nodeItem.ext === ".md" && nodeItem.name === "index") {
@@ -258,7 +311,7 @@ export default class CaptionSlideshow extends React.Component {
     };
 
     return(
-    <Layout menuBarItems={[(<CaptionSlideshowToggle state={this.state} goToPage={this.goToPage}>{pagesDialogue["pages"]}</CaptionSlideshowToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} />)]} showMenuBar={true}>
+    <Layout menuBarItems={[(<CaptionSlideshowToggle state={this.state} goToPage={this.goToPage}>{pagesDialogue["pages"]}</CaptionSlideshowToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <div style={{textAlign: 'center'}}>
         <Container className="my-5" style={{width: this.state.currentSize.toString() + "%"}}>
@@ -269,17 +322,17 @@ export default class CaptionSlideshow extends React.Component {
           <Slider ref={slider => (this.slider = slider)} {...settings}>
             {pagesDialogue["pages"].map((page, index) => (
               <div className="view">
-                <img
+                <GatsbyImage
                   className="d-block w-100"
-                    src={page.publicURL}
-                    alt={page.name}
+                  image={getImage(page)}
+                  alt={page.name}
                 />
               </div>
             ))}
           </Slider>
         </section>
         <section lang={currentLanguageCode} className='mt-3' style={{textAlign: 'justify'}}>
-          <p dangerouslySetInnerHTML={{__html: pagesDialogue["dialogue"][this.state.slideIndex]}}>
+          <p dangerouslySetInnerHTML={{__html: (this.state.currentBionicReadingFixation > 0) ? textVide(pagesDialogue["dialogue"][this.state.slideIndex], { sep: ['<span style="color: #FFFF00">', '</span>'], fixationPoint: this.state.currentBionicReadingFixation}) : pagesDialogue["dialogue"][this.state.slideIndex]}}>
           </p>
         </section>
         </Container>
@@ -300,17 +353,19 @@ export const query = graphql`
           name
           ext
           relativeDirectory
-          publicURL
           childMarkdownRemark {
             frontmatter {
               title
               language_code
-              captions
               modes {
                 mode_name
                 call_at
               }
             }
+            html
+          }
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }

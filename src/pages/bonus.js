@@ -21,7 +21,7 @@ export default function Bonus() {
   var bonus = {};
   for(var i = 0; i < bonusData.allFile.edges.length; i++) {
     var bonusItemData = bonusData.allFile.edges[i].node.childMarkdownRemark;
-    var bonusItemCover = bonusCovers.allFile.edges[i].node.publicURL;
+    var bonusItemCover = bonusCovers.allFile.edges[i].node;
 
     var displayBonusItemCover = (
       <div

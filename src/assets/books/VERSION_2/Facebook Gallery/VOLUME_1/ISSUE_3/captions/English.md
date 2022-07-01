@@ -1,9 +1,0 @@
----
-language_code: "en"
-captions: [
-    "",
-    "Zene, Zeanne, and their friends and classmates Katie, Dani, Ilimee, Leo, and Carlo had a blast during their Christmas Party! They had fun playing games, among them was Pinoy Henyo, a game wherein one player asks questions about the object he or she is guessing about while his or her partner answers those questions with oo, hindi, or pwede (that's Filipino for yes, no, or maybe, respectively). You should try playing that too! 🙂 #FanTAZZticNation #KrisKringleBells",
-    "The food during the Christmas Party was also #AweZeanne! Aside from the Pinoy Spaghetti and the Hotdog and Marshmallow Kebabs Zene and Zeanne brought, they also loved the Fried Chicken of Carlo, the BBQ Sticks of Dani, the Pepperoni Pizza of Leo, the Mini Siopao Asado of Katie, and let's not forget the Mini Skillet Brownies of Ilimee (her parents BTW owns the Spectrum Cafe and Bakery, which is famous for those skillet brownies). 🙂 #FanTAZZticNation #KrisKringleBells",
-    "And last but not the least, they have the exchange gifts...with a twist! Rather than giving their kris-kringle toys and books to each other, they decided to give it to the less fortunate (aside from relief goods and Bibles), most especially to those affected by the recent typhoons and conflicts in the south. Zene, Zeanne, and their friends indeed learned something from this experience: That God loved the world so much that He sent His Only Son Jesus Christ to die on the cross for our sins. Indeed, Salvation, the greatest gift this Christmas, is for all! 🙂 #FanTAZZticNation #KrisKringleBells"
-    ]
----

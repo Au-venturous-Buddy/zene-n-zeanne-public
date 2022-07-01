@@ -11,6 +11,7 @@ import Slider from "react-slick";
 import NextArrow from "../components/next-arrow";
 import PrevArrow from "../components/prev-arrow";
 import {GridList, GridListTile} from '@material-ui/core';
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -125,9 +126,9 @@ function Page({scene, dialogue, keyID}) {
   )
   if(dialogue) {
     dialogueRender = (
-      <img
+      <GatsbyImage
         className="d-block w-100"
-        src={dialogue.publicURL}
+        image={getImage(dialogue)}
         alt={keyID}
       />
     )
@@ -135,9 +136,9 @@ function Page({scene, dialogue, keyID}) {
 
   return(
   <div aria-hidden={true} className="view">
-    <img
+    <GatsbyImage
       className="d-block w-100"
-      src={scene.publicURL}
+      image={getImage(scene)}
       alt={keyID}
     />
     <TextLayer>
@@ -309,6 +310,7 @@ export default class ComicStripMultiLingual extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: false,
+      lazyLoad: true,
       beforeChange: (current, next) => this.setState({ slideIndex: next })
     };
 
@@ -316,7 +318,7 @@ export default class ComicStripMultiLingual extends React.Component {
       <Layout menuBarItems={[(<ComicStripToggle state={this.state} goToPage={this.goToPage}>{pages}</ComicStripToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} />)]} showMenuBar={true}>
         <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
         <div style={{textAlign: 'center'}}>
-          <Container className="my-5" style={{width: this.state.currentSize.toString() + "%"}}>
+          <Container className="my-5" style={{maxWidth: this.state.currentSize.toString() + "%"}}>
           <section className="mb-5" style={{color: "#fff", textAlign: "center"}}>
             <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>{metadataItems.childMarkdownRemark.frontmatter.title}</ResponsiveHeader>
           </section>
@@ -343,7 +345,6 @@ export const query = graphql`
           name
           ext
           relativeDirectory
-          publicURL
           childMarkdownRemark {
             frontmatter {
               title
@@ -354,6 +355,9 @@ export const query = graphql`
               language_code
               dialogue_alt
             }
+          }
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }
