@@ -331,3 +331,18 @@ ul.bullet-points li {
     color: #fff;
   }
 }
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  text-align: center;
+  color: $primaryColor;
+}
+
+.radio-button,
+.radio-button:focus,
+.radio-button:hover {
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: white;
+}

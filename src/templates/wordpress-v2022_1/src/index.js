@@ -1,12 +1,12 @@
 import React, {useState} from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../../../components/layout"
+import SEO from "../../../components/seo"
 import { Modal, Form } from "react-bootstrap";
-import SettingsButton from "../components/settings-button";
-import CloseButton from "../components/close-button";
-import ResponsiveSize from "../hooks/responsive-size";
-import ResponsiveHeader from "../components/responsive-header";
+import SettingsButton from "../../../components/settings-button";
+import CloseButton from "../../../components/close-button";
+import ResponsiveSize from "../../../hooks/responsive-size";
+import ResponsiveHeader from "../../../components/responsive-header";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function SettingsWindow(props) {

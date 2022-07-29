@@ -1,17 +1,18 @@
 import React, {useState} from "react";
-import Layout from "../components/layout"
+import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
 import { Container, Button, ButtonGroup, Modal, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import CloseButton from "../components/close-button";
-import SettingsButton from "../components/settings-button";
-import ResponsiveSize from "../hooks/responsive-size";
-import SEO from "../components/seo";
-import ResponsiveHeader from "../components/responsive-header";
+import CloseButton from "../../../components/close-button";
+import SettingsButton from "../../../components/settings-button";
+import ResponsiveSize from "../../../hooks/responsive-size";
+import SEO from "../../../components/seo";
+import ResponsiveHeader from "../../../components/responsive-header";
 import Slider from "react-slick";
-import NextArrow from "../components/next-arrow";
-import PrevArrow from "../components/prev-arrow";
+import NextArrow from "../../../components/next-arrow";
+import PrevArrow from "../../../components/prev-arrow";
 import {GridList, GridListTile} from '@material-ui/core';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import RangeSlider from 'react-bootstrap-range-slider';
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -216,10 +217,10 @@ function SettingsWindow(props) {
           </Form.Control>
         </section>
         <section className="mb-3">
-          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Page Size: ${props.state.currentSize}%`}</ResponsiveHeader>
+          <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Page Size`}</ResponsiveHeader>
           </div>
-          <Form.Control className="hover-shadow custom-range" id="page-size" type="range" onInput={props.changePageSize} onChange={props.changePageSize} value={props.state.currentSize} />
+          <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipLabel={currentValue => `${currentValue}%`} tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changePageSize(changeEvent.target.value)} value={props.state.currentSize} />
         </section>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
@@ -249,9 +250,8 @@ export default class ComicStripMultiLingual extends React.Component {
     this.setState({currentMode: mode});
   }
 
-  changePageSize = () => {
-    var size = document.getElementById("page-size").value;
-    this.setState({currentSize: size})
+  changePageSize = (pageSizeValue) => {
+    this.setState({currentSize: pageSizeValue})
   }
 
   goToPage = (page) => {

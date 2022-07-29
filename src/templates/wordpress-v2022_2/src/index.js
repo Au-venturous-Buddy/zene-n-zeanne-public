@@ -1,14 +1,15 @@
 import React, {useState} from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../../../components/layout"
+import SEO from "../../../components/seo"
 import { Modal, Form } from "react-bootstrap";
-import SettingsButton from "../components/settings-button";
-import CloseButton from "../components/close-button";
-import ResponsiveSize from "../hooks/responsive-size";
-import ResponsiveHeader from "../components/responsive-header";
+import SettingsButton from "../../../components/settings-button";
+import CloseButton from "../../../components/close-button";
+import ResponsiveSize from "../../../hooks/responsive-size";
+import ResponsiveHeader from "../../../components/responsive-header";
 import { textVide } from 'text-vide';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import RangeSlider from 'react-bootstrap-range-slider';
 
 function SettingsWindow(props) {
   const [show, setShow] = useState(false);
@@ -47,11 +48,11 @@ function SettingsWindow(props) {
             </Form.Control>
           </section>
           <section className="mb-3">
-            <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Bionic Reading Level: ${props.state.currentBionicReadingFixationIndex}`}</ResponsiveHeader>
-            </div>
-            <Form.Control className="hover-shadow custom-range" id="bionic-reading-fixation-selector" type="range" onInput={props.changeBionicReadingFixation} onChange={props.changeBionicReadingFixation} value={Math.round((props.state.currentBionicReadingFixationIndex / 3) * 100)} />
-          </section>
+          <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Bionic Reading Level`}</ResponsiveHeader>
+          </div>
+          <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
+        </section>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <CloseButton handleClose={handleClose} />
@@ -80,27 +81,22 @@ export default class WordpressBlog extends React.Component {
     this.setState({currentMode: mode});
   }
   
-  changeBionicReadingFixation = () => {
-    var bionicReadingFixationRaw = document.getElementById("bionic-reading-fixation-selector").value;
-    var bionicReadingFixation = 0;
-    if(bionicReadingFixationRaw >= 1 && bionicReadingFixationRaw <= Math.round((1 / 3) * 100)) {
-      bionicReadingFixation = 5;
-      this.setState({currentBionicReadingFixationIndex: 1})
-    }
-    else if(bionicReadingFixationRaw > Math.round((1 / 3) * 100) && bionicReadingFixationRaw <= Math.round((2 / 3) * 100)) {
-      bionicReadingFixation = 4;
-      this.setState({currentBionicReadingFixationIndex: 2})
-    }
-    else if(bionicReadingFixationRaw > Math.round((2 / 3) * 100) && bionicReadingFixationRaw <= 100) {
-      bionicReadingFixation = 1;
-      this.setState({currentBionicReadingFixationIndex: 3})
-    }
-    else {
-      bionicReadingFixation = 0;
-      this.setState({currentBionicReadingFixationIndex: 0})
+  changeBionicReadingFixation = (bionicReadingFixationRaw) => {
+    switch(parseInt(bionicReadingFixationRaw)) {
+      case 1:
+        this.setState({currentBionicReadingFixation: 5});
+        break;
+      case 2:
+        this.setState({currentBionicReadingFixation: 4});
+        break;
+      case 3:
+        this.setState({currentBionicReadingFixation: 1});
+        break;
+      default:
+        this.setState({currentBionicReadingFixation: 0});
     }
 
-    this.setState({currentBionicReadingFixation: bionicReadingFixation})
+    this.setState({currentBionicReadingFixationIndex: parseInt(bionicReadingFixationRaw)});
   }
 
   render() {

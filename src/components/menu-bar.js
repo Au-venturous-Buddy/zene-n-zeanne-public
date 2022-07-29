@@ -9,10 +9,15 @@ export default function MenuBar({ menuBarItems }) {
             (menuBarItems.length > 1 && index === 0) ?
             (<Nav.Item key={index} className="p-1 my-1 ml-1">
               {item}
-            </Nav.Item>) :
-            (<Nav.Item key={index} className="p-1 m-1">
-              {item}
-            </Nav.Item>)
+            </Nav.Item>) : (
+              (index === menuBarItems.length - 1) ?
+              (<Nav.Item key={index} className="p-1 m-1">
+                {item}
+              </Nav.Item>) :
+              (<Nav.Item key={index} className="p-1 my-1 ml-1">
+                {item}
+              </Nav.Item>)
+            )
           ))}
         </Nav>
       </Navbar>

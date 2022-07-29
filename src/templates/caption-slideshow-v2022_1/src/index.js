@@ -1,18 +1,19 @@
 import React, {useState} from "react";
-import Layout from "../components/layout"
+import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
 import { Container, Button, ButtonGroup, Modal, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import CloseButton from "../components/close-button";
-import SettingsButton from "../components/settings-button";
-import ResponsiveSize from "../hooks/responsive-size";
-import SEO from "../components/seo";
-import ResponsiveHeader from "../components/responsive-header";
+import CloseButton from "../../../components/close-button";
+import SettingsButton from "../../../components/settings-button";
+import ResponsiveSize from "../../../hooks/responsive-size";
+import SEO from "../../../components/seo";
+import ResponsiveHeader from "../../../components/responsive-header";
 import Slider from "react-slick";
-import NextArrow from "../components/next-arrow";
-import PrevArrow from "../components/prev-arrow";
+import NextArrow from "../../../components/next-arrow";
+import PrevArrow from "../../../components/prev-arrow";
 import {GridList, GridListTile} from '@material-ui/core';
 import { textVide } from 'text-vide';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import RangeSlider from 'react-bootstrap-range-slider';
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -182,16 +183,16 @@ function SettingsWindow(props) {
           </Form.Control>
         </section>
         <section className="mb-3">
-          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Page Size: ${props.state.currentSize}%`}</ResponsiveHeader>
+          <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Page Size`}</ResponsiveHeader>
           </div>
-          <Form.Control className="hover-shadow custom-range" id="page-size" type="range" onInput={props.changePageSize} onChange={props.changePageSize} value={props.state.currentSize} />
+          <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipLabel={currentValue => `${currentValue}%`} tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changePageSize(changeEvent.target.value)} value={props.state.currentSize} />
         </section>
         <section className="mb-3">
-          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Bionic Reading Level: ${props.state.currentBionicReadingFixationIndex}`}</ResponsiveHeader>
+          <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{`Bionic Reading Level`}</ResponsiveHeader>
           </div>
-          <Form.Control className="hover-shadow custom-range" id="bionic-reading-fixation-selector" type="range" onInput={props.changeBionicReadingFixation} onChange={props.changeBionicReadingFixation} value={Math.round((props.state.currentBionicReadingFixationIndex / 3) * 100)} />
+          <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
         </section>
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
@@ -223,36 +224,30 @@ export default class CaptionSlideshow extends React.Component {
     this.setState({currentMode: mode});
   }
 
-  changePageSize = () => {
-    var size = document.getElementById("page-size").value;
-    this.setState({currentSize: size})
+  changePageSize = (pageSizeValue) => {
+    this.setState({currentSize: pageSizeValue})
   }
 
   goToPage = (page) => {
     this.slider.slickGoTo(page);
   }
 
-  changeBionicReadingFixation = () => {
-    var bionicReadingFixationRaw = document.getElementById("bionic-reading-fixation-selector").value;
-    var bionicReadingFixation = 0;
-    if(bionicReadingFixationRaw >= 1 && bionicReadingFixationRaw <= Math.round((1 / 3) * 100)) {
-      bionicReadingFixation = 5;
-      this.setState({currentBionicReadingFixationIndex: 1})
-    }
-    else if(bionicReadingFixationRaw > Math.round((1 / 3) * 100) && bionicReadingFixationRaw <= Math.round((2 / 3) * 100)) {
-      bionicReadingFixation = 4;
-      this.setState({currentBionicReadingFixationIndex: 2})
-    }
-    else if(bionicReadingFixationRaw > Math.round((2 / 3) * 100) && bionicReadingFixationRaw <= 100) {
-      bionicReadingFixation = 1;
-      this.setState({currentBionicReadingFixationIndex: 3})
-    }
-    else {
-      bionicReadingFixation = 0;
-      this.setState({currentBionicReadingFixationIndex: 0})
+  changeBionicReadingFixation = (bionicReadingFixationRaw) => {
+    switch(parseInt(bionicReadingFixationRaw)) {
+      case 1:
+        this.setState({currentBionicReadingFixation: 5});
+        break;
+      case 2:
+        this.setState({currentBionicReadingFixation: 4});
+        break;
+      case 3:
+        this.setState({currentBionicReadingFixation: 1});
+        break;
+      default:
+        this.setState({currentBionicReadingFixation: 0});
     }
 
-    this.setState({currentBionicReadingFixation: bionicReadingFixation})
+    this.setState({currentBionicReadingFixationIndex: parseInt(bionicReadingFixationRaw)});
   }
 
   render() {

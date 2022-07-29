@@ -1,5 +1,11 @@
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "variables";
+
+$theme-colors: (
+    "dark": $primaryColor
+);
+
+@import "../../node_modules/react-bootstrap-range-slider/dist/react-bootstrap-range-slider.scss";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 @import "layout";
 @import "menu-bar";

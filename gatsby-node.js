@@ -36,7 +36,7 @@ exports.createPages = async({graphql, actions}) => {
           if(node.frontmatter.format === "wordpress" || node.frontmatter.format === "wordpress-v2022_2" || node.frontmatter.format === "ausome-blogs") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve(`./src/templates/wordpress-v2022_2.js`),
+                component: path.resolve(`./src/templates/wordpress-v2022_2/src/index.js`),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -47,7 +47,7 @@ exports.createPages = async({graphql, actions}) => {
           if(node.frontmatter.format === "wordpress-v2022_1") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve(`./src/templates/wordpress-v2022_1.js`),
+                component: path.resolve(`./src/templates/wordpress-v2022_1/src/index.js`),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -58,7 +58,7 @@ exports.createPages = async({graphql, actions}) => {
           else if(node.frontmatter.format === "caption-slideshow-v2022_1") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/caption-slideshow-v2022_1.js'),
+                component: path.resolve('./src/templates/caption-slideshow-v2022_1/src/index.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -69,7 +69,7 @@ exports.createPages = async({graphql, actions}) => {
           else if(node.frontmatter.format === "grid-gallery") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/grid-gallery.js'),
+                component: path.resolve('./src/templates/grid-gallery/src/index.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -80,7 +80,29 @@ exports.createPages = async({graphql, actions}) => {
           else if(node.frontmatter.format === "comic-strip") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/comic-strip.js'),
+                component: path.resolve('./src/templates/comic-strip/src/index.js'),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format === "quiz-v2022_1") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/quiz-v2022_1/src/index.js'),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format === "digital-autism-test-v2022_1") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/digital-autism-test-v2022_1/src/index.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.

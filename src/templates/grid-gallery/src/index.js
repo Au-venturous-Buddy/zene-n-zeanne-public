@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Layout from "../components/layout"
+import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
-import SEO from "../components/seo";
+import SEO from "../../../components/seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import {GridList, GridListTile} from '@material-ui/core';
 import {Container, Button, Modal} from 'react-bootstrap';
-import CloseButton from "../components/close-button";
-import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
-import ResponsiveHeader from "../components/responsive-header";
+import CloseButton from "../../../components/close-button";
+import ResponsiveGridColumns from "../../../hooks/responsive-grid-columns";
+import ResponsiveHeader from "../../../components/responsive-header";
 
 function ShowImage({image, title}) {
   const [show, setShow] = useState(false);
