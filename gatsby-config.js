@@ -11,7 +11,8 @@ module.exports = {
   siteMetadata: {
     title: `Zene 'N Zeanne`,
     author: `FantaZZticNation Creatives`,
-    domain: `zenenzeanne.gtsb.io`
+    domain: `zenenzeanne.gtsb.io`,
+    //author: `Au-mazin' Creatives`
   },
   plugins: [
     {

@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { useStaticQuery, graphql } from 'gatsby'
+import GetBaseURL from "../hooks/get-base-url"
 import { Button, Modal, Badge } from "react-bootstrap"
 import CloseButton from "./close-button";
 import ResponsiveHeader from "./responsive-header";
@@ -11,17 +11,6 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const domain = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          domain
-        }
-      }
-    }
-  `)
-
     return(
       <>
       <Button aria-label={`${title} - ${badgeItem}`} className="view img-button media-preview m-2" onClick={handleShow}>
@@ -59,7 +48,7 @@ export default function MediaCover({title, cover, synopsis, slug, showBadge, bad
           <section className="m-5" style={{textAlign: "center"}}>
             <ResponsiveHeader level={2}>Scan, Click, or Tap on the QR Code below to start:</ResponsiveHeader>
             <Button className="view img-button qr-code m-2 p-2" href={slug} target="_blank" rel="noreferrer">
-              <QRCodeSVG value={domain.site.siteMetadata.domain + encodeURI(slug)} />
+              <QRCodeSVG value={GetBaseURL() + encodeURI(slug)} />
             </Button>
           </section>
         </Modal.Body>

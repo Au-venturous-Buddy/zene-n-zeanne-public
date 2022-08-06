@@ -233,17 +233,27 @@ function ShowOutcome({scores, disabled, outcomes, restartTest}) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <section className="justify-content-center mb-2" style={{textAlign: "justify"}}>
           <ul className="justify-content-center" style={{color: "#017BFF"}}>
             {
               outcomes.map((item, index) => (
                 <li style={{textAlign: "center"}} className="my-2">
-                  <img style={{border: "4px solid #017BFF", borderRadius: "50%", maxWidth: "30%"}} className="m-3" src={allProfiles[item]} alt={item} />
-                  <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{item}</ResponsiveHeader>
+                  <img style={{border: "4px solid #017BFF", borderRadius: "50%", maxWidth: "30%"}} className="m-3" src={allProfiles[item.outcome]} alt={item.outcome} />
+                  <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{item.outcome}</ResponsiveHeader>
                   <p className="m-2 p-2" style={{backgroundColor: ((overallScore[index] === Math.max(...overallScore)) ? "#00CD00" : "red"), color: "white", borderRadius: "10px"}}>{overallScore[index]} Point(s)</p>
                 </li>
               ))
             }
           </ul>
+          </section>
+          <section className="justify-content-center mb-2" style={{textAlign: "justify"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>What it Means:</ResponsiveHeader>
+            {outcomes.map((item, index) => (
+              <p key={index} style={{textAlign: "justify"}} hidden={!(overallScore[index] === Math.max(...overallScore))} className="my-2">
+                {item.interpretation}
+              </p>
+            ))}
+          </section>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button style={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} onClick={handleClose}>Restart Quiz</Button>
@@ -405,7 +415,10 @@ query($pagePath: String!) {
           frontmatter {
             title
             language_code
-            outcomes
+            outcomes {
+              outcome
+              interpretation
+            }
             choices
             points
           }

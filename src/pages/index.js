@@ -55,6 +55,7 @@ export default function Home() {
       >
         <div style={{ margin: 0 }}>
           <StaticImage src="../images/CreativeNormal.png" alt="Be part of the #CreativeNormal" layout="fullWidth"></StaticImage>
+          {/*<StaticImage src="../images/Au-MazinOriginals.png" alt="Au-mazin' Originals Logo" layout="fullWidth"></StaticImage>*/}
         </div>
       </section>
     </Layout>

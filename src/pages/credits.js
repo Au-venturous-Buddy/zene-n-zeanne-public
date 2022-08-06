@@ -113,6 +113,7 @@ export default function Credits() {
       <section className="m-5" style={{textAlign: "center", color: `#fff`}}>
         <section style={{margin: `0 auto`, maxWidth: 260}}>
           <StaticImage src="../images/FantaZZticNationCreativesLogo.png" alt="FantaZZticNation Creatives Logo" layout="fullWidth" />
+          {/*<StaticImage src="../images/Au-MazinCreatives.png" alt="Au-mazin' Creatives Logo" layout="fullWidth" />*/}
         </section>
 
         <section className="m-2">
