@@ -1,7 +1,7 @@
 ---
 title: "Social Snapshots: Vaccines"
 show_title_on_cover: false
-date: "2021-04-18"
+date: "2022-04-18"
 version: 4
 volume: 1
 issue: 1
