@@ -27,14 +27,13 @@
   box-shadow: $shadowCenter;
 }
 
-
-#menu-bar .navbar-nav .nav-item button {
+#menu-bar .navbar-nav .nav-item button,
+#menu-bar .navbar-nav .nav-item button:hover {
   background-color: $secondaryColor;
 }
 
 #menu-bar .navbar-nav .nav-item button:hover {
   box-shadow: $shadowCenter;
-  background-color: $secondaryColor;
 }
 
 .page-link {

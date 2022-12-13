@@ -120,14 +120,20 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
 }
 
-.card {
+.accordion-item {
   border: none;
 }
 
-.card-header {
+.accordion-button,
+.accordion-button:not(.collapsed) {
   background: $primaryColor;
   border: none;
   color: #fff;
+  display: block;
+}
+
+.accordion-button::after {
+  display: none;
 }
 
 .flex-center {
@@ -147,8 +153,12 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
 }
 
-.btn {
+.btn,
+.btn:hover,
+.btn:focus {
   @include pillColor($primaryColor);
+  color: white;
+  --bs-btn-active-color: white;
 }
 
 .btn:hover {
@@ -158,10 +168,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn:disabled {
   @include pillColor((linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), $secondaryColor));
+  color: white;
 }
 
-.btn.secondary-color {
+.btn.secondary-color,
+.btn.secondary-color:hover,
+.btn.secondary-color:focus {
   @include pillColor($secondaryColor);
+  color: white;
+  --bs-btn-active-color: white;
 }
 
 .btn.secondary-color:hover {
@@ -173,13 +188,16 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0);
   border-radius: 10px;
   padding: 0;
+
   .profile-caption {
-    color: #017BFF;
+    color: $primaryColor;
   }
 }
 
-.profile-button:hover {
+.profile-button:hover,
+.profile-button:focus {
   box-shadow: $shadowCenter;
+
   .profile-caption {
     color: white;
   }
@@ -200,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .img-button {
   background: rgba(255, 255, 255, 0);
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 0;
 }
 
@@ -214,7 +232,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .img-button:hover {
   background: rgba(255, 255, 255, 0);
-  box-shadow: $shadowCenter;
+  box-shadow: $shadowImg;
 }
 
 .img-button.media-preview:hover .media-preview-title {
@@ -226,11 +244,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .media-preview-image {
-  border-radius: 10px;
+  border: 5px solid rgb(221, 221, 221);
 }
 
-.MuiGridList-root {
+.MuiImageList-root {
   justify-content: center;
+  margin: 0px !important;
 }
 
 .MuiButtonBase-root.MuiIconButton-root {
@@ -248,6 +267,10 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: $shadowCenter;
 }
 
+ul, ol {
+  padding: 0px;
+}
+
 ol.instructions-list li {
   display: list-item;
   list-style-type: decimal;
@@ -261,16 +284,7 @@ ul.bullet-points li {
 }
 
 .badge {
-  background-color: #A35BFF;
-}
-
-.badge:hover {
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), #A35BFF;
-  box-shadow: $shadow;
-}
-
-.accordion-header {
-  border-radius: 5px;
+  background-color: #A35BFF !important;
 }
 
 .view {
@@ -314,13 +328,17 @@ ul.bullet-points li {
   justify-content: center;
 }
 
-.ausome-blogs {
+.ausome-blogs,
+.ausome-blogs-v2 {
   font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
   color: #00f;
   background-color: rgb(255, 234, 183);
   background-image: url("../images/Au-Some\ Blogs\ Background.png");
   background-size: 90%;
   background-position: center;
+  border-left: 20px dotted gray;
+  margin: 5%;
+  box-shadow: $shadowCenter;
 
   .ext-web-link,
   .ext-web-link:visited {
@@ -330,6 +348,73 @@ ul.bullet-points li {
   .ext-web-link:hover {
     color: #fff;
   }
+}
+
+.wordpress,
+.wordpress-v2022_2,
+.wordpress-v2022_3 {
+  color: $primaryColor;
+  background-color: white;
+  background-image: url("../images/WhitePaperBackground.png");
+  background-size: 90%;
+  background-position: center;
+  border-left: 20px dotted gray;
+  margin: 5%;
+  box-shadow: $shadowCenter;
+
+  a,
+  a:visited,
+  a:hover {
+    color: $primaryColor;
+  }
+
+  a:hover {
+    background: rgba(255, 255, 0, 0.5);
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 0px;
+  }
+}
+
+.comic-strip-page {
+  border: 5px solid rgb(230, 230, 230);
+  box-shadow: $shadowImg;
+}
+
+.comic-strip-main,
+.img-button.comic-strip-page-thumbnail {
+  border-left: 20px dotted gray;
+  background-color: white;
+  background-image: url("../images/WhitePaperBackground.png");
+  background-size: 90%;
+  background-position: center;
+}
+
+.comic-strip-main,
+.img-button.comic-strip-page-thumbnail:hover,
+.img-button.comic-strip-page-thumbnail:focus {
+  box-shadow: $shadowCenter;
+}
+
+.img-button.comic-strip-page-thumbnail,
+.img-button.comic-strip-page-thumbnail:hover,
+.img-button.comic-strip-page-thumbnail:focus {
+  border-left: 10px dotted gray;
+
+  .comic-strip-page {
+    cursor: pointer;
+  }
+
+  .comic-strip-page-number {
+    text-align: center;
+    color: $primaryColor;
+  }
+}
+
+.img-button.comic-strip-page-thumbnail-current .comic-strip-page-number {
+  background: rgba(255, 255, 0, 0.5);
+  border-left: 5px solid #CDCD00;
+  border-right: 5px solid #CDCD00;
 }
 
 .modal-header,
@@ -345,4 +430,385 @@ ul.bullet-points li {
   border: none;
   background: rgba(0, 0, 0, 0);
   color: white;
+}
+
+.media-shelf {
+  background: rgb(2, 164, 254);
+  border-top: 7px solid rgb(0, 123, 255);
+  border-bottom: 7px solid rgb(0, 123, 255);
+}
+
+.books-list,
+.videos-list,
+.bonus-list {
+  li .media-shelf-design {
+    background: rgb(0, 145, 224);
+    border: 7px solid rgb(0, 123, 255);
+  }
+}
+
+.books-list {
+  li .btn,
+  li .btn:hover,
+  li .btn:focus {
+    background: rgb(97, 46, 1);
+    border: 5px solid rgb(122, 58, 0);
+    background-size: cover;
+    background-position: center;
+    color: white;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 100%;
+    line-height: 100%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    border-radius: 0px;
+
+    .category-button-contents {
+      padding: 10%;
+      margin-left: 10px;
+      border-left: 5px solid rgb(122, 58, 0);
+      height: 100%;
+
+      .category-img {
+        border: 5px solid rgb(230, 230, 230);
+      }
+    }
+  }
+
+  li .btn:hover,
+  li .btn:focus { 
+    box-shadow: $shadowCenter;
+  }
+}
+
+.videos-list {
+  li .btn,
+  li .btn:hover,
+  li .btn:focus {
+    background: black;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 100%;
+    line-height: 100%;
+    padding-left: 5px;
+
+    .category-button-contents {
+      background: white;
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: $shadowImg;
+      border-top: 20px solid rgb(0, 115, 255);
+
+      .category-caption {
+        color: $primaryColor;
+      }
+    }
+  }
+
+  li .btn:hover,
+  li .btn:focus { 
+    box-shadow: $shadowCenter;
+  }
+}
+
+.bonus-list {
+  li .btn,
+  li .btn:hover,
+  li .btn:focus {
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3), rgba(135, 135, 135, 0.3)), url("../images/WhitePaperBackground.png"), white;
+    border-left: 7px dashed black;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0;
+    color: $primaryColor;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 100%;
+    line-height: 100%;
+    box-shadow: none;
+    border-radius: 0;
+
+    .category-button-contents {
+      padding: 5%;
+      height: 100%;
+
+      .category-caption {
+        color: $primaryColor;
+      }
+
+      .category-img {
+        box-shadow: $shadowImg;
+      }
+    }
+  }
+
+  li .btn:hover,
+  li .btn:focus {
+    box-shadow: $shadowCenter;
+  }
+}
+
+.character-profiles-main-version-4,
+.character-info-main-version-4,
+.all-titles-main-au-some-blogs,
+.media-preview-main-au-some-blogs,
+.home-credits-page {
+  font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: blue;
+  background: url("../images/Au-Some\ Blogs\ Background.png"), rgb(255, 234, 183);
+  background-size: 90%;
+  background-position: center;
+  box-shadow: $shadowCenter;
+  border-left: 20px dotted gray;
+  min-height: 8.26in;
+
+  .accordion-item {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .accordion-button {
+    background-color: $primaryColor;
+    background: url("../images/BlueCrayonBackground.png");
+    color: white;
+    display: block;
+  }
+
+  .accordion-button::after {
+    display: none;
+  }
+
+  .accordion-header {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .media-preview-main-img-au-some-blogs,
+  .media-preview-main-img-au-some-blogs:hover,
+  .media-preview-main-img-au-some-blogs:focus {
+    border: 0px;
+    box-shadow: none;
+  }
+
+  .ext-web-link,
+  .ext-web-link:hover {
+    color: blue;
+  }
+
+  .ext-web-link:hover {
+    background: rgba(0, 205, 0, 0.5);
+    border-left: 5px solid rgba(0, 139, 0, 0.7);
+    border-right: 5px solid rgba(0, 139, 0, 0.7);
+    box-shadow: none;
+    border-radius: 0px;
+  }
+}
+
+.media-preview-au-some-blogs .media-preview-image {
+  border: 0px;
+  box-shadow: none;
+}
+
+.character-profiles-main-version-2,
+.character-info-main-version-2,
+.all-titles-main-social-snapshots,
+.media-preview-main-social-snapshots,
+.all-titles-main-facebook-gallery,
+.media-preview-main-facebook-gallery,
+.all-titles-main-wordpress-posts,
+.media-preview-main-wordpress-posts,
+.all-titles-main-quizzes,
+.media-preview-main-quizzes,
+.all-titles-main-sticker-packs,
+.media-preview-main-sticker-packs {
+  background: url("../images/WhitePaperBackground.png"), white;
+  background-size: 90%;
+  background-position: center;
+  box-shadow: $shadowCenter;
+  border-left: 20px dotted gray;
+  min-height: 8.26in;
+
+  .accordion-item {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .accordion-button {
+    background-color: $primaryColor;
+    color: white;
+    display: block;
+  }
+
+  .accordion-button::after {
+    display: none;
+  }
+
+  .accordion-header {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .media-preview-main-img-social-snapshots,
+  .media-preview-main-img-social-snapshots:hover,
+  .media-preview-main-img-social-snapshots:focus,
+  .media-preview-main-img-facebook-gallery,
+  .media-preview-main-img-facebook-gallery:hover,
+  .media-preview-main-img-facebook-gallery:focus,
+  .media-preview-main-img-wordpress-posts,
+  .media-preview-main-img-wordpress-posts:hover,
+  .media-preview-main-img-wordpress-posts:focus,
+  .media-preview-main-img-quizzes,
+  .media-preview-main-img-quizzes:hover,
+  .media-preview-main-img-quizzes:focus,
+  .media-preview-main-img-sticker-packs,
+  .media-preview-main-img-sticker-packs:hover,
+  .media-preview-main-img-sticker-packs:focus {
+    border: 5px solid rgb(221, 221, 221);
+    box-shadow: $shadowImg;
+  }
+}
+
+.all-titles-main-quizzes,
+.media-preview-main-quizzes,
+.all-titles-main-sticker-packs,
+.media-preview-main-sticker-packs {
+  border-left: 10px dashed black;
+}
+
+.character-profiles {
+  li .profile-button,
+  li .profile-button:hover {
+    border-radius: 0px;
+    margin: 0;
+    background: white;
+    border: 5px solid rgb(221, 221, 221);
+    font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+    color: blue;
+
+    .profile-button-contents {
+      height: 100%;
+      padding: 5%;
+    }
+
+    .profile-caption {
+      color: $primaryColor;
+    }
+
+    .profile-img {
+      border: 5px solid rgb(221, 221, 221);
+      border-radius: 0px;
+    }
+  }
+
+  li .profile-button:hover,
+  li .profile-button:focus {
+    box-shadow: $shadowImg;
+  }
+}
+
+.character-photo-desc {
+  border: 5px solid rgb(221, 221, 221);
+  background-color: white;
+  margin: 0 auto;
+  max-width: 230px;
+  padding: 1%;
+  border: 5px solid rgb(221, 221, 221);
+  box-shadow: $shadowImg;
+
+  .character-photo {
+    border: 5px solid rgb(221, 221, 221);
+    border-radius: 0px;
+  }
+
+  .character-short-desc {
+    font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+    color: blue;
+  }
+}
+
+.img-button.media-preview-au-some-blogs,
+.img-button.media-preview-au-some-blogs:hover {
+  .media-preview-title {
+    font-family: "Chalkduster", "Futura", "Segoe UI", Arial, Helvetica, sans-serif;
+    color: blue;
+  }
+}
+
+.table-background,
+.table-background-zene {
+  border-top: 10px solid rgb(0, 123, 255);
+  border-bottom: 10px solid rgb(0, 123, 255);
+  background: rgb(2, 164, 254);
+  box-shadow: $shadowCenter;
+}
+
+.table-background-zeanne {
+  border-top: 10px solid #9542ff;
+  border-bottom: 10px solid #9542ff;
+  background: #a25aff;
+  box-shadow: $shadowCenter;
+}
+
+.table-background-classroom-table {
+  border-top: 10px solid #feb956;
+  border-bottom: 10px solid #feb956;
+  background: #feb956;
+  box-shadow: $shadowCenter;
+}
+
+.tv-background {
+  padding: 3%;
+
+  .all-titles-main-read-along,
+  .all-titles-main-buddies-next-door,
+  .media-preview-main-read-along,
+  .media-preview-main-buddies-next-door,
+  .tv-contents {
+    border: 20px solid rgb(188, 188, 188);
+    border-radius: 5px;
+    box-shadow: $shadowCenter;
+    background-image: url("../images/Zene\ N\ Zeanne\ Background.png");
+    background-size: cover;
+    color: white;
+    height: 5in;
+    overflow-y: scroll;
+  }
+}
+
+.tv-background,
+.tv-background-zene-n-zeanne-bedroom-v4 {
+  background: rgb(255, 246, 204);
+}
+
+.tv-background-zene-n-zeanne-bedroom-v2 {
+  background: #fcc300;
+}
+
+.tv-background-zene-n-zeanne-classroom-v4 {
+  background: #269bdf;
+
+  .tv-contents {
+    border: 20px solid black;
+  }
+}
+
+.tv-background-zene-n-zeanne-classroom-v2 {
+  background: #fee4c1;
+  border-bottom: 30px solid #2da4a8;
+
+  .tv-contents {
+    border: 20px solid black;
+  }
+}
+
+.offcanvas-bottom {
+  --bs-offcanvas-height: 50vh;
+}
+
+.offcanvas-backdrop {
+  background-color: rgba(0, 0, 0, 0);
 }

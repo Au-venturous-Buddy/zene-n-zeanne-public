@@ -1,15 +1,9 @@
 import React from "react"
-import Layout from "../components/layout"
 import {GetVideos} from "../hooks/get-videos"
 import {GetVideosCovers} from "../hooks/get-videos-covers"
 import {GetVideosCategories} from "../hooks/get-videos-categories"
-import SEO from "../components/seo";
-import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
-import ResponsiveHeader from "../components/responsive-header";
-import SearchBox from "../components/search-box";
-import MenuWindow from "../components/menu-window";
 
 export default function Videos() {
   const videosData = GetVideos()
@@ -21,6 +15,10 @@ export default function Videos() {
     var videoData = videosData.allFile.edges[i].node.childMarkdownRemark;
     var videoCover = videosCovers.allFile.edges[i].node;
 
+    var version = videoData.frontmatter.version;
+    var category = videoData.frontmatter.category;
+    var season = videoData.frontmatter.season;
+
     var displayVideoCover = (
       <div
         style={{
@@ -30,13 +28,9 @@ export default function Videos() {
 
         className="p-2"
       >
-        <MediaCover title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} showBadge={true} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} playNowText="Watch Now" />
+        <MediaCover categoryName={category.toLowerCase().replace(/ /g, "-")} title={videoData.frontmatter.title} synopsis={videoData.frontmatter.synopsis} cover={videoCover} showBadge={true} badgeItem={`Season ${videoData.frontmatter.season} Episode ${videoData.frontmatter.episode}`} slug={videoData.fields.slug} playNowText="Watch Now" />
       </div>
     )
-    
-    var version = videoData.frontmatter.version;
-    var category = videoData.frontmatter.category;
-    var season = videoData.frontmatter.season;
 
     if(!(version in videos)) {
       videos[version] = {}
@@ -52,10 +46,6 @@ export default function Videos() {
   }
 
   return(
-    <Layout menuBarItems={[(<MenuWindow pageID="videos" />), (<SearchBox />)]} showMenuBar={true}>
-      <SEO title="Videos" description="Watch Zene 'N Zeanne Videos" />
-      <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Videos</ResponsiveHeader>
-      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />
-    </Layout>
+    <MediaLibrary pageID="videos" title="Videos" description="Watch Zene 'N Zeanne Videos" gridListClassName="videos-list" gridListTileClassName="mt-2" buttonClassName="videos-preview" mediaItems={videos} mediaCategories={videosCategories} defaultVersion={2} mediaSubCategoryName={"Season"} />
   )
 }

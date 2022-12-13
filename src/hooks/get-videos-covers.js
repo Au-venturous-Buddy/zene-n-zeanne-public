@@ -6,7 +6,7 @@ export const GetVideosCovers = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/videos/.*/"}, ext: {eq: ".png"}, name: {eq: "COVER"}}
-            sort: {fields: relativePath, order: DESC}
+            sort: {relativePath: DESC}
           ) {
             edges {
               node {

@@ -6,7 +6,7 @@ export const GetVideos = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/videos/.*/"}, ext: {eq: ".md"}, name: {eq: "index"}}
-            sort: {fields: relativePath, order: DESC}
+            sort: {relativePath: DESC}
           ) {
             edges {
               node {

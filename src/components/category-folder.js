@@ -1,79 +1,66 @@
-import React from "react"
-import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
-import { Accordion, Card, Button, Modal } from "react-bootstrap"
-import CloseButton from "../components/close-button";
-import {GridList, GridListTile} from '@material-ui/core';
+import React, {useState} from "react"
+import { Accordion, Button, Modal } from "react-bootstrap"
+import BackButton from "./back-button";
 import ResponsiveHeader from "./responsive-header";
 
-function DisplayItems(props) {
+export default function CategoryFolder(props) {
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+
+  var subCategories = Object.keys(props.contents).sort(function(a, b){return b-a})
+  
   return(
-    <GridList cellHeight="auto" spacing={5} cols={ResponsiveGridColumns(3, [1030, 730])}>
+    <>
+    <Button aria-label={props.category} className={props.buttonClassName} onClick={handleShow} style={props.buttonStyle}>
       {props.children}
-    </GridList>
+    </Button>
+    <Modal size="xl" show={show} onHide={handleClose} centered scrollable fullscreen={true}>
+      <Modal.Header className="justify-content-center bold-text">
+        <Modal.Title>
+          <div style={{color: "#017BFF"}}>
+            <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>{props.category}</ResponsiveHeader>
+          </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={(!(['buddies-next-door', 'read-along'].includes(props.categoryName))) ? "px-0" : "p-0"}>
+          <div className={(!(['buddies-next-door', 'read-along'].includes(props.categoryName))) ? "table-background" : "tv-background"}>
+            <section className={`py-3 m-3 all-titles-main-${props.categoryName}`}>
+              <section className="my-3">
+                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Table of Contents</ResponsiveHeader>
+              </section>
+              <Accordion className="mb-3" flush>
+                {
+                  subCategories.map((currentSubCategory) => (
+                    <div className="m-3" key={currentSubCategory}>
+                      <Accordion.Item eventKey={currentSubCategory}>
+                        <Accordion.Header className="hover-shadow-card bold-text justify-content-center" style={{textAlign: "center"}}>
+                          <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                            {`${props.subcategoryName} ${currentSubCategory}`}
+                          </ResponsiveHeader>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <ul>
+                            {props.contents[currentSubCategory].map((value, index) => (
+                              <li style={{display: "inline"}} key={index}>
+                                {value}
+                              </li>
+                            ))}
+                          </ul>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </div>
+                  ))
+                }
+              </Accordion>
+            </section>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <BackButton handleClose={handleClose} />
+        </Modal.Footer>
+      </Modal>
+    </>
   )
 }
-
-export default class CategoryFolder extends React.Component {
-  state = {
-    show: false
-  };
-
-  handleClose = () => this.setState({ show: false })
-  handleShow = () => this.setState({ show: true })
-
-  render() {
-    var subCategories = Object.keys(this.props.contents).sort(function(a, b){return b-a})
-  
-    return(
-      <>
-      <Button aria-label={this.props.category} className={this.props.buttonClassName} onClick={this.handleShow} style={this.props.buttonStyle}>
-        {this.props.children}
-      </Button>
-      <Modal size="xl" show={this.state.show} onHide={this.handleClose} centered scrollable>
-          <Modal.Header className="justify-content-center bold-text">
-            <Modal.Title>
-              <div style={{color: "#017BFF"}}>
-                <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>{this.props.category}</ResponsiveHeader>
-              </div>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <section className="py-3 mx-3">
-            <Accordion className="mb-3">
-              {
-                subCategories.map((currentSubCategory) => (
-                  <div className="my-3" key={currentSubCategory}>
-                    <Card>
-                      <Card.Header className="hover-shadow-card bold-text accordion-header" style={{textAlign: "center"}}>
-                        <Accordion.Toggle as={Card.Header} variant="link" eventKey={currentSubCategory}>
-                          <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
-                            {`${this.props.subcategoryName} ${currentSubCategory}`}
-                          </ResponsiveHeader>
-                        </Accordion.Toggle>
-                      </Card.Header>
-                      <Accordion.Collapse eventKey={currentSubCategory}>
-                        <Card.Body>
-                          <DisplayItems>
-                            {this.props.contents[currentSubCategory].map((value, index) => (
-                              <GridListTile key={index}>
-                                {value}
-                              </GridListTile>
-                            ))}
-                          </DisplayItems>
-                        </Card.Body>
-                      </Accordion.Collapse>
-                    </Card>
-                  </div>
-                ))
-              }
-            </Accordion>
-          </section>
-          </Modal.Body>
-          <Modal.Footer className="justify-content-center">
-            <CloseButton handleClose={this.handleClose} />
-          </Modal.Footer>
-        </Modal>
-      </>
-      )
-    }
-  }

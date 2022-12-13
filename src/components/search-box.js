@@ -67,6 +67,12 @@ class SearchBoxMain extends React.Component {
         this.setState({forwardButtonDisabled: false});
     }
 
+    pressEnterKey = (event) => {
+        if(event.key === 'Enter') {
+          this.searchButton();
+        }
+    };
+
     forwardSearch = () => {
         this.state.searchQueueIndex = (this.state.searchQueueIndex + 1) % this.state.searchQueue.length;
         this.setState((state) => ({currentSearchItem: state.searchQueue[state.searchQueueIndex]}))
@@ -156,19 +162,19 @@ class SearchBoxMain extends React.Component {
                     <FaSearch aria-hidden={true} />
                 </Button>
                 </OverlayTrigger>
-                <Modal size="xl" show={this.state.show} onHide={this.handleClose} centered scrollable>
-                    <Modal.Header className="justify-content-center bold-text px-0">
-                        <section className="px-0">
-                            <div>
+                <Modal fullscreen show={this.state.show} onHide={this.handleClose} centered scrollable>
+                    <Modal.Header style={{display: "block", textAlign: "center"}} className="justify-content-center bold-text px-0">
+                        <section className="px-0 justify-content-center">
+                            <div style={{width: "100%"}}>
                                 <section id="search-bar" className="justify-content-center" expand="lg">
-                                    <section className="m-1">
-                                        <Form.Control id="search-field" className="hover-shadow" style={{textAlign: "center", fontSize: this.props.fontSize, borderBottom: "2px solid #017BFF", borderRadius: 0}} type="text" placeholder="Search" />
+                                    <section className="my-1 mx-3">
+                                        <Form.Control id="search-field" className="hover-shadow" style={{textAlign: "center", fontSize: this.props.fontSize, borderBottom: "2px solid #017BFF", borderRadius: 0}} type="text" placeholder="Search" onKeyDown={this.pressEnterKey} />
                                     </section>
                                     <section className="m-1">
-                                        <Button className="m-1" style={{fontSize: this.props.fontSize}} onClick={this.showRecentSearchWindow} disabled={this.state.historyButtonDisabled}>
+                                        <Button  className="m-1" style={{fontSize: this.props.fontSize}} onClick={this.showRecentSearchWindow} disabled={this.state.historyButtonDisabled}>
                                             <FaHistory aria-hidden={true} /> History
                                         </Button>
-                                        <Button className="m-1" style={{fontSize: this.props.fontSize}} onClick={this.searchButton}>
+                                        <Button  className="m-1" style={{fontSize: this.props.fontSize}} onClick={this.searchButton}>
                                             <FaSearch aria-hidden={true} /> Go
                                         </Button>
                                     </section>
@@ -184,7 +190,7 @@ class SearchBoxMain extends React.Component {
                                     {recentSearches}
                                 </Modal.Body>
                                 <Modal.Footer className="justify-content-center">
-                                    <Button style={{fontSize: this.props.fontSize}} onClick={this.clearRecentSearch}>
+                                    <Button  style={{fontSize: this.props.fontSize}} onClick={this.clearRecentSearch}>
                                         <AiOutlineClear aria-hidden={true} /> Clear
                                     </Button>
                                     <CloseButton handleClose={this.hideRecentSearchWindow} />

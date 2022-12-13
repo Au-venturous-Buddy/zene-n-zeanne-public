@@ -6,7 +6,7 @@ export const GetBooksCategories = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/books/CATEGORIES.*/"}, ext: {eq: ".png"}}
-            sort: {fields: name, order: ASC}
+            sort: {name: ASC}
           ) {
             edges {
               node {

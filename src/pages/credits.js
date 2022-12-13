@@ -23,18 +23,16 @@ export default function Credits() {
 
   return (
     <Layout menuBarItems={[(<MenuWindow pageID="credits" />), (<SearchBox />)]} showMenuBar={true}>
-      <SEO title="Credits" description="Meet The People Behind Zene 'N Zeanne" />
-      <section style={{margin: `0 auto`, maxWidth: 430}}>
-        <StaticImage src="../images/Zene N Zeanne V4 Credits.png" alt="Twin Power" layout="fullWidth" />
+    <SEO title="Credits" description="Meet The People Behind Zene 'N Zeanne" />
+    <div className="table-background">
+    <section className="py-3 m-3 home-credits-page">
+      <section style={{margin: `0 auto`, padding: `1.45rem 1.0875rem`, maxWidth: 430, border: "5px solid rgb(221, 221, 221)", backgroundColor: "white"}}>
+        <div style={{border: "5px solid rgb(221, 221, 221)", backgroundColor: "white"}}>
+          <StaticImage src="../images/Zene N Zeanne V4 Credits.png" alt="Twin Power" layout="fullWidth" />
+        </div>
       </section>
 
-      <section className="m-5" style={{textAlign: "center", color: `#fff`}}>
-          <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>
-            Credits
-          </ResponsiveHeader>
-
-          <br />
-
+      <section className="m-5" style={{textAlign: "center"}}>
           <section>
             <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Created By:</ResponsiveHeader>
             <ul>
@@ -110,9 +108,9 @@ export default function Credits() {
           <br />*/}
       </section>
 
-      <section className="m-5" style={{textAlign: "center", color: `#fff`}}>
+      <section className="m-5" style={{textAlign: "center"}}>
         <section style={{margin: `0 auto`, maxWidth: 260}}>
-          <StaticImage src="../images/Au-MazinCreatives.png" alt="Au-mazin' Creatives Logo" layout="fullWidth" />
+          <StaticImage src="../images/Au-MazinCreatives.png" alt="Au-Mazin Creatives Logo" layout="fullWidth" />
         </section>
 
         <section className="m-2">
@@ -120,6 +118,8 @@ export default function Credits() {
           {`© ${new Date().getFullYear()} ${data.site.siteMetadata.author}`}
         </section>
       </section>
+    </section>
+    </div>
     </Layout>
   )
 }

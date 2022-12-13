@@ -6,13 +6,13 @@ version: 4
 volume: 1
 issue: 2
 category: "Social Snapshots"
-format: "comic-strip"
+format: "comic-strip-v2022_2"
 synopsis: "Zeanne teaches Zene how to get ready for school."
-modes: [
-    {mode_name: "Original", call_at: [0, 1, 2, 3, 4, 5, 6, 9, 11, 15, 16, 20, 21, 25, 26, 30, 31, 35, 36, 40, 41, 43, 44, 46, 50, 54, 55, 59, 60, 64, 65, 69, 70]},
-    {mode_name: "Onsite with Paperless Books and Notebooks", call_at: [0, 1, 2, 3, 4, 5, 6, 9, 12, 15, 17, 20, 22, 25, 27, 30, 32, 35, 37, 40, 51, 54, 56, 59, 61, 64, 66, 69, 70]},
-    {mode_name: "Onsite with Health Protocols", call_at: [0, 1, 2, 3, 4, 5, 6, 9, 13, 15, 18, 20, 23, 25, 28, 30, 33, 35, 38, 40, 42, 43, 45, 46, 47, 49, 52, 54, 57, 59, 62, 64, 67, 69, 70]},
-    {mode_name: "Onsite with Health Protocols and Paperless Books and Notebooks", call_at: [0, 1, 2, 3, 4, 5, 6, 9, 14, 15, 19, 20, 24, 25, 29, 30, 34, 35, 39, 40, 48, 49, 53, 54, 58, 59, 63, 64, 68, 69, 70]},
-    {mode_name: "Offsite/Online", call_at: [0, 1, 2, 3, 4, 5, 7, 8, 10, 71, 72, 73, 74, 75, 76, 77, 78]}
+modes_v2: [
+    {mode_name: "Original", scenes: ["00", "01", "03-Onsite Original", "04", "05-Onsite Original", "06", "07-Onsite Original", "08", "09-Onsite Original", "10", "11-Onsite Original", "12", "13-Onsite Original", "14", "15-Onsite Original", "16", "17-Onsite Original", "18", "21-Onsite Original", "22", "23-Onsite Original", "24", "25-Onsite Original", "26", "27-Onsite Original", "28"]},
+    {mode_name: "Onsite with Paperless Books and Notebooks", scenes: ["00", "01", "03-Onsite Paperless", "04", "05-Onsite Paperless", "06", "07-Onsite Paperless", "08", "09-Onsite Paperless", "10", "11-Onsite Paperless", "12", "13-Onsite Paperless", "14", "21-Onsite Paperless", "22", "23-Onsite Paperless", "24", "25-Onsite Paperless", "26", "27-Onsite Paperless", "28"]},
+    {mode_name: "Onsite with Health Protocols", scenes: ["00", "01", "03-Onsite Health", "04", "05-Onsite Health", "06", "07-Onsite Health", "08", "09-Onsite Health", "10", "11-Onsite Health", "12", "13-Onsite Health", "14", "15-Onsite Health", "16", "17-Onsite Health", "18", "19-Onsite Health", "20", "21-Onsite Health", "22", "23-Onsite Health", "24", "25-Onsite Health", "26", "27-Onsite Health", "28"]},
+    {mode_name: "Onsite with Health Protocols and Paperless Books and Notebooks", scenes: ["00", "01", "03-Onsite Paperless Health", "04", "05-Onsite Paperless Health", "06", "07-Onsite Paperless Health", "08", "09-Onsite Paperless Health", "10", "11-Onsite Paperless Health", "12", "13-Onsite Paperless Health", "14", "19-Onsite Paperless Health", "20", "21-Onsite Paperless Health", "22", "23-Onsite Paperless Health", "24", "25-Onsite Paperless Health", "26", "27-Onsite Paperless Health", "28"]},
+    {mode_name: "Offsite/Online", scenes: ["00", "02"]}
 ]
 ---

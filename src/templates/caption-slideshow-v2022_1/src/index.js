@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
-import { Container, Button, ButtonGroup, Modal, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import CloseButton from "../../../components/close-button";
+import { Container, Button, ButtonGroup, Offcanvas, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import SettingsButton from "../../../components/settings-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import SEO from "../../../components/seo";
@@ -10,7 +9,6 @@ import ResponsiveHeader from "../../../components/responsive-header";
 import Slider from "react-slick";
 import NextArrow from "../../../components/next-arrow";
 import PrevArrow from "../../../components/prev-arrow";
-import {GridList, GridListTile} from '@material-ui/core';
 import { textVide } from 'text-vide';
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RangeSlider from 'react-bootstrap-range-slider';
@@ -21,7 +19,7 @@ const helpTooltip = (message, props) => (
   </Tooltip>
 );
 
-function SlideThumbnail({page, index, goToPage, closeFunction}) {
+function SlideThumbnail({page, currentIndex, index, goToPage, closeFunction}) {
   const changeSlide = () => {
     goToPage(index)
     closeFunction()
@@ -36,19 +34,19 @@ function SlideThumbnail({page, index, goToPage, closeFunction}) {
         paddingBottom: `5%`
       }}
     >
-      <Button aria-label={`Page ${index + 1}`} className="view img-button" onClick={changeSlide}>
+      <Button aria-label={`Page ${index + 1}`} className={`p-2 view img-button comic-strip-page-thumbnail ${(currentIndex === index) ? "comic-strip-page-thumbnail-current" : ""}`} onClick={changeSlide}>
+        <div aria-hidden={true}>
         <GatsbyImage
-          className="d-block w-100"
+          className="d-block w-100 comic-strip-page"
           image={getImage(page)}
           alt={page.name}
           aria-hidden={true}
         />
+        <div className="mt-2 comic-strip-page-number">
+          <ResponsiveHeader level={2}>{index + 1}</ResponsiveHeader>
+        </div>
+        </div>
       </Button>
-      <div aria-hidden={true} className="mt-2" style={{textAlign: "center", color: "#017BFF"}}>
-        <ResponsiveHeader level={2}>
-          {index + 1}
-        </ResponsiveHeader>
-      </div>
     </div>
   )
 }
@@ -94,25 +92,24 @@ function CaptionSlideshowToggle(props) {
         </OverlayTrigger>
         <NextButton goToPage={props.goToPage} slideIndex={props.state.slideIndex} numPages={props.children.length} />
       </ButtonGroup>
-      <Modal show={show} onHide={handleClose} centered scrollable>
-      <Modal.Header className="justify-content-center">
-        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+      <Offcanvas show={show} onHide={handleClose} placement="end" scroll={true}>
+      <Offcanvas.Header className="justify-content-center">
+        <Offcanvas.Title style={{textAlign: "center", color: "#017BFF"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Toggle Page</ResponsiveHeader>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <GridList cellHeight="auto" spacing={5} cols={1}>
+        </Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body className="px-0">
+        <div className="my-2 table-background">
+        <ol>
           {props.children.map((currentValue, index) => (
-            <GridListTile key={index}>
-              <SlideThumbnail page={currentValue} index={index} goToPage={props.goToPage} closeFunction={handleClose} />
-            </GridListTile>
+            <li key={index}>
+              <SlideThumbnail page={currentValue} currentIndex={props.state.slideIndex} index={index} goToPage={props.goToPage} closeFunction={handleClose} />
+            </li>
           ))}
-        </GridList>
-      </Modal.Body>
-      <Modal.Footer className="justify-content-center">
-        <CloseButton handleClose={handleClose} />
-      </Modal.Footer>
-      </Modal>
+        </ol>
+        </div>
+      </Offcanvas.Body>
+      </Offcanvas>
       </>
     );
   }
@@ -159,28 +156,38 @@ function SettingsWindow(props) {
   return(
     <>
       <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
-      <Modal show={show} onHide={handleClose} centered scrollable>
-      <Modal.Header className="justify-content-center">
-        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+      <Offcanvas show={show} onHide={handleClose} placement="bottom" scroll={true}>
+      <Offcanvas.Header className="justify-content-center">
+        <Offcanvas.Title style={{textAlign: "center", color: "#017BFF"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+        </Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
         <section className="mb-3">
           <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
-            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Language</ResponsiveHeader>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Language and Dialogue</ResponsiveHeader>
           </div>
-          <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={props.changeLanguage} value={props.state.currentLanguage}>
+          <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" onChange={props.changeLanguage} value={props.state.currentLanguage}>
             {props.languageOptions}
-          </Form.Control>
+          </Form.Select>
         </section>
         <section className="mb-3">
           <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
             <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Mode</ResponsiveHeader>
           </div>
-          <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={props.changeMode} value={props.state.currentMode}>
+          <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" onChange={props.changeMode} value={props.state.currentMode}>
             {props.modeOptions}
-          </Form.Control>
+          </Form.Select>
+        </section>
+        <section className="mb-3">
+          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+              Table Background
+            </ResponsiveHeader>
+          </div>
+          <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="table-background-selector" onChange={props.changeTableBackground} value={props.state.currentTableBackground}>
+            {['Zene', 'Zeanne', 'Classroom Table'].map((value) => (<option key={value}>{value}</option>))}
+          </Form.Select>
         </section>
         <section className="mb-3">
           <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
@@ -194,11 +201,8 @@ function SettingsWindow(props) {
           </div>
           <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
         </section>
-      </Modal.Body>
-      <Modal.Footer className="justify-content-center">
-        <CloseButton handleClose={handleClose} />
-      </Modal.Footer>
-    </Modal>
+      </Offcanvas.Body>
+    </Offcanvas>
     </>
   )
 }
@@ -207,6 +211,7 @@ export default class CaptionSlideshow extends React.Component {
   state = {
     currentLanguage: 'English',
     currentMode: 'Original',
+    currentTableBackground: "Zene",
     currentSize: 65,
     slideIndex: 0,
     updateCount: 0,
@@ -222,6 +227,11 @@ export default class CaptionSlideshow extends React.Component {
   changeMode = () => {
     var mode = document.getElementById("mode-selector").value;
     this.setState({currentMode: mode});
+  }
+
+  changeTableBackground = () => {
+    var tableBackground = document.getElementById("table-background-selector").value;
+    this.setState({currentTableBackground: tableBackground});
   }
 
   changePageSize = (pageSizeValue) => {
@@ -306,17 +316,18 @@ export default class CaptionSlideshow extends React.Component {
     };
 
     return(
-    <Layout menuBarItems={[(<CaptionSlideshowToggle state={this.state} goToPage={this.goToPage}>{pagesDialogue["pages"]}</CaptionSlideshowToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
+    <Layout menuBarItems={[(<CaptionSlideshowToggle state={this.state} goToPage={this.goToPage}>{pagesDialogue["pages"]}</CaptionSlideshowToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} changeTableBackground={this.changeTableBackground} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
-      <div style={{textAlign: 'center'}}>
-        <Container className="my-5" style={{width: this.state.currentSize.toString() + "%"}}>
-        <section className="mb-5" style={{color: "#fff", textAlign: "center"}}>
+      <div className={"table-background-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>
+      <div className="m-3 p-3 comic-strip-main" style={{textAlign: 'center', color: "#017BFF"}}>
+        <section className="my-3" style={{textAlign: "center"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>{metadataItems.childMarkdownRemark.frontmatter.title}</ResponsiveHeader>
         </section>
+        <Container className="my-5" style={{width: this.state.currentSize.toString() + "%"}}>
         <section className="book-main">
           <Slider ref={slider => (this.slider = slider)} {...settings}>
             {pagesDialogue["pages"].map((page, index) => (
-              <div className="view">
+              <div className="view comic-strip-page">
                 <GatsbyImage
                   className="d-block w-100"
                   image={getImage(page)}
@@ -327,10 +338,11 @@ export default class CaptionSlideshow extends React.Component {
           </Slider>
         </section>
         <section lang={currentLanguageCode} className='mt-3' style={{textAlign: 'justify'}}>
-          <p dangerouslySetInnerHTML={{__html: (this.state.currentBionicReadingFixation > 0) ? textVide(pagesDialogue["dialogue"][this.state.slideIndex], { sep: ['<span style="color: #FFFF00">', '</span>'], fixationPoint: this.state.currentBionicReadingFixation}) : pagesDialogue["dialogue"][this.state.slideIndex]}}>
+          <p style={{color: "#017BFF"}} dangerouslySetInnerHTML={{__html: (this.state.currentBionicReadingFixation > 0) ? textVide(pagesDialogue["dialogue"][this.state.slideIndex], { sep: ['<span style="color: #A35BFF">', '</span>'], fixationPoint: this.state.currentBionicReadingFixation}) : pagesDialogue["dialogue"][this.state.slideIndex]}}>
           </p>
         </section>
         </Container>
+      </div>
       </div>
     </Layout>
     )
@@ -341,7 +353,7 @@ export const query = graphql`
   query($pagePath: String!) {
     allFile(
       filter: {relativeDirectory: {regex: $pagePath}}
-      sort: {fields: relativePath, order: ASC}
+      sort: {relativePath: ASC}
     ) {
       edges {
         node {

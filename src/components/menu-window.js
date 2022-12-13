@@ -3,7 +3,7 @@ import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import { GiHamburgerMenu } from "react-icons/gi";
 import CloseButton from "./close-button";
 import ResponsiveHeader from "./responsive-header";
-import {GridList, GridListTile} from '@material-ui/core';
+import {ImageList, ImageListItem} from '@mui/material';
 import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import { IoHome } from "react-icons/io5";
 import { ImFilm } from "react-icons/im";
@@ -45,11 +45,6 @@ function MenuWindowMain({menuItems, pageID}) {
         )
       }
     })
-
-    var menuButtonText = (<span className="menu-item-text">Menu</span>)
-    if(!(pageID === null)) {
-        menuButtonText = (<>{menuItems[pageID]["logo"]} <span className="menu-item-text">{menuItems[pageID]["text"]}</span></>)
-    }
   
     return(
       <>
@@ -59,7 +54,11 @@ function MenuWindowMain({menuItems, pageID}) {
           overlay={helpTooltip("Main Menu")}
         >
         <Button style={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} aria-label={"Menu" + ((!(pageID === null)) ? (" - " + menuItems[pageID]["text"]) : "")} onClick={handleShow}>
-          <span aria-hidden><GiHamburgerMenu /> {menuButtonText}</span>
+          {
+            (pageID) ?
+            (<span aria-hidden>{menuItems[pageID]['logo']} {menuItems[pageID]['text']}</span>) :
+            (<span aria-hidden><GiHamburgerMenu /> Menu</span>)
+          }
         </Button>
         </OverlayTrigger>
         <Modal size="md" show={show} onHide={handleClose} centered scrollable>
@@ -72,13 +71,13 @@ function MenuWindowMain({menuItems, pageID}) {
           </Modal.Header>
           <Modal.Body style={{textAlign: "justify", color: "#017BFF"}}>
             <section>
-              <GridList cellHeight="auto" spacing={5} cols={ResponsiveGridColumns(3, [860, 560])}>
+              <ImageList rowHeight="auto" gap={5} cols={ResponsiveGridColumns(3, menuLinks.length, [860, 560])}>
                 {menuLinks.map((value, index) => (
-                  <GridListTile key={index}>
+                  <ImageListItem key={index}>
                     {value}
-                  </GridListTile>
+                  </ImageListItem>
                 ))}
-              </GridList>
+              </ImageList>
             </section>
           </Modal.Body>
           <Modal.Footer className="justify-content-center">

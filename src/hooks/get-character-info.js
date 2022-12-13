@@ -6,7 +6,7 @@ export const GetCharacterInfo = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/characters/.*/"}, ext: {eq: ".md"}, name: {eq: "index"}}
-            sort: {fields: relativeDirectory, order: ASC}
+            sort: {relativeDirectory: ASC}
           ) {
             edges {
               node {

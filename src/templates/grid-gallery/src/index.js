@@ -3,7 +3,7 @@ import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
 import SEO from "../../../components/seo";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import {GridList, GridListTile} from '@material-ui/core';
+import {ImageList, ImageListItem} from '@mui/material';
 import {Container, Button, Modal} from 'react-bootstrap';
 import CloseButton from "../../../components/close-button";
 import ResponsiveGridColumns from "../../../hooks/responsive-grid-columns";
@@ -63,9 +63,9 @@ function GridGalleryMain({images, title}) {
           {title}
         </ResponsiveHeader>
       </div>
-      <GridList cellHeight="auto" spacing={5} cols={ResponsiveGridColumns(4, [993, 770, 500])}>
+      <ImageList rowHeight="auto" gap={5} cols={ResponsiveGridColumns(4, imgDisplay.length, [993, 770, 500])}>
         {imgDisplay.map((currentValue, index) => (
-          <GridListTile key={index}>
+          <ImageListItem key={index}>
             <div
               style={{
                 margin: `0 auto`,
@@ -75,9 +75,9 @@ function GridGalleryMain({images, title}) {
             >
               {currentValue}
             </div>
-          </GridListTile>
+          </ImageListItem>
         ))}
-      </GridList>
+      </ImageList>
     </Container>
   )
 }
@@ -109,7 +109,7 @@ export const query = graphql`
   query($pagePath: String!) {
     allFile(
       filter: {relativeDirectory: {regex: $pagePath}}
-      sort: {fields: relativePath, order: ASC}
+      sort: {relativePath: ASC}
     ) {
       edges {
         node {

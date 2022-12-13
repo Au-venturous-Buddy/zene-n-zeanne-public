@@ -1,15 +1,9 @@
 import React from "react"
-import Layout from "../components/layout"
 import {GetBonus} from "../hooks/get-bonus"
 import {GetBonusCovers} from "../hooks/get-bonus-covers"
 import {GetBonusCategories} from "../hooks/get-bonus-categories"
-import SEO from "../components/seo";
-import ResponsiveGridColumns from "../hooks/responsive-grid-columns";
 import MediaCover from "../components/media-cover"
 import MediaLibrary from "../components/media-library";
-import ResponsiveHeader from "../components/responsive-header";
-import SearchBox from "../components/search-box";
-import MenuWindow from "../components/menu-window";
 
 export default function Bonus() {
   const bonusData = GetBonus()
@@ -23,6 +17,10 @@ export default function Bonus() {
     var bonusItemData = bonusData.allFile.edges[i].node.childMarkdownRemark;
     var bonusItemCover = bonusCovers.allFile.edges[i].node;
 
+    var version = bonusItemData.frontmatter.version;
+    var category = bonusItemData.frontmatter.category;
+    var wave = bonusItemData.frontmatter.wave;
+
     var displayBonusItemCover = (
       <div
         style={{
@@ -32,13 +30,9 @@ export default function Bonus() {
 
         className="p-2"
       >
-        <MediaCover title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} showBadge={true} badgeItem={`Wave ${bonusItemData.frontmatter.wave} Release ${bonusItemData.frontmatter.release}`} slug={bonusItemData.fields.slug} playNowText="Go" />
+        <MediaCover categoryName={category.toLowerCase().replace(/ /g, "-")} title={bonusItemData.frontmatter.title} synopsis={bonusItemData.frontmatter.synopsis} cover={bonusItemCover} showBadge={true} badgeItem={`Wave ${bonusItemData.frontmatter.wave} Release ${bonusItemData.frontmatter.release}`} slug={bonusItemData.fields.slug} playNowText="Go" />
       </div>
     )
-    
-    var version = bonusItemData.frontmatter.version;
-    var category = bonusItemData.frontmatter.category;
-    var wave = bonusItemData.frontmatter.wave;
 
     if(!(version in bonus)) {
       bonus[version] = {}
@@ -54,10 +48,6 @@ export default function Bonus() {
   }
 
   return(
-    <Layout menuBarItems={[(<MenuWindow pageID="bonus" />), (<SearchBox />)]} showMenuBar={true}>
-      <SEO title="Bonus" description="Zene 'N Zeanne Bonus Content" />
-      <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>Bonus</ResponsiveHeader>
-      <MediaLibrary grid={ResponsiveGridColumns(4, [970, 750, 500])} mediaItems={bonus} mediaCategories={bonusCategories} defaultVersion={4} mediaSubCategoryName={"Wave"} />
-    </Layout>
+    <MediaLibrary pageID="bonus" title="Bonus" description="Zene 'N Zeanne Bonus Content" gridListClassName="bonus-list" gridListTileClassName="mt-2" buttonClassName="bonus-preview" mediaItems={bonus} mediaCategories={bonusCategories} defaultVersion={4} mediaSubCategoryName={"Wave"} />
   )
 }

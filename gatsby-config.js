@@ -5,9 +5,6 @@
  */
 
 module.exports = {
-  flags: {
-    PARALLEL_QUERY_RUNNING: true
-  },
   siteMetadata: {
     title: `Zene 'N Zeanne`,
     domain: `zenenzeanne.gtsb.io`,

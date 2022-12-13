@@ -33,21 +33,21 @@ exports.createPages = async({graphql, actions}) => {
     `)
     
     result.data.allMarkdownRemark.edges.forEach(({node}) => {
-          if(node.frontmatter.format === "wordpress" || node.frontmatter.format === "wordpress-v2022_2" || node.frontmatter.format === "ausome-blogs") {
+          if(node.frontmatter.format === "wordpress-v2022_3" || node.frontmatter.format === "ausome-blogs-v2") {
+            createPage({
+              path: node.fields.slug,
+              component: path.resolve(`./src/templates/wordpress-v2022_3/src/index.js`),
+              context: {
+                // Data passed to context is available
+                // in page queries as GraphQL variables.
+                pagePath: node.fields.slug,
+              }
+            })
+          }
+          else if(node.frontmatter.format === "wordpress-v2022_2" || node.frontmatter.format === "ausome-blogs") {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve(`./src/templates/wordpress-v2022_2/src/index.js`),
-                context: {
-                  // Data passed to context is available
-                  // in page queries as GraphQL variables.
-                  pagePath: node.fields.slug,
-                }
-            })
-          }
-          if(node.frontmatter.format === "wordpress-v2022_1") {
-            createPage({
-                path: node.fields.slug,
-                component: path.resolve(`./src/templates/wordpress-v2022_1/src/index.js`),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -77,10 +77,21 @@ exports.createPages = async({graphql, actions}) => {
                 }
             })
           }
-          else if(node.frontmatter.format === "comic-strip") {
+          else if(node.frontmatter.format === "comic-strip-v2022_1") {
             createPage({
                 path: node.fields.slug,
-                component: path.resolve('./src/templates/comic-strip/src/index.js'),
+                component: path.resolve('./src/templates/comic-strip-v2022_1/src/index.js'),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format === "comic-strip-v2022_2") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/comic-strip-v2022_2/src/index.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.
@@ -92,6 +103,17 @@ exports.createPages = async({graphql, actions}) => {
             createPage({
                 path: node.fields.slug,
                 component: path.resolve('./src/templates/quiz-v2022_1/src/index.js'),
+                context: {
+                  // Data passed to context is available
+                  // in page queries as GraphQL variables.
+                  pagePath: node.fields.slug,
+                }
+            })
+          }
+          else if(node.frontmatter.format === "wordpress-video-v2022_1") {
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve('./src/templates/wordpress-video-v2022_1/src/index.js'),
                 context: {
                   // Data passed to context is available
                   // in page queries as GraphQL variables.

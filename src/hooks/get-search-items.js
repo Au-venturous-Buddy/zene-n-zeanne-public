@@ -6,7 +6,7 @@ export const GetSearchItems = () => {
         query {
             allFile(
               filter: {extension: {eq: "md"}, name: {eq: "index"}}
-              sort: {fields: relativeDirectory, order: DESC}
+              sort: {relativeDirectory: DESC}
             ) {
               edges {
                 node {

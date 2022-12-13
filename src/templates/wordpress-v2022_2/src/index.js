@@ -2,9 +2,8 @@ import React, {useState} from "react"
 import { graphql } from "gatsby"
 import Layout from "../../../components/layout"
 import SEO from "../../../components/seo"
-import { Modal, Form } from "react-bootstrap";
+import { Form, Offcanvas } from "react-bootstrap";
 import SettingsButton from "../../../components/settings-button";
-import CloseButton from "../../../components/close-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import ResponsiveHeader from "../../../components/responsive-header";
 import { textVide } from 'text-vide';
@@ -20,22 +19,22 @@ function SettingsWindow(props) {
   return(
     <>
     <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
-    <Modal show={show} onHide={handleClose} centered scrollable>
-        <Modal.Header className="justify-content-center">
-          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+    <Offcanvas show={show} onHide={handleClose} placement="bottom" scroll={true}>
+        <Offcanvas.Header className="justify-content-center">
+          <Offcanvas.Title style={{color: "#017BFF"}}>
             <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
           <section className="mb-3">
             <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
               <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
-                Language
+                Language and Dialogue
               </ResponsiveHeader>
             </div>
-            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" as="select" onChange={props.changeLanguage} value={props.state.currentLanguage}>
+            <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="language-selector" onChange={props.changeLanguage} value={props.state.currentLanguage}>
               {props.languageOptions}
-            </Form.Control>
+            </Form.Select>
           </section>
           <section className="mb-3">
               <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
@@ -43,9 +42,19 @@ function SettingsWindow(props) {
                   Mode
                 </ResponsiveHeader>
               </div>
-            <Form.Control style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" as="select" onChange={props.changeMode} value={props.state.currentMode}>
+            <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="mode-selector" onChange={props.changeMode} value={props.state.currentMode}>
               {props.modeOptions}
-            </Form.Control>
+            </Form.Select>
+          </section>
+          <section className="mb-3">
+              <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+                <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                  Table Background
+                </ResponsiveHeader>
+              </div>
+            <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="table-background-selector" onChange={props.changeTableBackground} value={props.state.currentTableBackground}>
+              {['Zene', 'Zeanne', 'Classroom Table'].map((value) => (<option key={value}>{value}</option>))}
+            </Form.Select>
           </section>
           <section className="mb-3">
           <div className='align-items-center pb-3' style={{textAlign: 'center', color: "#017BFF"}}>
@@ -53,19 +62,17 @@ function SettingsWindow(props) {
           </div>
           <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
         </section>
-        </Modal.Body>
-        <Modal.Footer className="justify-content-center">
-          <CloseButton handleClose={handleClose} />
-        </Modal.Footer>
-      </Modal>
+        </Offcanvas.Body>
+      </Offcanvas>
     </>
   )
 }
 
-export default class WordpressBlog extends React.Component {
+export default class WordpressBlogv2022_2 extends React.Component {
   state = {
     currentLanguage: 'English',
     currentMode: 'Original',
+    currentTableBackground: "Zene",
     currentSize: 65,
     currentBionicReadingFixationIndex: 0,
     currentBionicReadingFixation: 0
@@ -79,6 +86,11 @@ export default class WordpressBlog extends React.Component {
   changeMode = () => {
     var mode = document.getElementById("mode-selector").value;
     this.setState({currentMode: mode});
+  }
+
+  changeTableBackground = () => {
+    var tableBackground = document.getElementById("table-background-selector").value;
+    this.setState({currentTableBackground: tableBackground});
   }
   
   changeBionicReadingFixation = (bionicReadingFixationRaw) => {
@@ -158,13 +170,13 @@ export default class WordpressBlog extends React.Component {
           if(metadataItems.childMarkdownRemark.frontmatter.version === 4) {
             currentTextHTML = textVide(currentTextHTML, { fixationPoint: this.state.currentBionicReadingFixation });
           }
-          else if(metadataItems.childMarkdownRemark.frontmatter.version === 2) {
+          else {
             const anchorStartTagRegex = /<a.*">/gi
             const anchorEndTagRegex = /<\/a>/gi
             console.log(currentTextHTML)
             currentTextHTML = currentTextHTML.replace(anchorStartTagRegex, "")
             currentTextHTML = currentTextHTML.replace(anchorEndTagRegex, "")
-            currentTextHTML = textVide(currentTextHTML, { sep: ['<span style="color: #FFFF00">', '</span>'], fixationPoint: (![2, 3].includes(this.state.currentBionicReadingFixation)) ? this.state.currentBionicReadingFixation : 1 });
+            currentTextHTML = textVide(currentTextHTML, { sep: ['<span style="color: #A35BFF">', '</span>'], fixationPoint: (![2, 3].includes(this.state.currentBionicReadingFixation)) ? this.state.currentBionicReadingFixation : 1 });
           }
         }
         currentText = (<section className="my-2" dangerouslySetInnerHTML={{ __html: currentTextHTML }}></section>);
@@ -190,18 +202,20 @@ export default class WordpressBlog extends React.Component {
     }
 
     return(
-      <Layout menuBarItems={[(<SettingsWindow state={this.state} version={metadataItems.childMarkdownRemark.frontmatter.version} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
+      <Layout menuBarItems={[(<SettingsWindow state={this.state} version={metadataItems.childMarkdownRemark.frontmatter.version} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeTableBackground={this.changeTableBackground} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
-      <div>
-        <div style={{textAlign: "center", color: "white"}}>
+      <section className={"table-background-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>
+        <div className={`p-3 ${metadataItems.childMarkdownRemark.frontmatter.format}`}>
+        <div style={{textAlign: "center"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
             {metadataItems.childMarkdownRemark.frontmatter.title}
           </ResponsiveHeader>
         </div>
-        <article lang={currentLanguageCode} className={`mt-3 p-3 ${metadataItems.childMarkdownRemark.frontmatter.format}`} style={{textAlign: "justify"}}>
+        <article lang={currentLanguageCode} className={`m-3`} style={{textAlign: "justify"}}>
           {sections}
         </article>
-      </div>
+        </div>
+      </section>
       </Layout>
     )
   }
@@ -211,7 +225,7 @@ export const query = graphql`
 query($pagePath: String!) {
   allFile(
     filter: {relativeDirectory: {regex: $pagePath}}
-    sort: {fields: relativePath, order: ASC}
+    sort: {relativePath: ASC}
   ) {
     edges {
       node {

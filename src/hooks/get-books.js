@@ -6,7 +6,7 @@ export const GetBooks = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/books/.*/"}, ext: {eq: ".md"}, name: {eq: "index"}}
-            sort: {fields: relativePath, order: DESC}
+            sort: {relativePath: DESC}
           ) {
             edges {
               node {

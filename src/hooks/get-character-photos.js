@@ -6,7 +6,7 @@ export const GetCharacterPhotos = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/characters/.*/"}, ext: {eq: ".png"}, name: {eq: "PHOTO"}}
-            sort: {fields: relativeDirectory, order: ASC}
+            sort: {relativeDirectory: ASC}
           ) {
             edges {
               node {

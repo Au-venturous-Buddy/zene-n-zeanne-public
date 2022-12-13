@@ -6,7 +6,7 @@ export const GetBonusCategories = () => {
         query {
           allFile(
             filter: {relativeDirectory: {regex: "/assets/bonus/CATEGORIES.*/"}, ext: {eq: ".png"}}
-            sort: {fields: name, order: ASC}
+            sort: {name: ASC}
           ) {
             edges {
               node {

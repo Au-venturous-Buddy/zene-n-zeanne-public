@@ -12,7 +12,9 @@ import MenuWindow from "../components/menu-window";
 export default function Home() {
   return(
     <Layout menuBarItems={[(<MenuWindow pageID="home" />), (<SearchBox />)]} showMenuBar={true}>
-      <SEO title="Home" description="Welcome to the Zene 'N Zeanne Official Website!" />
+    <SEO title="Home" description="Welcome to the Zene 'N Zeanne Official Website!" />
+    <div className="table-background">
+    <section className="py-3 m-3 home-credits-page">
       <section className="py-3 hero">
         <div style={{textAlign: `center`, margin: 0}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
@@ -21,9 +23,12 @@ export default function Home() {
               margin: `0 auto`,
               maxWidth: 860,
               padding: `1.45rem 1.0875rem`,
+              border: "5px solid rgb(221, 221, 221)",
+              backgroundColor: "white"
             }}
+            className="mb-4"
           >
-            <div style={{ margin: 0 }}>
+            <div style={{ margin: 0, border: "5px solid rgb(221, 221, 221)" }}>
               <StaticImage src="../images/Zene N Zeanne V4 FantaZZticFive.png" alt="The FantaZZtic Five" layout="fullWidth"></StaticImage>
             </div>
           </div>
@@ -34,7 +39,7 @@ export default function Home() {
           New neighbors. New friends. New stories. Same twin power.
         </p>
       </section>
-      <section className="py-3" style={{textAlign: `center`, color: `#fff`}}>
+      <section className="py-3" style={{textAlign: `center`}}>
         <div className="mb-3">
           <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={800}>Zene 'n Zeanne aims to help you learn:</ResponsiveHeader>
         </div>
@@ -54,9 +59,11 @@ export default function Home() {
         }}
       >
         <div style={{ margin: 0 }}>
-          <StaticImage src="../images/Au-MazinOriginals.png" alt="Au-mazin' Originals Logo" layout="fullWidth"></StaticImage>
+          <StaticImage src="../images/Au-MazinOriginals.png" alt="Au-Mazin Originals" layout="fullWidth"></StaticImage>
         </div>
       </section>
+    </section>
+    </div>
     </Layout>
   )
 }

@@ -10,7 +10,6 @@ import ResponsiveHeader from "../../../components/responsive-header";
 import {MdRadioButtonChecked, MdRadioButtonUnchecked} from "react-icons/md";
 import NextArrow from "../../../components/next-arrow";
 import PrevArrow from "../../../components/prev-arrow";
-import {GridList, GridListTile} from '@material-ui/core';
 import zeneProfile from "../images/Zene.png";
 import zeanneProfile from "../images/Zeanne.png";
 import jakeProfile from "../images/Jake.png";
@@ -177,13 +176,13 @@ function QuestionToggle(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <GridList cellHeight="auto" spacing={5} cols={1}>
+          <ol>
             {props.state.shuffledQuestionIDs.map((questionID, index) => (
-              <GridListTile key={index}>
+              <li key={index}>
                 <QuestionThumbnail question={props.allQuestions[questionID]} answer={props.state.selectedItems[questionID]} questionIndex={props.state.currentQuestion} index={index} goToQuestion={props.goToQuestion} closeFunction={handleClose} />
-              </GridListTile>
+              </li>
             ))}
-          </GridList>
+          </ol>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <CloseButton handleClose={handleClose} />
@@ -402,7 +401,7 @@ export const query = graphql`
 query($pagePath: String!) {
   allFile(
     filter: {relativeDirectory: {regex: $pagePath}}
-    sort: {fields: relativePath, order: ASC}
+    sort: {relativePath: ASC}
   ) {
     edges {
       node {
