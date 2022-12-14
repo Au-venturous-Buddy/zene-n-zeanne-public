@@ -13,6 +13,7 @@ import SearchBox from "../components/search-box";
 import MenuWindow from "../components/menu-window";
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import ResponsiveSize from "../hooks/responsive-size";
+import ResponsiveSizeMaxWidth from "../hooks/responsive-size-max-width";
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -69,7 +70,7 @@ function CharacterProfile({info, profilePic, photo}) {
 
     return(
     <>
-    <Button style={{maxWidth: "30%"}} aria-label={info.frontmatter.name} className="view profile-button m-3" onClick={handleShow}>
+    <Button style={{maxWidth: ResponsiveSizeMaxWidth(30, 90, 500)}} aria-label={info.frontmatter.name} className="view profile-button m-3" onClick={handleShow}>
       <div aria-hidden={true} className="profile-button-contents">
         {displayProfilePic}
         <div className="m-2 bold-text profile-caption">
@@ -175,7 +176,7 @@ export default function Characters() {
     var personalPhoto = characterPhotos.allFile.edges[i].node;
 
     var personalProfile = (
-      <li style={{display: "inline"}} className="justify-content-center m-3" key={i}>
+      <li style={{display: "inline"}} key={i}>
         <CharacterProfile info={personalInfo} profilePic={personalProfilePic} photo={personalPhoto} />
       </li>
     )

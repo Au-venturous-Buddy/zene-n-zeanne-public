@@ -26,10 +26,12 @@ export default function Credits() {
     <SEO title="Credits" description="Meet The People Behind Zene 'N Zeanne" />
     <div className="table-background">
     <section className="py-3 m-3 home-credits-page">
-      <section style={{margin: `0 auto`, padding: `1.45rem 1.0875rem`, maxWidth: 430, border: "5px solid rgb(221, 221, 221)", backgroundColor: "white"}}>
+      <section className="m-3">
+      <div style={{margin: `0 auto`, padding: `1.45rem 1.0875rem`, maxWidth: 430, border: "5px solid rgb(221, 221, 221)", backgroundColor: "white"}}>
         <div style={{border: "5px solid rgb(221, 221, 221)", backgroundColor: "white"}}>
           <StaticImage src="../images/Zene N Zeanne V4 Credits.png" alt="Twin Power" layout="fullWidth" />
         </div>
+      </div>
       </section>
 
       <section className="m-5" style={{textAlign: "center"}}>

@@ -90,7 +90,7 @@ export default function MediaLibrary(props) {
     var currentValue = props.mediaCategories.allFile.edges[i].node;
     if(Object.keys(mediaCurrentVersion).includes(currentValue.name)) {
       mediaCategoriesItems.push(
-        <CategoryFolder categoryName={currentValue.name.toLowerCase().replace(/ /g, "-")} buttonClassName={`view category-button ${props.buttonClassName}`} buttonStyle={{color: "#FFF", maxWidth: "30%"}} maxColumns={4} columnBreakpoints={[1200, 990, 520]} category={currentValue.name} contents={mediaCurrentVersion[currentValue.name]} subcategoryName={props.mediaSubCategoryName}>
+        <CategoryFolder categoryName={currentValue.name.toLowerCase().replace(/ /g, "-")} buttonClassName={`view category-button ${props.buttonClassName}`} maxColumns={4} columnBreakpoints={[1200, 990, 520]} category={currentValue.name} contents={mediaCurrentVersion[currentValue.name]} subcategoryName={props.mediaSubCategoryName}>
           <div aria-hidden={true} className="category-button-contents">
             <GatsbyImage
               className="d-block w-100 category-img"

@@ -21,7 +21,7 @@ export default function SearchResultPreview({title, synopsis, category, slug}) {
         </div>
         <div className="mt-3">
           <Button className="preview-section-button" onClick={handleShow} style={{border: `none`, fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}}>View Synopsis</Button>
-          <Button className="preview-section-button ml-2" href={slug} style={{border: `none`, fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} target="_blank" rel="noreferrer">Go <BsCaretRightFill aria-hidden={true} /></Button>
+          <Button className="preview-section-button ms-2" href={slug} style={{border: `none`, fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} target="_blank" rel="noreferrer">Go <BsCaretRightFill aria-hidden={true} /></Button>
         </div>
     </section>
     <Modal size="md" show={show} onHide={handleClose} centered scrollable>

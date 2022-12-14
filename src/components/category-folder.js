@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import { Accordion, Button, Modal } from "react-bootstrap"
 import BackButton from "./back-button";
 import ResponsiveHeader from "./responsive-header";
+import ResponsiveSizeMaxWidth from "../hooks/responsive-size-max-width";
 
 export default function CategoryFolder(props) {
   const [show, setShow] = useState(false);
@@ -13,7 +14,7 @@ export default function CategoryFolder(props) {
   
   return(
     <>
-    <Button aria-label={props.category} className={props.buttonClassName} onClick={handleShow} style={props.buttonStyle}>
+    <Button aria-label={props.category} className={props.buttonClassName} onClick={handleShow} style={{color: "#FFF", maxWidth: ResponsiveSizeMaxWidth(30, 90, 500)}}>
       {props.children}
     </Button>
     <Modal size="xl" show={show} onHide={handleClose} centered scrollable fullscreen={true}>

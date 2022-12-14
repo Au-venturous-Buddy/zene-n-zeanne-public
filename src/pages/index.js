@@ -18,6 +18,7 @@ export default function Home() {
       <section className="py-3 hero">
         <div style={{textAlign: `center`, margin: 0}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
+          <div className="m-3">
           <div
             style={{
               margin: `0 auto`,
@@ -26,11 +27,11 @@ export default function Home() {
               border: "5px solid rgb(221, 221, 221)",
               backgroundColor: "white"
             }}
-            className="mb-4"
           >
             <div style={{ margin: 0, border: "5px solid rgb(221, 221, 221)" }}>
               <StaticImage src="../images/Zene N Zeanne V4 FantaZZticFive.png" alt="The FantaZZtic Five" layout="fullWidth"></StaticImage>
             </div>
+          </div>
           </div>
           Your Pinoy Twin Buddies.
           </ResponsiveHeader>
