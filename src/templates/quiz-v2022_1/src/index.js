@@ -7,7 +7,7 @@ import SettingsButton from "../../../components/settings-button";
 import CloseButton from "../../../components/close-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import ResponsiveHeader from "../../../components/responsive-header";
-import {MdRadioButtonChecked, MdRadioButtonUnchecked} from "react-icons/md";
+import {BsCircleFill, BsCircle} from "react-icons/bs";
 import NextArrow from "../../../components/next-arrow";
 import PrevArrow from "../../../components/prev-arrow";
 import zeneProfile from "../images/Zene.png";
@@ -68,6 +68,16 @@ function SettingsWindow(props) {
             </Form.Control>
           </section>
           <section className="mb-3">
+            <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+                Table Background
+              </ResponsiveHeader>
+            </div>
+            <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="table-background-selector" onChange={props.changeTableBackground} value={props.currentTableBackground}>
+              {props.tableBackgroundOptions.map((value) => (<option key={value}>{value}</option>))}
+            </Form.Select>
+          </section>
+          <section className="mb-3">
             <div className='align-items-center'>
               <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
                 Other Settings
@@ -91,7 +101,7 @@ function MultipleChoiceItem(props) {
     }
 
     return(
-        <Button style={{border: `none`, background: `rgba(0, 0, 0, 0)`}} onClick={updateScores}>
+        <Button style={{border: `none`, background: `rgba(0, 0, 0, 0)`, color: "#017BFF"}} onClick={updateScores}>
             {props.children}
         </Button>
     )
@@ -106,8 +116,8 @@ class MultipleChoiceQuestion extends React.Component {
                 <ul style={{textAlign: "center"}}>
                 {this.props.question.frontmatter.choices.map((value, index) => (
                     (index === this.props.currentItem) ?
-                    (<li><MultipleChoiceItem totalQuestions={this.props.totalQuestions} overallState={this.props.overallState} currentChoiceState={this.state} score={this.props.scores[index]} questionID={this.props.questionID} index={index} updateCurrentScoreMatrix={this.props.updateCurrentScoreMatrix} updateSelectedItems={this.props.updateSelectedItems}><MdRadioButtonChecked /> {value}</MultipleChoiceItem></li>) :
-                    (<li><MultipleChoiceItem totalQuestions={this.props.totalQuestions} overallState={this.props.overallState} currentChoiceState={this.state} score={this.props.scores[index]} questionID={this.props.questionID} index={index} updateCurrentScoreMatrix={this.props.updateCurrentScoreMatrix} updateSelectedItems={this.props.updateSelectedItems}><MdRadioButtonUnchecked /> {value}</MultipleChoiceItem></li>)
+                    (<li><MultipleChoiceItem totalQuestions={this.props.totalQuestions} overallState={this.props.overallState} currentChoiceState={this.state} score={this.props.scores[index]} questionID={this.props.questionID} index={index} updateCurrentScoreMatrix={this.props.updateCurrentScoreMatrix} updateSelectedItems={this.props.updateSelectedItems}><BsCircleFill /> {value}</MultipleChoiceItem></li>) :
+                    (<li><MultipleChoiceItem totalQuestions={this.props.totalQuestions} overallState={this.props.overallState} currentChoiceState={this.state} score={this.props.scores[index]} questionID={this.props.questionID} index={index} updateCurrentScoreMatrix={this.props.updateCurrentScoreMatrix} updateSelectedItems={this.props.updateSelectedItems}><BsCircle /> {value}</MultipleChoiceItem></li>)
                 ))}
                 </ul>
             </section>
@@ -192,7 +202,7 @@ function QuestionToggle(props) {
       );
 }
 
-function ShowOutcome({scores, disabled, outcomes, restartTest}) { 
+function ShowOutcome({state, outcomes, restartTest}) { 
     const [show, setShow] = useState(false);
     
     const handleShow = () => setShow(true);
@@ -206,9 +216,9 @@ function ShowOutcome({scores, disabled, outcomes, restartTest}) {
         overallScore.push(0)
     })
 
-    Object.keys(scores).forEach((key) => {
-        for(var i = 0; i < scores[key].length; i++) {
-            overallScore[i] = overallScore[i] + scores[key][i]
+    Object.keys(state.currentScoreMatrix).forEach((key) => {
+        for(var i = 0; i < state.currentScoreMatrix[key].length; i++) {
+            overallScore[i] = overallScore[i] + state.currentScoreMatrix[key][i]
         }
     })
 
@@ -222,36 +232,40 @@ function ShowOutcome({scores, disabled, outcomes, restartTest}) {
   
     return (
       <>
-        <Button disabled={disabled} aria-label="Submit" style={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} onClick={handleShow}>
+        <Button disabled={Object.values(state.selectedItems).includes(-1)} aria-label="Submit" style={{fontSize: ResponsiveSize(0.8, "rem", 0.001, 500)}} onClick={handleShow}>
             Submit
         </Button>
-        <Modal show={show} backdrop="static" centered scrollable>
+        <Modal show={show} backdrop="static" centered scrollable fullscreen>
         <Modal.Header className="justify-content-center">
           <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
             <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Here's your result:</ResponsiveHeader>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <section className="justify-content-center mb-2" style={{textAlign: "justify"}}>
-          <ul className="justify-content-center" style={{color: "#017BFF"}}>
-            {
-              outcomes.map((item, index) => (
-                <li style={{textAlign: "center"}} className="my-2">
-                  <img style={{border: "4px solid #017BFF", borderRadius: "50%", maxWidth: "30%"}} className="m-3" src={allProfiles[item.outcome]} alt={item.outcome} />
-                  <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{item.outcome}</ResponsiveHeader>
-                  <p className="m-2 p-2" style={{backgroundColor: ((overallScore[index] === Math.max(...overallScore)) ? "#00CD00" : "red"), color: "white", borderRadius: "10px"}}>{overallScore[index]} Point(s)</p>
-                </li>
-              ))
-            }
-          </ul>
-          </section>
-          <section className="justify-content-center mb-2" style={{textAlign: "justify"}}>
-            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>What it Means:</ResponsiveHeader>
-            {outcomes.map((item, index) => (
-              <p key={index} style={{textAlign: "justify"}} hidden={!(overallScore[index] === Math.max(...overallScore))} className="my-2">
-                {item.interpretation}
-              </p>
-            ))}
+        <Modal.Body className="px-0">
+          <section className={"justify-content-center mb-2 table-background-" + state.currentTableBackground.toLowerCase().replace(/ /g, "-")} style={{textAlign: "justify"}}>
+          <div className="miscellaneous-page justify-content-center p-3">
+            <ul className="justify-content-center">
+              {
+                outcomes.map((item, index) => (
+                  <li style={{textAlign: "center"}} className="my-2">
+                    <div className="character-photo-desc my-3">
+                      <img style={{maxWidth: "90%"}} className="character-photo" src={allProfiles[item.outcome]} alt={item.outcome} />
+                    </div>
+                    <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{item.outcome}</ResponsiveHeader>
+                    <p className={"m-2 p-2" + ((overallScore[index] === Math.max(...overallScore)) ? " high-score-character" : "")}>{overallScore[index]} Point(s)</p>
+                  </li>
+                ))
+              }
+            </ul>
+            <section className="justify-content-center mb-2" style={{textAlign: "justify"}}>
+              <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>What it Means:</ResponsiveHeader>
+              {outcomes.map((item, index) => (
+                <p key={index} style={{textAlign: "justify"}} hidden={!(overallScore[index] === Math.max(...overallScore))} className="my-2">
+                  {item.interpretation}
+                </p>
+              ))}
+            </section>
+          </div>
           </section>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
@@ -265,6 +279,7 @@ function ShowOutcome({scores, disabled, outcomes, restartTest}) {
 export default class Quiz extends React.Component {
   state = {
     currentLanguage: 'English',
+    currentTableBackground: 'Zene',
     currentQuestion: 0,
     currentScoreMatrix: {},
     selectedItems: {},
@@ -276,6 +291,11 @@ export default class Quiz extends React.Component {
   changeLanguage = () => {
     var language = document.getElementById("language-selector").value;
     this.setState({currentLanguage: language});
+  }
+
+  changeTableBackground = () => {
+    var tableBackground = document.getElementById("table-background-selector").value;
+    this.setState({currentTableBackground: tableBackground});
   }
 
   restartTest = () => {
@@ -380,17 +400,19 @@ export default class Quiz extends React.Component {
     }
 
     return(
-      <Layout menuBarItems={[(<QuestionToggle state={this.state} goToQuestion={this.goToQuestion} allQuestions={allQuestions} />), (<ShowOutcome disabled={Object.values(this.state.selectedItems).includes(-1)} scores={this.state.currentScoreMatrix} outcomes={metadataItems.childMarkdownRemark.frontmatter.outcomes} restartTest={this.restartTest} />), (<SettingsWindow clearSelectedItems={this.clearSelectedItems} state={this.state} languageOptions={languageOptions} changeLanguage={this.changeLanguage} />)]} showMenuBar={true}>
+      <Layout menuBarItems={[(<QuestionToggle state={this.state} goToQuestion={this.goToQuestion} allQuestions={allQuestions} />), (<ShowOutcome state={this.state} outcomes={metadataItems.childMarkdownRemark.frontmatter.outcomes} restartTest={this.restartTest} />), (<SettingsWindow clearSelectedItems={this.clearSelectedItems} state={this.state} languageOptions={languageOptions} changeLanguage={this.changeLanguage} tableBackgroundOptions={['Zene', 'Zeanne', 'Classroom Table']} changeTableBackground={this.changeTableBackground} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
-      <div>
-        <div style={{textAlign: "center", color: "white"}}>
-          <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
-            {metadataItems.childMarkdownRemark.frontmatter.title}
-          </ResponsiveHeader>
+      <div className={"table-background-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")} style={{textAlign: 'center'}}>
+        <div className="miscellaneous-page p-3" style={{textAlign: 'center'}}>
+          <div style={{textAlign: "center", color: "white"}}>
+            <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
+              {metadataItems.childMarkdownRemark.frontmatter.title}
+            </ResponsiveHeader>
+          </div>
+          <section className="mb-5" lang={currentLanguageCode}>
+            {sections[this.state.shuffledQuestionIDs[this.state.currentQuestion]]}
+          </section>
         </div>
-        <section className="mb-5" lang={currentLanguageCode}>
-          {sections[this.state.shuffledQuestionIDs[this.state.currentQuestion]]}
-        </section>
       </div>
       </Layout>
     )

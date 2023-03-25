@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
-import { Container, Button, ButtonGroup, Offcanvas, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Container, Button, ButtonGroup, Modal, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 import SettingsButton from "../../../components/settings-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import SEO from "../../../components/seo";
@@ -9,8 +9,8 @@ import ResponsiveHeader from "../../../components/responsive-header";
 import Slider from "react-slick";
 import NextArrow from "../../../components/next-arrow";
 import PrevArrow from "../../../components/prev-arrow";
+import CloseButton from "../../../components/close-button";
 import { textVide } from 'text-vide';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RangeSlider from 'react-bootstrap-range-slider';
 
 const helpTooltip = (message, props) => (
@@ -36,9 +36,9 @@ function SlideThumbnail({page, currentIndex, index, goToPage, closeFunction}) {
     >
       <Button aria-label={`Page ${index + 1}`} className={`p-2 view img-button comic-strip-page-thumbnail ${(currentIndex === index) ? "comic-strip-page-thumbnail-current" : ""}`} onClick={changeSlide}>
         <div aria-hidden={true}>
-        <GatsbyImage
+        <img
           className="d-block w-100 comic-strip-page"
-          image={getImage(page)}
+          src={page.publicURL}
           alt={page.name}
           aria-hidden={true}
         />
@@ -92,14 +92,14 @@ function CaptionSlideshowToggle(props) {
         </OverlayTrigger>
         <NextButton goToPage={props.goToPage} slideIndex={props.state.slideIndex} numPages={props.children.length} />
       </ButtonGroup>
-      <Offcanvas show={show} onHide={handleClose} placement="end" scroll={true}>
-      <Offcanvas.Header className="justify-content-center">
-        <Offcanvas.Title style={{textAlign: "center", color: "#017BFF"}}>
+      <Modal show={show} onHide={handleClose} fullscreen={true} scrollable={true}>
+      <Modal.Header className="justify-content-center">
+        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Toggle Page</ResponsiveHeader>
-        </Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body className="px-0">
-        <div className="my-2 table-background">
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="px-0">
+        <div className={"my-2 table-background-" + props.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>
         <ol>
           {props.children.map((currentValue, index) => (
             <li key={index}>
@@ -108,8 +108,11 @@ function CaptionSlideshowToggle(props) {
           ))}
         </ol>
         </div>
-      </Offcanvas.Body>
-      </Offcanvas>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <CloseButton handleClose={handleClose} />
+      </Modal.Footer>
+      </Modal>
       </>
     );
   }
@@ -156,13 +159,13 @@ function SettingsWindow(props) {
   return(
     <>
       <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
-      <Offcanvas show={show} onHide={handleClose} placement="bottom" scroll={true}>
-      <Offcanvas.Header className="justify-content-center">
-        <Offcanvas.Title style={{textAlign: "center", color: "#017BFF"}}>
+      <Modal show={show} onHide={handleClose} fullscreen={true} scrollable={true}>
+      <Modal.Header className="justify-content-center">
+        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-        </Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <section className="mb-3">
           <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
             <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>Language and Dialogue</ResponsiveHeader>
@@ -201,8 +204,11 @@ function SettingsWindow(props) {
           </div>
           <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
         </section>
-      </Offcanvas.Body>
-    </Offcanvas>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <CloseButton handleClose={handleClose} />
+      </Modal.Footer>
+    </Modal>
     </>
   )
 }
@@ -319,7 +325,7 @@ export default class CaptionSlideshow extends React.Component {
     <Layout menuBarItems={[(<CaptionSlideshowToggle state={this.state} goToPage={this.goToPage}>{pagesDialogue["pages"]}</CaptionSlideshowToggle>), (<SettingsWindow state={this.state} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changePageSize={this.changePageSize} changeTableBackground={this.changeTableBackground} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <div className={"table-background-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>
-      <div className="m-3 p-3 comic-strip-main" style={{textAlign: 'center', color: "#017BFF"}}>
+      <div className="m-3 p-3 comic-strip-main-caption-slideshow" style={{textAlign: 'center', color: "#017BFF"}}>
         <section className="my-3" style={{textAlign: "center"}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>{metadataItems.childMarkdownRemark.frontmatter.title}</ResponsiveHeader>
         </section>
@@ -328,9 +334,9 @@ export default class CaptionSlideshow extends React.Component {
           <Slider ref={slider => (this.slider = slider)} {...settings}>
             {pagesDialogue["pages"].map((page, index) => (
               <div className="view comic-strip-page">
-                <GatsbyImage
+                <img
                   className="d-block w-100"
-                  image={getImage(page)}
+                  src={page.publicURL}
                   alt={page.name}
                 />
               </div>
@@ -360,6 +366,7 @@ export const query = graphql`
           name
           ext
           relativeDirectory
+          publicURL
           childMarkdownRemark {
             frontmatter {
               title
@@ -370,9 +377,6 @@ export const query = graphql`
               }
             }
             html
-          }
-          childImageSharp {
-            gatsbyImageData
           }
         }
       }

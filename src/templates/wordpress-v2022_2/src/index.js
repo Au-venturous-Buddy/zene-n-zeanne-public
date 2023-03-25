@@ -2,12 +2,12 @@ import React, {useState} from "react"
 import { graphql } from "gatsby"
 import Layout from "../../../components/layout"
 import SEO from "../../../components/seo"
-import { Form, Offcanvas } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import SettingsButton from "../../../components/settings-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import ResponsiveHeader from "../../../components/responsive-header";
+import CloseButton from "../../../components/close-button";
 import { textVide } from 'text-vide';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import RangeSlider from 'react-bootstrap-range-slider';
 
 function SettingsWindow(props) {
@@ -19,13 +19,13 @@ function SettingsWindow(props) {
   return(
     <>
     <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
-    <Offcanvas show={show} onHide={handleClose} placement="bottom" scroll={true}>
-        <Offcanvas.Header className="justify-content-center">
-          <Offcanvas.Title style={{color: "#017BFF"}}>
+    <Modal show={show} onHide={handleClose} fullscreen={true} scrollable={true}>
+        <Modal.Header className="justify-content-center">
+          <Modal.Title style={{color: "#017BFF"}}>
             <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-          </Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <section className="mb-3">
             <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
               <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
@@ -62,8 +62,11 @@ function SettingsWindow(props) {
           </div>
           <RangeSlider className="hover-shadow mt-3" variant="dark" tooltipPlacement='top' tooltip='on' onChange={changeEvent => props.changeBionicReadingFixation(changeEvent.target.value)} min={0} max={3} value={props.state.currentBionicReadingFixationIndex} />
         </section>
-        </Offcanvas.Body>
-      </Offcanvas>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <CloseButton handleClose={handleClose} />
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }
@@ -186,7 +189,7 @@ export default class WordpressBlogv2022_2 extends React.Component {
       if(nextImageID < images.length && parseInt(images[nextImageID].name) === sectionNum) {
         currentImage = (
           <section className="my-2 center-image">
-            <GatsbyImage style={{maxWidth: "60%"}} alt={imagesAlt[sectionNum]} image={getImage(images[nextImageID])} />
+            <img style={{maxWidth: "60%"}} alt={imagesAlt[sectionNum]} src={images[nextImageID].publicURL} />
           </section>
         );
         nextImageID++;
@@ -246,9 +249,6 @@ query($pagePath: String!) {
             format
             version
           }
-        }
-        childImageSharp {
-          gatsbyImageData
         }
       }
     }

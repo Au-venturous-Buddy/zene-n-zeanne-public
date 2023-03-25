@@ -13,9 +13,7 @@ export const GetBooksCovers = () => {
                 relativeDirectory
                 name
                 ext
-                childImageSharp {
-                  gatsbyImageData
-                }
+                publicURL
               }
             }
           }

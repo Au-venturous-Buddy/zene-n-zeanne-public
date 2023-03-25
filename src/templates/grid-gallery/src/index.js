@@ -2,12 +2,48 @@ import React, { useState } from "react";
 import Layout from "../../../components/layout"
 import { graphql } from "gatsby";
 import SEO from "../../../components/seo";
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import {ImageList, ImageListItem} from '@mui/material';
-import {Container, Button, Modal} from 'react-bootstrap';
+import {Container, Button, Modal, Form} from 'react-bootstrap';
 import CloseButton from "../../../components/close-button";
 import ResponsiveGridColumns from "../../../hooks/responsive-grid-columns";
 import ResponsiveHeader from "../../../components/responsive-header";
+import ResponsiveSize from "../../../hooks/responsive-size";
+import SettingsButton from "../../../components/settings-button";
+
+function SettingsWindow(props) {
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return(
+    <>
+      <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
+      <Modal show={show} onHide={handleClose} fullscreen={true} scrollable={true}>
+      <Modal.Header className="justify-content-center">
+        <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
+          <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <section className="mb-3">
+          <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
+            <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
+              Table Background
+            </ResponsiveHeader>
+          </div>
+          <Form.Select style={{color: "#017BFF"}} className="hover-shadow" id="table-background-selector" onChange={props.changeTableBackground} value={props.currentTableBackground}>
+            {props.tableBackgroundOptions.map((value) => (<option key={value}>{value}</option>))}
+          </Form.Select>
+        </section>
+      </Modal.Body>
+      <Modal.Footer className="justify-content-center">
+        <CloseButton handleClose={handleClose} />
+      </Modal.Footer>
+    </Modal>
+    </>
+  )
+}
 
 function ShowImage({image, title}) {
   const [show, setShow] = useState(false);
@@ -18,9 +54,9 @@ function ShowImage({image, title}) {
   return(
     <>
       <Button className="view img-button" onClick={handleShow}>
-          <GatsbyImage
+          <img
             className="d-block w-100"
-            image={getImage(image)}
+            src={image.publicURL}
             alt={image.name}
           />
       </Button>
@@ -33,9 +69,9 @@ function ShowImage({image, title}) {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{textAlign: "justify"}}>
-            <GatsbyImage
+            <img
               className="hover-shadow-card d-block w-100 mb-3"
-              image={getImage(image)}
+              src={image.publicURL}
               alt={image.name}
             />
           </Modal.Body>
@@ -57,8 +93,8 @@ function GridGalleryMain({images, title}) {
   }
 
   return (
-    <Container className="my-5">
-      <div className="mb-5" style={{color: "#fff", textAlign: "center"}}>
+    <Container className="py-5">
+      <div className="mb-5" style={{textAlign: "center"}}>
         <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
           {title}
         </ResponsiveHeader>
@@ -83,6 +119,13 @@ function GridGalleryMain({images, title}) {
 }
 
 export default function GridGallery({data}) {
+  const [currentTableBackground, changeTableBackground] = useState("Zene")
+
+  const changeTableBackgroundMain = () => {
+    var tableBackground = document.getElementById("table-background-selector").value;
+    changeTableBackground(tableBackground);
+  }
+
   var metadataItems = null;
   var images = [];
   for(var i = 0; i < data.allFile.edges.length; i++) {
@@ -96,10 +139,12 @@ export default function GridGallery({data}) {
   }
 
   return (
-    <Layout showMenuBar={false}>
+    <Layout showMenuBar menuBarItems={[(<SettingsWindow currentTableBackground={currentTableBackground} changeTableBackground={changeTableBackgroundMain} tableBackgroundOptions={['Zene', 'Zeanne', 'Classroom Table']} />)]}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
-      <div style={{textAlign: 'center'}}>
-        <GridGalleryMain title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} />
+      <div className={"table-background-" + currentTableBackground.toLowerCase().replace(/ /g, "-")} style={{textAlign: 'center'}}>
+        <div className="miscellaneous-page" style={{textAlign: 'center'}}>
+          <GridGalleryMain title={metadataItems.childMarkdownRemark.frontmatter.title} images={images} />
+        </div>
       </div>
     </Layout>
   )
@@ -121,9 +166,6 @@ export const query = graphql`
             frontmatter {
               title
             }
-          }
-          childImageSharp {
-            gatsbyImageData
           }
         }
       }

@@ -2,12 +2,11 @@ import React, {useState} from "react"
 import { graphql } from "gatsby"
 import Layout from "../../../components/layout"
 import SEO from "../../../components/seo"
-import { Offcanvas, Form } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 import SettingsButton from "../../../components/settings-button";
 import CloseButton from "../../../components/close-button";
 import ResponsiveSize from "../../../hooks/responsive-size";
 import ResponsiveHeader from "../../../components/responsive-header";
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 function SettingsWindow(props) {
   const [show, setShow] = useState(false);
@@ -18,13 +17,13 @@ function SettingsWindow(props) {
   return(
     <>
     <SettingsButton fontButtonSize={ResponsiveSize(0.8, "rem", 0.001, 500)} handleShow={handleShow} />
-    <Offcanvas show={show} onHide={handleClose} placement="bottom" scroll={true}>
-        <Offcanvas.Header className="justify-content-center">
-          <Offcanvas.Title style={{textAlign: "center", color: "#017BFF"}}>
+    <Modal show={show} onHide={handleClose} fullscreen scrollable={true}>
+        <Modal.Header className="justify-content-center">
+          <Modal.Title style={{textAlign: "center", color: "#017BFF"}}>
             <ResponsiveHeader level={1} maxSize={2} minScreenSize={500}>Settings</ResponsiveHeader>
-          </Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
           <section className="mb-3">
             <div className='align-items-center' style={{textAlign: 'center', color: "#017BFF"}}>
               <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>
@@ -55,8 +54,11 @@ function SettingsWindow(props) {
               {['Zene N Zeanne Bedroom v4', 'Zene N Zeanne Bedroom v2', 'Zene N Zeanne Classroom v4', 'Zene N Zeanne Classroom v2'].map((value) => (<option key={value}>{value}</option>))}
             </Form.Select>
           </section>
-        </Offcanvas.Body>
-      </Offcanvas>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-center">
+          <CloseButton handleClose={handleClose} />
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }
@@ -146,7 +148,7 @@ export default class WordpressVideov2022_1 extends React.Component {
       if(nextImageID < images.length && parseInt(images[nextImageID].name) === sectionNum) {
         currentImage = (
           <section className="my-2 center-image">
-            <GatsbyImage style={{maxWidth: "60%"}} alt={imagesAlt[sectionNum]} image={getImage(images[nextImageID])} />
+            <img style={{maxWidth: "60%"}} alt={imagesAlt[sectionNum]} src={images[nextImageID].publicURL} />
           </section>
         );
         nextImageID++;
@@ -162,7 +164,7 @@ export default class WordpressVideov2022_1 extends React.Component {
     }
 
     return(
-      <Layout menuBarItems={[(<SettingsWindow state={this.state} version={metadataItems.childMarkdownRemark.frontmatter.version} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeWallBackground={this.changeWallBackground} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
+      <Layout useCustomBackground={"tv-background-" + this.state.currentWallBackground.toLowerCase().replace(/ /g, "-")} menuBarItems={[(<SettingsWindow state={this.state} version={metadataItems.childMarkdownRemark.frontmatter.version} languageOptions={languageOptions} modeOptions={modeOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeWallBackground={this.changeWallBackground} changeBionicReadingFixation={this.changeBionicReadingFixation} />)]} showMenuBar={true}>
       <SEO title={metadataItems.childMarkdownRemark.frontmatter.title} />
       <section className={"tv-background tv-background-" + this.state.currentWallBackground.toLowerCase().replace(/ /g, "-")}>
         <div className={`p-3 tv-contents`}>
@@ -206,9 +208,6 @@ query($pagePath: String!) {
             format
             version
           }
-        }
-        childImageSharp {
-          gatsbyImageData
         }
       }
     }

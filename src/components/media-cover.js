@@ -4,7 +4,6 @@ import { Button, Modal, Badge } from "react-bootstrap"
 import BackButton from "./back-button";
 import ResponsiveHeader from "./responsive-header";
 import {QRCodeSVG} from 'qrcode.react';
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 export default function MediaCover({categoryName, title, cover, synopsis, slug, showBadge, badgeItem}) {
   const [show, setShow] = useState(false);
@@ -26,9 +25,9 @@ export default function MediaCover({categoryName, title, cover, synopsis, slug, 
       <>
       <Button aria-label={`${title} - ${badgeItem}`} className={`m-2 view img-button media-preview media-preview-${categoryName}`} onClick={handleShow}>
         <div aria-hidden={true}>
-          <GatsbyImage
+          <img
             className={`d-block w-100 media-preview-image`}
-            image={getImage(cover)}
+            src={cover.publicURL}
             alt={title}
           />
           <section className={`m-3 media-preview-title`}>
@@ -48,15 +47,15 @@ export default function MediaCover({categoryName, title, cover, synopsis, slug, 
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={(!(['buddies-next-door', 'read-along'].includes(categoryName))) ? "px-0" : "p-0"} style={{textAlign: "justify", color: "#017BFF"}}>
-          <div className={(!(['buddies-next-door', 'read-along'].includes(categoryName))) ? "table-background" : "tv-background"}>
+          <div className={(!(['buddies-next-door', 'read-along', 'the-dream-begins'].includes(categoryName))) ? "table-background" : (['the-dream-begins'].includes(categoryName) ? "vr-background-sam p-3" : "tv-background")}>
           <div className={`p-3 m-3 media-preview-main-${categoryName}`}>
           <section>
             <div className="my-3">
               <ResponsiveHeader level={2}>{title}</ResponsiveHeader>
             </div>
-            <GatsbyImage
+            <img
               className={`hover-shadow-card d-block w-100 mb-3 media-preview-main-img-${categoryName}`}
-              image={getImage(cover)}
+              src={cover.publicURL}
               alt={title}
             />
             {synopsis}

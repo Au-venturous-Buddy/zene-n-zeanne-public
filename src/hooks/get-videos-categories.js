@@ -13,9 +13,7 @@ export const GetVideosCategories = () => {
                 relativeDirectory
                 name
                 ext
-                childImageSharp {
-                  gatsbyImageData
-                }
+                publicURL
               }
             }
           }

@@ -11,9 +11,7 @@ import SEO from "../components/seo"
 import ResponsiveHeader from "../components/responsive-header";
 import SearchBox from "../components/search-box";
 import MenuWindow from "../components/menu-window";
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import ResponsiveSize from "../hooks/responsive-size";
-import ResponsiveSizeMaxWidth from "../hooks/responsive-size-max-width";
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -60,9 +58,9 @@ function CharacterProfile({info, profilePic, photo}) {
     }
 
     var displayProfilePic = (
-      <GatsbyImage
+      <img
         className="d-block w-100 profile-img"
-        image={getImage(profilePic)}
+        src={profilePic.publicURL}
         alt={info.frontmatter.name}
         aria-hidden={true}
       />
@@ -70,7 +68,7 @@ function CharacterProfile({info, profilePic, photo}) {
 
     return(
     <>
-    <Button style={{maxWidth: ResponsiveSizeMaxWidth(30, 90, 500)}} aria-label={info.frontmatter.name} className="view profile-button m-3" onClick={handleShow}>
+    <Button style={{maxWidth: "30%"}} aria-label={info.frontmatter.name} className="view profile-button m-3" onClick={handleShow}>
       <div aria-hidden={true} className="profile-button-contents">
         {displayProfilePic}
         <div className="m-2 bold-text profile-caption">
@@ -91,9 +89,9 @@ function CharacterProfile({info, profilePic, photo}) {
           <div className={`py-3 m-3 character-info-main-version-${info.frontmatter.version}`}>
           <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={500}>{info.frontmatter.name}</ResponsiveHeader>
           <div className="character-photo-desc">
-            <GatsbyImage
+            <img
               className="d-block w-100 character-photo"
-              image={getImage(photo)}
+              src={photo.publicURL}
               alt={info.frontmatter.name}
               aria-hidden={true}
             />
@@ -176,7 +174,7 @@ export default function Characters() {
     var personalPhoto = characterPhotos.allFile.edges[i].node;
 
     var personalProfile = (
-      <li style={{display: "inline"}} key={i}>
+      <li style={{display: "inline"}} className="justify-content-center m-3" key={i}>
         <CharacterProfile info={personalInfo} profilePic={personalProfilePic} photo={personalPhoto} />
       </li>
     )

@@ -4,7 +4,6 @@ import CloseButton from "./close-button";
 import {BsCaretRightFill} from "react-icons/bs";
 import CategoryFolder from "./category-folder";
 import ResponsiveHeader from "./responsive-header"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo";
 import SearchBox from "../components/search-box";
@@ -90,11 +89,11 @@ export default function MediaLibrary(props) {
     var currentValue = props.mediaCategories.allFile.edges[i].node;
     if(Object.keys(mediaCurrentVersion).includes(currentValue.name)) {
       mediaCategoriesItems.push(
-        <CategoryFolder categoryName={currentValue.name.toLowerCase().replace(/ /g, "-")} buttonClassName={`view category-button ${props.buttonClassName}`} maxColumns={4} columnBreakpoints={[1200, 990, 520]} category={currentValue.name} contents={mediaCurrentVersion[currentValue.name]} subcategoryName={props.mediaSubCategoryName}>
+        <CategoryFolder categoryName={currentValue.name.toLowerCase().replace(/ /g, "-")} buttonClassName={`view category-button ${props.buttonClassName}`} buttonStyle={{color: "#FFF", maxWidth: "30%"}} maxColumns={4} columnBreakpoints={[1200, 990, 520]} category={currentValue.name} contents={mediaCurrentVersion[currentValue.name]} subcategoryName={props.mediaSubCategoryName}>
           <div aria-hidden={true} className="category-button-contents">
-            <GatsbyImage
+            <img
               className="d-block w-100 category-img"
-              image={getImage(currentValue)}
+              src={currentValue.publicURL}
               alt={currentValue.name}
             />
             <div className="mt-3 bold-text category-caption" style={{textAlign: "center"}}>
@@ -107,7 +106,7 @@ export default function MediaLibrary(props) {
   }
   
   return(
-    <Layout menuBarItems={[(<MenuWindow pageID={props.pageID} />), (<SelectVersionButton currentVersion={currentVersion} mediaItems={props.mediaItems} changeVersion={changeVersion} />), (<SearchBox />)]} showMenuBar={true}>
+    <Layout useCustomBackground={['bonus', 'books', 'videos'].includes(props.pageID) ? "wall-background" : null} menuBarItems={[(<MenuWindow pageID={props.pageID} />), (<SelectVersionButton currentVersion={currentVersion} mediaItems={props.mediaItems} changeVersion={changeVersion} />), (<SearchBox />)]} showMenuBar={true}>
     <SEO title={props.title} description={props.description} />
       <section className="py-3 justify-content-center" style={{textAlign: "center"}}>
         <div className="my-3 py-3 media-shelf">

@@ -13,9 +13,7 @@ export const GetBonusCovers = () => {
                 relativeDirectory
                 name
                 ext
-                childImageSharp {
-                  gatsbyImageData
-                }
+                publicURL
               }
             }
           }

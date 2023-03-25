@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "../components/layout"
 import { StaticImage } from "gatsby-plugin-image"
-import {BsPuzzleFill} from "react-icons/bs";
-import {GiPartyFlags} from "react-icons/gi";
-import {FaCross} from "react-icons/fa";
+import {GiPartyFlags, GiVrHeadset} from "react-icons/gi";
+import {FaCross, FaInfinity, FaCommentMedical} from "react-icons/fa";
+import {IoIosBasketball} from "react-icons/io"
 import SEO from "../components/seo";
 import ResponsiveHeader from "../components/responsive-header";
 import SearchBox from "../components/search-box";
@@ -18,26 +18,23 @@ export default function Home() {
       <section className="py-3 hero">
         <div style={{textAlign: `center`, margin: 0}}>
           <ResponsiveHeader level={1} maxSize={2} minScreenSize={800}>
-          <div className="m-3">
           <div
             style={{
               margin: `0 auto`,
               maxWidth: 860,
-              padding: `1.45rem 1.0875rem`,
-              border: "5px solid rgb(221, 221, 221)",
-              backgroundColor: "white"
+              padding: `1.45rem 1.0875rem`
             }}
+            className="mb-4"
           >
-            <div style={{ margin: 0, border: "5px solid rgb(221, 221, 221)" }}>
-              <StaticImage src="../images/Zene N Zeanne V4 FantaZZticFive.png" alt="The FantaZZtic Five" layout="fullWidth"></StaticImage>
+            <div style={{ margin: 0 }}>
+              <StaticImage src="../images/ZNZNxSSDT.png" alt="Zene 'N Zeanne Meets Sporty Sam: Dream Team" layout="fullWidth"></StaticImage>
             </div>
           </div>
-          </div>
-          Your Pinoy Twin Buddies.
+          "Au-Some" meets "Dare Dream Big"!
           </ResponsiveHeader>
         </div>
         <p style={{textAlign: `center`}}>
-          New neighbors. New friends. New stories. Same twin power.
+          Sporty Sam: Dream Team is now joining forces with Zene 'N Zeanne to promote a culture of acceptance and love for everyone, even for all persons with disabilities of all kinds.
         </p>
       </section>
       <section className="py-3" style={{textAlign: `center`}}>
@@ -45,9 +42,12 @@ export default function Home() {
           <ResponsiveHeader level={2} maxSize={1.5} minScreenSize={800}>Zene 'n Zeanne aims to help you learn:</ResponsiveHeader>
         </div>
         <ul>
-          <li><BsPuzzleFill aria-hidden={true} /> Autism Inclusion and Acceptance</li>
+          <li><FaInfinity aria-hidden={true} /> Disability Inclusion and Acceptance</li>
           <li><GiPartyFlags aria-hidden={true} /> Filipino Culture and Pride</li>
           <li><FaCross aria-hidden={true} /> Christianity, Faith, and Spirituality</li>
+          <li><IoIosBasketball aria-hidden={true} /> Staying Fit through Different Types of Sports and Exercises</li>
+          <li><FaCommentMedical aria-hidden={true} /> Healthcare Reforms</li>
+          <li><GiVrHeadset aria-hidden={true} /> Usage of Virtual/Mixed/Augmented Reality Technologies</li>
         </ul>
       </section>
       <section
@@ -60,7 +60,7 @@ export default function Home() {
         }}
       >
         <div style={{ margin: 0 }}>
-          <StaticImage src="../images/Au-MazinOriginals.png" alt="Au-Mazin Originals" layout="fullWidth"></StaticImage>
+          <StaticImage src="../images/AUventurous Buddy Logo.png" alt="AU-venturous Buddy Logo" layout="fullWidth"></StaticImage>
         </div>
       </section>
     </section>
