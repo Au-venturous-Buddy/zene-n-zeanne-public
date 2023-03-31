@@ -141,6 +141,7 @@ export const query = graphql`
               format
               language_code
               dialogue_alt
+              download_link
             }
           }
           publicURL

@@ -9,6 +9,7 @@ import Slider from "react-slick";
 import NextArrow from "./next-arrow";
 import PrevArrow from "./prev-arrow";
 import CloseButton from "./close-button";
+import DownloadButton from "./download-button";
 import RangeSlider from 'react-bootstrap-range-slider';
 
 const helpTooltip = (message, props) => (
@@ -217,7 +218,7 @@ export default class ComicStripBase extends React.Component {
       };
   
       return(
-        <Layout useCustomBackground={this.props.useCustomBackground} menuBarItems={[(<ComicStripToggle state={this.state} goToPage={this.goToPage} tableBackground={this.props.tableBackgroundBase + "-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>{contents.pages}</ComicStripToggle>), (<SettingsWindow state={this.state} languageOptions={contents.languageOptions} modeOptions={contents.modeOptions} tableBackgroundOptions={this.props.tableBackgroundOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeTableBackground={this.changeTableBackground} changePageSize={this.changePageSize} />)]} showMenuBar={true}>
+        <Layout useCustomBackground={this.props.useCustomBackground} menuBarItems={[(<ComicStripToggle state={this.state} goToPage={this.goToPage} tableBackground={this.props.tableBackgroundBase + "-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")}>{contents.pages}</ComicStripToggle>), (<SettingsWindow state={this.state} languageOptions={contents.languageOptions} modeOptions={contents.modeOptions} tableBackgroundOptions={this.props.tableBackgroundOptions} changeLanguage={this.changeLanguage} changeMode={this.changeMode} changeTableBackground={this.changeTableBackground} changePageSize={this.changePageSize} />), (<DownloadButton downloadLink={contents.metadataItems.childMarkdownRemark.frontmatter.download_link} />)]} showMenuBar={true}>
           <SEO title={contents.metadataItems.childMarkdownRemark.frontmatter.title} />
           <div className={this.props.tableBackgroundBase + "-" + this.state.currentTableBackground.toLowerCase().replace(/ /g, "-")} style={{textAlign: 'center'}}>
             <div className={`m-3 p-3 comic-strip-main`} style={{textAlign: 'center', color: "#017BFF"}}>
