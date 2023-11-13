@@ -14,8 +14,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.10.13",
     "@popperjs/core": "^2.9.1",
     "bootstrap": "^5.2.2",
@@ -38,14 +38,15 @@
     "react-bootstrap-range-slider": "^3.0.8",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.2.0",
+    "react-icons": "^4.11.0",
     "react-slick": "^0.29.0",
     "sass": "^1.32.8",
     "slick-carousel": "^1.8.1",
-    "text-vide": "^1.5.0"
+    "text-vide": "^1.7.0"
   },
   "devDependencies": {
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "gh-pages": "^6.0.0"
   },
   "repository": {
     "type": "git",
