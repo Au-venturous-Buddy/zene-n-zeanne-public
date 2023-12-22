@@ -7,7 +7,7 @@
 module.exports = {
   siteMetadata: {
     title: `Zene 'N Zeanne`,
-    domain: `zenenzeanne.gtsb.io`,
+    domain: "au-venturous-buddy.github.io/zene-n-zeanne-public",
     author: `AU-venturous Buddy`
   },
   plugins: [
