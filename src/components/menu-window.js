@@ -41,7 +41,7 @@ function MenuWindowMain({menuItems, pageID}) {
     Object.keys(menuItems).forEach((value, index) => {
       if(!(pageID === null) && value === pageID) {
         menuLinks.push(
-          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link current-page-link" href={baseURL.site.siteMetadata.domain + menuItems[value]["to"]}>
+          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link current-page-link" href={menuItems[value]["to"]}>
             <b className="m-0">
               {menuItems[value]["logo"]} <br /> <span className="menu-item-text">{menuItems[value]["text"]}</span>
             </b>
@@ -50,7 +50,7 @@ function MenuWindowMain({menuItems, pageID}) {
       }
       else {
         menuLinks.push(
-          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link" href={baseURL.site.siteMetadata.domain + menuItems[value]["to"]}>
+          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link" href={menuItems[value]["to"]}>
             <b className="m-0">
               {menuItems[value]["logo"]} <br /> <span className="menu-item-text">{menuItems[value]["text"]}</span>
             </b>
