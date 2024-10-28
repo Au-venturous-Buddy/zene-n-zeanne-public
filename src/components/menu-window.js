@@ -11,7 +11,7 @@ import {FaBook} from "react-icons/fa";
 import { GiPerson } from "react-icons/gi";
 import {AiOutlineAlignCenter, AiFillHeart} from "react-icons/ai"
 import ResponsiveSize from "../hooks/responsive-size";
-import {useStaticQuery} from gatsby;
+import {useStaticQuery} from "gatsby";
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
