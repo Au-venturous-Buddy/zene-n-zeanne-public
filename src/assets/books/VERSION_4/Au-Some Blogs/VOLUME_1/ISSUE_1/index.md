@@ -8,6 +8,7 @@ issue: 1
 category: "Au-Some Blogs"
 format: "ausome-blogs-v2"
 synopsis: "For his first arts class at regular school, Zene struggles to draw himself as his class was asked to draw who they want to be when they grow up."
+url: "https://au-venturous-buddy.github.io/ZNZN-V4-MBSA-V1-I1/"
 modes_v2: [
     {mode_name: "Original", scenes: ["0", "1-Original", "2", "3-Original", "4"]},
     {mode_name: "Onsite with Health Protocols", scenes: ["0", "1-Onsite with Health Protocols", "2", "3-Onsite with Health Protocols", "4"]},

@@ -8,6 +8,7 @@ issue: 1
 category: "Wordpress Posts"
 format: "wordpress-v2022_2"
 synopsis: "Zene and Zeanne had a dream...what is it?"
+url: ""
 modes: [
     {mode_name: "Original", call_at: [0, 1, 2]}
 ]

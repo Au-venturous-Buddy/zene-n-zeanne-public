@@ -21,6 +21,7 @@ export const GetBooks = () => {
                     volume
                     issue
                     synopsis
+                    url
                   }
                   internal {
                     content

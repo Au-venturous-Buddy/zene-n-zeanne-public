@@ -29,7 +29,7 @@ export default function Books() {
 
         className="p-2"
       >
-        <MediaCover categoryName={category.toLowerCase().replace(/ /g, "-")} title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} showBadge={true} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.fields.slug} playNowText="Read Now" />
+        <MediaCover categoryName={category.toLowerCase().replace(/ /g, "-")} title={bookData.frontmatter.title} synopsis={bookData.frontmatter.synopsis} cover={bookCover} showBadge={true} badgeItem={`Volume ${bookData.frontmatter.volume} Issue ${bookData.frontmatter.issue}`} slug={bookData.frontmatter.url === "" ? bookData.fields.slug : bookData.frontmatter.url} slugIsUrl={bookData.frontmatter.url != ""} playNowText="Read Now" />
       </div>
     )
 

@@ -5,7 +5,7 @@ import BackButton from "./back-button";
 import ResponsiveHeader from "./responsive-header";
 import {QRCodeSVG} from 'qrcode.react';
 
-export default function MediaCover({categoryName, title, cover, synopsis, slug, showBadge, badgeItem}) {
+export default function MediaCover({categoryName, title, cover, synopsis, slug, slugIsUrl, showBadge, badgeItem}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -63,7 +63,7 @@ export default function MediaCover({categoryName, title, cover, synopsis, slug, 
           <section className="m-5" style={{textAlign: "center"}}>
             <ResponsiveHeader level={3}>Scan, Click, or Tap on the QR Code below to start:</ResponsiveHeader>
             <Button className="view img-button qr-code m-2 p-2" style={{backgroundColor: "white"}} href={slug} target="_blank" rel="noreferrer">
-              <QRCodeSVG value={domain.site.siteMetadata.domain + encodeURI(slug)} />
+              <QRCodeSVG value={slugIsUrl ? slug : domain.site.siteMetadata.domain + encodeURI(slug)} />
             </Button>
           </section>
           </div>

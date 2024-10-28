@@ -8,6 +8,7 @@ issue: 2
 category: "Wordpress Posts"
 format: "wordpress-v2022_2"
 synopsis: "This is about Zene and Zeanne's first day of school."
+url: ""
 modes: [
     {mode_name: "Original", call_at: [0, 1, 2, 3]}
 ]

@@ -8,6 +8,7 @@ issue: 2
 category: "Au-Some Blogs"
 format: "ausome-blogs-v2"
 synopsis: "Zeanne and Nikki help Zene and Jake prepare for an Ice Breaker for their Araling Panlipunan (History) class."
+url: "https://au-venturous-buddy.github.io/ZNZN-V4-MBSA-V1-I2/"
 modes_v2: [
     {mode_name: "Original", scenes: ["0", "1-Original", "2-Original", "3"]},
     {mode_name: "Better than PCOS?", scenes: ["0", "1-Original", "2-Online", "3"]},

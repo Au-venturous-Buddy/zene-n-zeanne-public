@@ -8,6 +8,7 @@ issue: 1
 category: "Wordpress Posts"
 format: "wordpress-v2022_2"
 synopsis: "Zeanne helps out in a beach clean-up while her twin brother Zene scuba-dived to help replant corals."
+url: ""
 modes: [
     {mode_name: "Original", call_at: [0, 1, 2, 3, 4, 7, 10, 13, 14]},
     {mode_name: "Zene Only", call_at: [0, 1, 2, 3, 5, 8, 11, 13, 15]},

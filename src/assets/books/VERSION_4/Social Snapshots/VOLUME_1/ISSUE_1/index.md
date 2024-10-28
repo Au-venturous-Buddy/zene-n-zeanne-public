@@ -9,6 +9,7 @@ category: "Social Snapshots"
 format: "comic-strip-v2022_2"
 synopsis: "Zeanne teaches Zene how to remain calm during vaccines."
 download_link: "https://drive.google.com/file/d/1mprlaDW9fNs1hZFJwPRn4yB1BEATLpn6/view?usp=sharing"
+url: ""
 modes_v2: [
     {mode_name: "Original", scenes: ["0", "1-Original"]},
     {mode_name: "With Face Masks", scenes: ["0", "1-With Face Masks"]},
