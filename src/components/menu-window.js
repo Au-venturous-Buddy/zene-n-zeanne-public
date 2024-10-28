@@ -11,6 +11,7 @@ import {FaBook} from "react-icons/fa";
 import { GiPerson } from "react-icons/gi";
 import {AiOutlineAlignCenter, AiFillHeart} from "react-icons/ai"
 import ResponsiveSize from "../hooks/responsive-size";
+import {useStaticQuery} from gatsby;
 
 const helpTooltip = (message, props) => (
   <Tooltip {...props}>
@@ -23,12 +24,23 @@ function MenuWindowMain({menuItems, pageID}) {
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const data = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+              domain
+          }
+        }
+      }`
+    )
   
     var menuLinks = []
     Object.keys(menuItems).forEach((value, index) => {
       if(!(pageID === null) && value === pageID) {
         menuLinks.push(
-          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link current-page-link" href={menuItems[value]["to"]}>
+          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link current-page-link" href={`${data.site.siteMetadata.domain}${menuItems[value]["to"]}`}>
             <b className="m-0">
               {menuItems[value]["logo"]} <br /> <span className="menu-item-text">{menuItems[value]["text"]}</span>
             </b>
