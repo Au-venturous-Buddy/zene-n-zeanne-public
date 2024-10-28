@@ -49,7 +49,7 @@ function MenuWindowMain({menuItems, pageID}) {
       }
       else {
         menuLinks.push(
-          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link" href={menuItems[value]["to"]}>
+          <Button style={{fontSize: "0.9rem"}} className="p-3 m-3 page-link" href={`${data.site.siteMetadata.domain}${menuItems[value]["to"]}`}>
             <b className="m-0">
               {menuItems[value]["logo"]} <br /> <span className="menu-item-text">{menuItems[value]["text"]}</span>
             </b>
