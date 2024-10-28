@@ -7,7 +7,7 @@
 module.exports = {
   siteMetadata: {
     title: `Zene 'N Zeanne`,
-    domain: `au-venturous-buddy.github.io/zene-n-zeanne-public`,
+    domain: `https://au-venturous-buddy.github.io/zene-n-zeanne-public`,
     author: `AU-venturous Buddy`
   },
   pathPrefix: "/zene-n-zeanne-public",
