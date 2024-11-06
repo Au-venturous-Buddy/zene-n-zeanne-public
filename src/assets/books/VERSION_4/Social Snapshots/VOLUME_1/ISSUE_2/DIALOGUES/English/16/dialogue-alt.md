@@ -1,5 +1,0 @@
----
-dialogue_alt: [
-    "Books!"
-]
----
